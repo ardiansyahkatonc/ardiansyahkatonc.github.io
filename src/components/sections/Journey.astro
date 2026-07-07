@@ -1,0 +1,88 @@
+---
+import { journey } from '../../config/journey';
+---
+<section class="section journey-section">
+  <div class="container">
+    <h2 class="section-label text-sm">Journey</h2>
+    <div class="timeline">
+      {journey.map(group => (
+        <div class="timeline-group">
+          <div class="timeline-year">{group.year}</div>
+          <ol class="timeline-list">
+            {group.milestones.map((milestone, index) => (
+              <li class="timeline-item">
+                <div class="timeline-content">
+                  <span class="timeline-title">{milestone.title}</span>
+                  <span class="timeline-desc">{milestone.description}</span>
+                </div>
+                {index < group.milestones.length - 1 && (
+                  <span class="timeline-connector">&darr;</span>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .journey-section {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-label {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-8);
+  }
+
+  .timeline {
+    max-width: 600px;
+  }
+
+  .timeline-year {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-6);
+  }
+
+  .timeline-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .timeline-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .timeline-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .timeline-title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .timeline-desc {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .timeline-connector {
+    color: var(--color-border);
+    font-size: var(--text-xl);
+    padding-left: var(--space-2);
+  }
+</style>

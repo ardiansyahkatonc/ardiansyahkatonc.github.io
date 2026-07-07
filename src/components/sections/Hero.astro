@@ -1,0 +1,80 @@
+---
+---
+<section class="section section-lg hero-section">
+  <div class="container">
+    <h1 class="hero-headline">Building AI-Native Solutions <br class="hidden-mobile" /> for Public Sector Indonesia</h1>
+    <p class="hero-subheadline">
+      kat.on builds practical AI products that help government organizations work smarter through automation, knowledge systems, and human-centered AI.
+    </p>
+    <div class="hero-actions">
+      <a href="/aria" class="btn btn-primary">Explore ARIA</a>
+      <a href="/projects" class="btn btn-secondary">View Projects</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero-headline {
+    font-size: var(--text-4xl);
+    letter-spacing: -0.02em;
+    margin-bottom: var(--space-6);
+    line-height: 1.1;
+  }
+  
+  .hero-subheadline {
+    font-size: var(--text-lg);
+    color: var(--color-text-muted);
+    max-width: 65ch;
+    margin-bottom: var(--space-8);
+  }
+
+  .hidden-mobile {
+    display: none;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-3) var(--space-6);
+    font-weight: var(--font-weight-medium);
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-background);
+    border: 1px solid var(--color-primary);
+  }
+
+  .btn-primary:hover, .btn-primary:focus {
+    background-color: var(--color-text);
+  }
+
+  .btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 1px solid var(--color-border);
+  }
+
+  .btn-secondary:hover, .btn-secondary:focus {
+    border-color: var(--color-primary);
+  }
+
+  @media (min-width: 768px) {
+    .hero-headline {
+      font-size: var(--text-5xl);
+    }
+    .hidden-mobile {
+      display: inline;
+    }
+  }
+</style>

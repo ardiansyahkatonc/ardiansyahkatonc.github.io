@@ -1,0 +1,79 @@
+---
+import { social } from '../../config/social';
+---
+<section class="section contact-section">
+  <div class="container contact-inner">
+    <div class="contact-content">
+      <h2 class="section-label text-sm">Contact</h2>
+      <p class="contact-invitation">Interested in collaboration or digital transformation?</p>
+      <p class="contact-invitation">Let's build something meaningful together.</p>
+    </div>
+    <ul class="contact-links">
+      <li><a href={social.github} class="contact-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href={social.linkedin} class="contact-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href={social.instagram} class="contact-link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href={social.email} class="contact-link">Email</a></li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    border-top: 1px solid var(--color-border);
+    padding-bottom: var(--space-24);
+  }
+
+  .contact-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-8);
+  }
+
+  @media (min-width: 768px) {
+    .contact-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+
+  .section-label {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-8);
+  }
+
+  .contact-invitation {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-2);
+  }
+
+  .contact-links {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .contact-links {
+      flex-direction: row;
+      gap: var(--space-8);
+      margin-top: calc(var(--space-8) + var(--text-sm) * 1.5); /* Aligns links somewhat relative to invitation */
+    }
+  }
+
+  .contact-link {
+    font-size: var(--text-xl);
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: color 0.2s ease;
+  }
+
+  .contact-link:hover, .contact-link:focus {
+    color: var(--color-accent);
+  }
+</style>

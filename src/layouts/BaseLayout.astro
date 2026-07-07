@@ -1,0 +1,100 @@
+---
+import { site } from '../config/site';
+import { metadata } from '../config/metadata';
+import { brand } from '../config/brand';
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title = metadata.seo.defaultTitle, 
+  description = metadata.seo.defaultDescription,
+  image = metadata.seo.defaultImage
+} = Astro.props;
+
+const pageTitle = title === metadata.seo.defaultTitle ? title : `${title} | ${brand.name}`;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- SEO -->
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta name="author" content={site.author} />
+    <link rel="canonical" href={new URL(Astro.url.pathname, site.url)} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content={metadata.openGraph.type} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={new URL(Astro.url.pathname, site.url)} />
+    <meta property="og:image" content={new URL(image, site.url)} />
+    <meta property="og:site_name" content={brand.name} />
+    <meta property="og:locale" content={metadata.openGraph.locale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content={metadata.seo.twitterHandle} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(image, site.url)} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div class="layout-wrapper">
+      <Header />
+      <main id="main-content" class="main-content" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<style>
+  .layout-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
+  
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-content:focus {
+    outline: none;
+  }
+
+  .skip-link {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    background: var(--color-accent);
+    color: var(--color-background);
+    padding: var(--space-2) var(--space-4);
+    z-index: 100;
+    transition: top 0.2s;
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .skip-link:focus {
+    top: 0;
+  }
+</style>

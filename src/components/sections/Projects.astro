@@ -1,0 +1,83 @@
+---
+import { products } from '../../config/products';
+---
+<section class="section projects-section">
+  <div class="container">
+    <h2 class="section-label text-sm">Projects</h2>
+    <div class="projects-grid">
+      {products.map(product => (
+        <div class="project-card">
+          <div class="project-header">
+            <h3 class="project-title">{product.title}</h3>
+            <span class="status-badge">{product.status}</span>
+          </div>
+          <p class="project-desc">{product.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .projects-section {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .section-label {
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-8);
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+  }
+
+  @media (min-width: 768px) {
+    .projects-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .project-card {
+    border: 1px solid var(--color-border);
+    padding: var(--space-6);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .project-title {
+    margin: 0;
+    font-size: var(--text-lg);
+  }
+
+  .status-badge {
+    font-size: var(--text-xs);
+    padding: var(--space-1) var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: 9999px;
+    background: var(--color-secondary);
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .project-desc {
+    color: var(--color-text-muted);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+</style>

@@ -1,0 +1,42 @@
+---
+import { navigation } from '../../config/navigation';
+---
+
+<nav aria-label="Primary" class="site-nav">
+  <ul class="nav-list">
+    {navigation.map((item) => (
+      <li>
+        <a href={item.href} class="nav-link">{item.name}</a>
+      </li>
+    ))}
+  </ul>
+</nav>
+
+<style>
+  .nav-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    list-style: none;
+  }
+  
+  .nav-link {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: var(--font-weight-medium);
+    transition: color 0.2s ease;
+  }
+  
+  .nav-link:hover,
+  .nav-link:focus {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .nav-list {
+      flex-direction: row;
+      gap: var(--space-6);
+    }
+  }
+</style>
