@@ -4,6 +4,7 @@ import { Section } from '../components/ui/section';
 import { Container } from '../components/ui/container';
 import { Card } from '../components/ui/card';
 import { Badge } from '../components/ui/badge';
+import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
 ---
 
 <BaseLayout 
@@ -11,109 +12,136 @@ import { Badge } from '../components/ui/badge';
   description="Transform meetings, documents, and organizational knowledge into structured, actionable information with ARIA's AI-assisted workflows."
 >
   
-  {/* A. ARIA Hero / Highlight Section */}
+  {/* A. Hero */}
   <Section type="hero" aria-labelledby="aria-hero-heading" class="aria-hero">
-    <Container size="xl" class="center-container">
+    <Container size="lg" class="center-container">
       <div class="aria-badges">
-        <Badge variant="primary">Launching July 2026</Badge>
-        <Badge variant="neutral">Built with AI-Native Engineering</Badge>
+        <Badge variant="primary">ARIA Flagship</Badge>
+        <Badge variant="neutral">Enterprise Ready</Badge>
       </div>
-      <h1 id="aria-hero-heading" class="display-xl text-center">ARIA</h1>
-      <p class="subtitle text-center">AI Executive Assistant</p>
-      <p class="body-lg hero-desc text-center max-reading">The flagship AI solution for government workflows.</p>
+      <h1 id="aria-hero-heading" class="display-xl text-center">AI Executive Assistant</h1>
+      <p class="body-lg hero-desc text-center max-reading text-muted">
+        ARIA listens, structures, and organizes information securely—allowing government teams to focus on public service rather than paperwork.
+      </p>
+      <div class="hero-actions">
+        <a href="mailto:hello@kat.on" class="btn-primary">Request Demo</a>
+        <a href="#capabilities" class="btn-secondary">Explore Capabilities</a>
+      </div>
     </Container>
   </Section>
 
-  {/* B. The Product Story */}
-  <Section type="content" aria-labelledby="story-heading" class="story-section">
+  {/* B. Product Preview */}
+  <Section type="content" class="mockup-section">
     <Container size="xl">
-      <div class="story-grid">
-        <div class="story-block">
-          <span class="label">Problem</span>
-          <h2 class="h3">Current Reality</h2>
-          <p class="body text-muted">Government agencies manage complex operations, but critical information often remains scattered across emails, disjointed documents, and unrecorded meetings. This results in repetitive administrative work and siloed institutional knowledge.</p>
+      <ARIAMockup />
+    </Container>
+  </Section>
+
+  {/* C. Problem & Solution */}
+  <Section type="content" aria-labelledby="paradigm-heading">
+    <Container size="xl">
+      <div class="grid-2 paradigm-grid">
+        <div class="paradigm-block problem">
+          <span class="label text-muted">The Problem</span>
+          <h2 class="h3">Friction and Fragmentation</h2>
+          <p class="body text-muted">Critical information remains scattered across emails, disjointed documents, and unrecorded meetings. This results in repetitive administrative work and siloed institutional knowledge.</p>
         </div>
-        <div class="story-block">
-          <span class="label">ARIA Solution</span>
-          <h2 class="h3">AI-Assisted Workflows</h2>
-          <p class="body text-muted">ARIA introduces a new paradigm. By integrating directly into your daily operations, ARIA acts as an intelligent assistant that listens, structures, and organizes information securely—allowing teams to focus on public service rather than paperwork.</p>
-        </div>
-        <div class="story-block">
-          <span class="label">Expected Impact</span>
-          <h2 class="h3">Benefits</h2>
-          <p class="body text-muted">Experience less manual documentation, better knowledge continuity, faster administrative processes, and more organized collaboration across departments.</p>
+        <div class="paradigm-block solution">
+          <span class="label text-accent">The Solution</span>
+          <h2 class="h3">Structured Intelligence</h2>
+          <p class="body text-muted">By integrating directly into your daily operations, ARIA acts as an intelligent assistant that structures data at the source, creating a unified, searchable, and actionable organizational memory.</p>
         </div>
       </div>
     </Container>
   </Section>
 
-  {/* C. Key Features */}
-  <Section type="feature" aria-labelledby="features-heading">
+  {/* D. Core Capabilities */}
+  <Section type="feature" aria-labelledby="capabilities-heading" id="capabilities">
+    <Container size="xl">
+      <div class="section-header center-container text-center">
+        <span class="label text-muted">Capabilities</span>
+        <h2 id="capabilities-heading" class="h2">How ARIA Works</h2>
+      </div>
+      <div class="grid-2 features-grid">
+        <Card variant="feature">
+          <div class="feature-icon">◎</div>
+          <h3 class="h4">Meeting Intelligence</h3>
+          <p class="body text-muted">Automatically organize meetings into structured notes, decisions, and tracked action items without manual intervention.</p>
+        </Card>
+        <Card variant="feature">
+          <div class="feature-icon">◈</div>
+          <h3 class="h4">Document Automation</h3>
+          <p class="body text-muted">Accelerate administrative document creation using AI-assisted workflows powered by your organization's context.</p>
+        </Card>
+        <Card variant="feature">
+          <div class="feature-icon">▣</div>
+          <h3 class="h4">Knowledge Management</h3>
+          <p class="body text-muted">Build a dynamic institutional knowledge base that remains searchable, contextual, and reusable across departments.</p>
+        </Card>
+        <Card variant="feature">
+          <div class="feature-icon">⬡</div>
+          <h3 class="h4">AI Workspace</h3>
+          <p class="body text-muted">A centralized, secure interface for all AI-assisted tasks, ensuring consistent output and strict data privacy compliance.</p>
+        </Card>
+      </div>
+    </Container>
+  </Section>
+
+  {/* E. Product Architecture */}
+  <Section type="content" aria-labelledby="architecture-heading">
+    <Container size="lg">
+      <div class="architecture-wrapper">
+        <span class="label text-muted">Architecture</span>
+        <h2 id="architecture-heading" class="h2">Enterprise Grade Security</h2>
+        <div class="flow-md text-muted body-lg mt-32">
+          <p>ARIA is built on an isolated data architecture designed specifically for the public sector. Your organizational data never trains public models.</p>
+          <ul class="architecture-list">
+            <li><strong>Data Isolation:</strong> Dedicated tenant environments.</li>
+            <li><strong>Audit Logging:</strong> Comprehensive tracking of all AI interactions.</li>
+            <li><strong>Explainable AI:</strong> Tracing generated outputs back to source documents.</li>
+          </ul>
+        </div>
+      </div>
+    </Container>
+  </Section>
+
+  {/* F. Roadmap */}
+  <Section type="content" aria-labelledby="roadmap-heading">
     <Container size="xl">
       <div class="section-header">
-        <span class="label">Key Features</span>
-        <h2 id="features-heading" class="h2">Flagship Capabilities</h2>
+        <span class="label text-muted">Roadmap</span>
+        <h2 id="roadmap-heading" class="h2">Future Evolution</h2>
       </div>
-      <div class="grid-4 features-grid">
+      <div class="grid-2 roadmap-grid">
         <Card variant="default">
-          <h3 class="h4">Meeting Intelligence</h3>
-          <p class="body text-muted">Automatically organize meetings into structured notes and action items.</p>
+          <Badge variant="neutral">Phase 4</Badge>
+          <h3 class="h4 mt-16">Ecosystem Expansion</h3>
+          <ul class="roadmap-list body text-muted mt-16">
+            <li>Knowledge Graph Integration</li>
+            <li>Advanced Automation Engine</li>
+            <li>Organization Memory Sync</li>
+          </ul>
         </Card>
         <Card variant="default">
-          <h3 class="h4">Knowledge Management</h3>
-          <p class="body text-muted">Build an institutional knowledge base that remains searchable and reusable.</p>
-        </Card>
-        <Card variant="default">
-          <h3 class="h4">Document Automation</h3>
-          <p class="body text-muted">Accelerate administrative document creation using AI-assisted workflows.</p>
-        </Card>
-        <Card variant="default">
-          <h3 class="h4">AI Workspace</h3>
-          <p class="body text-muted">A centralized workspace for meetings, documents, and organizational knowledge.</p>
+          <Badge variant="neutral">Phase 5</Badge>
+          <h3 class="h4 mt-16">Platform Scale</h3>
+          <ul class="roadmap-list body text-muted mt-16">
+            <li>Multi-Organization Support</li>
+            <li>Public API & Integrations</li>
+            <li>Enterprise Agent Platform</li>
+          </ul>
         </Card>
       </div>
     </Container>
   </Section>
 
-  {/* D. Target Users & Value Proposition */}
-  <Section type="content" aria-labelledby="target-heading">
-    <Container size="xl">
-      <div class="grid-2 target-grid">
-        <div class="target-users">
-          <span class="label">Target Users</span>
-          <h2 id="target-heading" class="h2">Built for the Public Sector</h2>
-          <ul class="user-list body-lg text-muted">
-            <li>Government Agencies</li>
-            <li>Inspectorates</li>
-            <li>Public Sector Teams</li>
-            <li>Knowledge Workers</li>
-          </ul>
-        </div>
-        <div class="value-prop">
-          <span class="label">Value Proposition</span>
-          <h2 class="h2">Measurable Outcomes</h2>
-          <ul class="value-list body-lg text-muted">
-            <li>Less manual documentation</li>
-            <li>Better knowledge continuity</li>
-            <li>Faster administrative processes</li>
-            <li>More organized collaboration</li>
-          </ul>
-        </div>
-      </div>
-    </Container>
-  </Section>
-
-  {/* E. Call to Action */}
-  <Section type="cta" aria-labelledby="cta-heading" class="aria-cta">
-    <Container size="xl" class="center-container">
-      <div class="cta-badge-wrapper">
-        <Badge variant="warning">Early Version</Badge>
-      </div>
-      <h2 id="cta-heading" class="h2 text-surface text-center">Experience ARIA</h2>
-      <p class="body-lg text-surface-muted max-reading text-center">Discover how AI-assisted workflows can transform your agency's operations.</p>
-      <div class="cta-actions">
-        <a href="mailto:demo@kat.on" class="btn-primary">Request a Demo</a>
-        <a href="/contact" class="btn-secondary-light">Contact kat.on</a>
+  {/* G. CTA */}
+  <Section type="cta" class="aria-cta">
+    <Container size="md" class="center-container text-center">
+      <h2 class="display text-surface">Ready to modernize?</h2>
+      <p class="body-lg text-surface-muted mt-24 max-reading">Discover how ARIA can transform your agency's administrative workflows.</p>
+      <div class="hero-actions mt-48">
+        <a href="mailto:hello@kat.on" class="btn-primary-inverted">Schedule a Demo</a>
       </div>
     </Container>
   </Section>
@@ -121,75 +149,136 @@ import { Badge } from '../components/ui/badge';
 </BaseLayout>
 
 <style>
-  /* Use global typography and layout tokens, only scoped layout tweaks here */
-  
   .center-container {
     display: flex;
     flex-direction: column;
     align-items: center;
   }
   
+  .text-center { text-align: center; }
+  .text-muted { color: var(--color-text-secondary); }
+  .text-accent { color: var(--color-accent); }
+  .text-surface { color: var(--color-surface); }
+  .text-surface-muted { color: rgba(255,255,255,0.7); }
+  
+  .mt-16 { margin-block-start: var(--space-16); }
+  .mt-24 { margin-block-start: var(--space-24); }
+  .mt-32 { margin-block-start: var(--space-32); }
+  .mt-48 { margin-block-start: var(--space-48); }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-16);
+  }
+
   .aria-badges {
     display: flex;
     justify-content: center;
     gap: var(--space-8);
-    margin-block-end: var(--space-24);
+    margin-block-end: var(--space-32);
     flex-wrap: wrap;
   }
 
   .hero-desc {
-    margin-block-start: var(--space-16);
+    margin-block-start: var(--space-24);
+    margin-block-end: var(--space-48);
   }
 
-  .text-muted {
-    color: var(--color-text-secondary);
-  }
-
-  .story-section {
-    background-color: var(--color-surface);
-  }
-
-  .story-grid {
-    display: grid;
-    gap: var(--space-32);
-    grid-template-columns: 1fr;
-  }
-
-  @media (min-width: 768px) {
-    .story-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
-  }
-
-  .story-block {
+  .hero-actions {
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-16);
+  }
+
+  .btn-primary, .btn-secondary, .btn-primary-inverted {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--space-48);
+    padding-inline: var(--space-32);
+    font-weight: var(--weight-medium);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+  }
+
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .btn-secondary {
+    background-color: var(--color-surface);
+    color: var(--color-text-primary);
+    border: var(--border-light);
+  }
+
+  .btn-primary-inverted {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+  }
+
+  .btn-primary:hover, .btn-secondary:hover, .btn-primary-inverted:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
   
-  .story-block .label {
-    margin-block-end: var(--space-8);
-    color: var(--color-accent);
+  .btn-secondary:hover {
+    border-color: var(--color-border);
+  }
+
+  .mockup-section {
+    padding-block-start: 0; /* Tighten space under hero */
+  }
+
+  .paradigm-grid {
+    gap: var(--space-48);
+  }
+
+  .paradigm-block {
+    padding: var(--space-48);
+    border-radius: var(--radius-2xl);
   }
   
-  .story-block .h3 {
-    margin-block-start: 0;
-    margin-block-end: var(--space-16);
+  .paradigm-block.problem {
+    background-color: var(--color-surface);
+    border: var(--border-light);
+  }
+  
+  .paradigm-block.solution {
+    background-color: var(--color-surface-muted);
+    border: 1px solid var(--color-border);
   }
 
   .section-header {
-    margin-block-end: var(--space-32);
-  }
-  
-  .section-header .h2 {
-    margin-block-start: var(--space-8);
+    margin-block-end: var(--space-64);
   }
 
-  .target-grid {
-    gap: var(--space-64);
+  .feature-icon {
+    font-size: var(--text-display);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-24);
+    line-height: 1;
   }
 
-  .user-list, .value-list {
+  .architecture-wrapper {
+    background-color: var(--color-surface);
+    border: var(--border-light);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-64);
+  }
+
+  .architecture-list {
     margin-block-start: var(--space-24);
+    padding-inline-start: var(--space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+  }
+
+  .roadmap-list {
     padding-inline-start: var(--space-24);
     display: flex;
     flex-direction: column;
@@ -198,66 +287,6 @@ import { Badge } from '../components/ui/badge';
 
   .aria-cta {
     background-color: var(--color-primary);
-  }
-  
-  .cta-badge-wrapper {
-    margin-block-end: var(--space-16);
-  }
-
-  .text-surface {
-    color: var(--color-surface);
-    margin-block-start: 0;
-  }
-
-  .text-surface-muted {
-    color: var(--color-muted);
-    margin-block-end: var(--space-32);
-  }
-
-  .cta-actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: var(--space-16);
-  }
-
-  .btn-primary, .btn-secondary-light {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: var(--space-48);
-    padding-inline: var(--space-24);
-    font-family: var(--font-primary);
-    font-size: var(--text-body);
-    font-weight: var(--weight-medium);
-    text-decoration: none;
-    border-radius: var(--radius-medium);
-    transition: all var(--motion-fast);
-  }
-
-  .btn-primary {
-    background-color: var(--color-accent);
-    color: var(--color-surface);
-    border: 2px solid var(--color-accent);
-  }
-
-  .btn-primary:hover {
-    opacity: 0.9;
-  }
-  
-  .btn-primary:focus-visible, .btn-secondary-light:focus-visible {
-    outline: 2px solid var(--color-surface);
-    outline-offset: 2px;
-  }
-
-  .btn-secondary-light {
-    background-color: transparent;
-    color: var(--color-surface);
-    border: var(--border-thin);
-    border-color: var(--color-surface);
-  }
-
-  .btn-secondary-light:hover {
-    background-color: rgba(255, 255, 255, 0.1);
+    border-top: none;
   }
 </style>

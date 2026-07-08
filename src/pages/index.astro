@@ -2,19 +2,63 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/sections/Hero.astro';
 import Problem from '../components/sections/Problem.astro';
-import ARIASection from '../components/sections/ARIASection.astro';
 import Features from '../components/sections/Features.astro';
-import Mission from '../components/sections/Mission.astro';
+import EcosystemPreview from '../components/sections/EcosystemPreview.astro';
 import Journey from '../components/sections/Journey.astro';
 import CTA from '../components/sections/CTA.astro';
+
+// Adding the mockup directly to a new section wrapper on the homepage
+import { Section } from '../components/ui/section';
+import { Container } from '../components/ui/container';
+import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
 ---
 
 <BaseLayout>
   <Hero />
   <Problem />
-  <ARIASection />
+  
+  <Section type="content" class="home-mockup-section">
+    <Container size="xl">
+      <div class="mockup-header text-center center-container">
+        <span class="label text-muted">The Interface</span>
+        <h2 class="h2 max-reading">Meet your new AI Workspace</h2>
+      </div>
+      <ARIAMockup />
+    </Container>
+  </Section>
+
   <Features />
-  <Mission />
+  <EcosystemPreview />
   <Journey />
   <CTA />
 </BaseLayout>
+
+<style>
+  .home-mockup-section {
+    background-color: var(--color-surface-muted);
+    border-top: var(--border-light);
+  }
+
+  .center-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .mockup-header {
+    margin-block-end: var(--space-64);
+  }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-16);
+  }
+
+  .text-muted {
+    color: var(--color-text-secondary);
+  }
+</style>

@@ -1,0 +1,128 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Section } from '../components/ui/section';
+import { Container } from '../components/ui/container';
+import { Card } from '../components/ui/card';
+import { Badge } from '../components/ui/badge';
+import { products } from '../config/products';
+---
+
+<BaseLayout 
+  title="Product Ecosystem | kat.on"
+  description="Explore the kat.on product ecosystem, featuring our flagship AI Executive Assistant ARIA, and our internal knowledge platforms."
+>
+  <Section type="hero">
+    <Container size="md">
+      <span class="label text-muted">Ecosystem</span>
+      <h1 class="display">Products & Projects</h1>
+      <p class="body-lg text-muted">
+        Our ecosystem is designed around solving specific government and administrative challenges through AI, automation, and strict knowledge management.
+      </p>
+    </Container>
+  </Section>
+
+  <Section type="content">
+    <Container size="lg">
+      <div class="grid-1 flow-xl">
+        {products.map(product => (
+          <Card variant="default" class="product-card">
+            <div class="product-header">
+              <div class="product-title-group">
+                <h2 class="h2 product-title">{product.title}</h2>
+                <Badge variant={product.status === 'Available' ? 'primary' : 'neutral'}>{product.status}</Badge>
+              </div>
+              <p class="body-lg text-muted product-desc">{product.description}</p>
+            </div>
+            
+            <div class="product-details grid-2">
+              <div class="detail-block">
+                <h3 class="label text-muted">Technology</h3>
+                <p class="body">{product.technology || 'AI-Native Stack'}</p>
+              </div>
+              <div class="detail-block">
+                <h3 class="label text-muted">Impact</h3>
+                <p class="body">{product.impact || 'Streamlined operations and knowledge continuity.'}</p>
+              </div>
+            </div>
+
+            {product.id === 'aria' && (
+              <div class="product-actions">
+                <a href={`/${product.id}`} class="btn-primary">View Product Details</a>
+              </div>
+            )}
+          </Card>
+        ))}
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .text-muted {
+    color: var(--color-text-secondary);
+  }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-16);
+  }
+
+  .product-card {
+    padding: var(--space-48);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+  }
+
+  .product-title-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    flex-wrap: wrap;
+    margin-block-end: var(--space-16);
+  }
+  
+  .product-title {
+    margin: 0;
+  }
+
+  .product-desc {
+    max-width: 60ch;
+  }
+
+  .product-details {
+    padding-top: var(--space-32);
+    border-top: var(--border-light);
+  }
+
+  .detail-block .label {
+    margin-block-end: var(--space-8);
+  }
+  
+  .detail-block .body {
+    margin: 0;
+    color: var(--color-text-primary);
+  }
+
+  .product-actions {
+    padding-top: var(--space-32);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--space-48);
+    padding-inline: var(--space-32);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+    transition: transform var(--motion-fast);
+  }
+  
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+</style>

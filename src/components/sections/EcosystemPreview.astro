@@ -1,0 +1,85 @@
+---
+import { Card } from '../ui/card';
+import { Badge } from '../ui/badge';
+---
+<section class="section section-content ecosystem-section" aria-labelledby="ecosystem-heading">
+  <div class="container-xl">
+    <div class="section-header">
+      <span class="label text-muted">Ecosystem</span>
+      <h2 id="ecosystem-heading" class="h2">kat.on Products</h2>
+    </div>
+    <div class="grid-3 ecosystem-grid">
+      <Card variant="default" class="ecosystem-card">
+        <Badge variant="primary">Flagship</Badge>
+        <h3 class="h4 mt-24">ARIA</h3>
+        <p class="body text-muted mt-8">AI Executive Assistant for government workflows.</p>
+        <a href="/aria" class="ecosystem-link mt-auto">Explore ARIA &rarr;</a>
+      </Card>
+      
+      <Card variant="default" class="ecosystem-card">
+        <Badge variant="neutral">Internal Platform</Badge>
+        <h3 class="h4 mt-24">KCC</h3>
+        <p class="body text-muted mt-8">kat.on Command Center. The single source of truth for engineering and product knowledge.</p>
+        <span class="ecosystem-link-disabled mt-auto text-muted">Internal Access Only</span>
+      </Card>
+
+      <Card variant="outlined" class="ecosystem-card coming-soon">
+        <Badge variant="neutral">Coming Soon</Badge>
+        <h3 class="h4 mt-24 text-muted">Future Products</h3>
+        <p class="body text-muted mt-8">Expanding the AI-Native ecosystem for public service.</p>
+        <a href="/projects" class="ecosystem-link mt-auto">View Roadmap &rarr;</a>
+      </Card>
+    </div>
+  </div>
+</section>
+
+<style>
+  .ecosystem-section {
+    background-color: var(--color-background);
+    border-top: var(--border-light);
+  }
+
+  .section-header {
+    margin-block-end: var(--space-64);
+  }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-16);
+  }
+
+  .text-muted {
+    color: var(--color-text-secondary);
+  }
+
+  .mt-8 { margin-block-start: var(--space-8); }
+  .mt-24 { margin-block-start: var(--space-24); }
+  .mt-auto { margin-block-start: auto; padding-top: var(--space-24); }
+
+  .ecosystem-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    height: 100%;
+  }
+
+  .coming-soon {
+    border-style: dashed;
+    background-color: transparent;
+  }
+
+  .ecosystem-link {
+    color: var(--color-primary);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-sm);
+  }
+
+  .ecosystem-link:hover {
+    text-decoration: underline;
+  }
+  
+  .ecosystem-link-disabled {
+    font-size: var(--text-body-sm);
+  }
+</style>

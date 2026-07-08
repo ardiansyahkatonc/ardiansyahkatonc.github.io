@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Section } from '../components/ui/section';
+import { Container } from '../components/ui/container';
+import { Card } from '../components/ui/card';
+import { social } from '../config/social';
+---
+
+<BaseLayout 
+  title="Contact & Collaboration | kat.on"
+  description="Partner with kat.on to accelerate public service delivery in Indonesia."
+>
+  <Section type="hero">
+    <Container size="md">
+      <span class="label text-muted">Collaboration</span>
+      <h1 class="display">Partner with us.</h1>
+      <p class="body-lg text-muted">
+        We are actively seeking government partnerships and pilot programs to test and refine our AI solutions in real-world public sector environments.
+      </p>
+    </Container>
+  </Section>
+
+  <Section type="content">
+    <Container size="lg">
+      <div class="grid-2">
+        <div class="contact-info flow-xl">
+          <div>
+            <h2 class="h3">Government Partnership</h2>
+            <p class="body text-muted">For agencies interested in deploying ARIA for meeting intelligence, document automation, and knowledge management.</p>
+          </div>
+          <div>
+            <h2 class="h3">Availability & Response Time</h2>
+            <p class="body text-muted">We are currently accepting inquiries for pilot programs beginning Q4 2026. Standard response time is 1-2 business days.</p>
+          </div>
+        </div>
+
+        <div class="contact-methods">
+          <Card variant="feature" class="contact-card">
+            <h3 class="h4">Direct Contact</h3>
+            <ul class="contact-list body-lg">
+              <li>
+                <span class="text-muted">Email</span>
+                <a href={social.email} class="contact-link">hello@kat.on</a>
+              </li>
+              <li>
+                <span class="text-muted">GitHub</span>
+                <a href={social.github} class="contact-link" target="_blank" rel="noopener noreferrer">github.com/kat.on</a>
+              </li>
+              <li>
+                <span class="text-muted">LinkedIn</span>
+                <a href={social.linkedin} class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/company/kat.on</a>
+              </li>
+            </ul>
+            <div class="cta-wrapper">
+              <a href={social.email} class="btn-primary">Initiate Conversation</a>
+            </div>
+          </Card>
+        </div>
+      </div>
+    </Container>
+  </Section>
+</BaseLayout>
+
+<style>
+  .text-muted {
+    color: var(--color-text-secondary);
+  }
+
+  .label {
+    display: block;
+    margin-block-end: var(--space-24);
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-32);
+  }
+
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-24);
+  }
+
+  .contact-list li {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .contact-link {
+    color: var(--color-text-primary);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+    transition: color var(--motion-fast);
+  }
+
+  .contact-link:hover {
+    color: var(--color-accent);
+    text-decoration: underline;
+  }
+
+  .cta-wrapper {
+    margin-block-start: var(--space-16);
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: var(--space-48);
+    padding-inline: var(--space-32);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: var(--radius-full);
+    text-decoration: none;
+    font-weight: var(--weight-medium);
+    transition: transform var(--motion-fast);
+    width: 100%;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+  }
+</style>
