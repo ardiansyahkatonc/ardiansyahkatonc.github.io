@@ -17,6 +17,10 @@ export const journey = [
       {
         title: 'kat.on',
         description: 'Official launch of the AI-Native Product Studio for the public sector.'
+      },
+      {
+        title: 'Official Launch',
+        description: 'ARIA becomes publicly available. July 2026.'
       }
     ]
   }

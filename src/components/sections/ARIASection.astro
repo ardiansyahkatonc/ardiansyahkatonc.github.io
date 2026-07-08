@@ -1,0 +1,132 @@
+---
+import { products } from '../../config/products';
+
+const aria = products.find(p => p.id === 'aria');
+---
+<section class="section section-feature aria-section" aria-labelledby="aria-heading">
+  <div class="container-xl">
+    <span class="section-label">Flagship Product</span>
+    {aria && (
+      <div class="aria-card">
+        <div class="aria-header">
+          <div class="aria-identity">
+            <h2 id="aria-heading" class="aria-title">{aria.title}</h2>
+            <p class="aria-subtitle">{aria.description}</p>
+          </div>
+          <span class="aria-badge">{aria.featuredStatus}</span>
+        </div>
+        <p class="aria-description">{aria.featuredDescription}</p>
+        <a href="/aria" class="aria-cta">Learn More →</a>
+      </div>
+    )}
+  </div>
+</section>
+
+<style>
+  .aria-section {
+    border-top: var(--border-thin);
+    background-color: var(--color-surface);
+  }
+
+  .section-label {
+    display: block;
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-24);
+  }
+
+  .aria-card {
+    border: var(--border-thin);
+    border-radius: var(--radius-xl);
+    padding: var(--space-32);
+    background-color: var(--color-secondary);
+    max-width: 52rem;
+  }
+
+  .aria-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+    margin-block-end: var(--space-24);
+  }
+
+  .aria-identity {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .aria-title {
+    font-size: var(--text-h1);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin-block: 0;
+  }
+
+  .aria-subtitle {
+    font-size: var(--text-title);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+    margin-block: 0;
+  }
+
+  .aria-badge {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    padding: var(--space-4) var(--space-12);
+    border-radius: var(--radius-full);
+    border: var(--border-thin);
+    background-color: var(--color-background);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    white-space: nowrap;
+  }
+
+  .aria-description {
+    font-size: var(--text-body-lg);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-block: 0 var(--space-32);
+    max-width: 55ch;
+  }
+
+  .aria-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-size: var(--text-body);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: gap var(--motion-fast);
+  }
+
+  .aria-cta:hover {
+    gap: var(--space-12);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .aria-cta:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+    border-radius: var(--radius-small);
+  }
+
+  @media (min-width: 768px) {
+    .aria-header {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+</style>

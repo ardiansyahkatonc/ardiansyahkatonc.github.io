@@ -1,0 +1,13 @@
+---
+interface Props {
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | 'fluid';
+  as?: string;
+  class?: string;
+  [x: string]: any;
+}
+const { size = 'lg', as: Tag = 'div', class: className = '', ...rest } = Astro.props;
+---
+<Tag class:list={[`container-${size}`, className]} {...rest}>
+  <slot />
+</Tag>
+<!-- Note: Styles are provided globally by layout.css -->

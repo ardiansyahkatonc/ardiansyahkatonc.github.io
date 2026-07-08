@@ -1,0 +1,132 @@
+---
+const features = [
+  {
+    id: 'meeting-intelligence',
+    title: 'Meeting Intelligence',
+    description: 'Automatically captures, structures, and distributes meeting outcomes — decisions, action items, and key points — without manual effort.',
+    icon: '◎',
+  },
+  {
+    id: 'knowledge-management',
+    title: 'Knowledge Management',
+    description: 'Organizes institutional knowledge into searchable, accessible formats so information is available when and where it is needed.',
+    icon: '▣',
+  },
+  {
+    id: 'document-automation',
+    title: 'Document Automation',
+    description: 'Generates, processes, and formats documents using AI-assisted workflows, reducing turnaround time for routine outputs.',
+    icon: '◈',
+  },
+  {
+    id: 'ai-workspace',
+    title: 'AI Workspace',
+    description: 'A unified interface for AI-assisted tasks across your organization — consistent, context-aware, and accessible to every team member.',
+    icon: '⬡',
+  },
+];
+---
+<section class="section section-content features-section" aria-labelledby="features-heading">
+  <div class="container-xl">
+    <div class="features-header">
+      <span class="section-label">Key Features</span>
+      <h2 id="features-heading" class="features-title">
+        What ARIA does
+      </h2>
+    </div>
+    <div class="features-grid">
+      {features.map((feature) => (
+        <div class="feature-card" id={`feature-${feature.id}`}>
+          <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
+          <h3 class="feature-title">{feature.title}</h3>
+          <p class="feature-desc">{feature.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .features-section {
+    border-top: var(--border-thin);
+    background-color: var(--color-background);
+  }
+
+  .features-header {
+    margin-block-end: var(--space-48);
+  }
+
+  .section-label {
+    display: block;
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-12);
+  }
+
+  .features-title {
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--color-text-primary);
+    margin-block: 0;
+  }
+
+  .features-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+
+  .feature-card {
+    background-color: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-large);
+    padding: var(--space-24);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    transition: box-shadow var(--motion-normal), transform var(--motion-normal);
+  }
+
+  .feature-card:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+
+  .feature-icon {
+    font-size: var(--text-h3);
+    color: var(--color-text-secondary);
+    line-height: 1;
+  }
+
+  .feature-title {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    margin-block: 0;
+  }
+
+  .feature-desc {
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-block: 0;
+  }
+
+  @media (min-width: 768px) {
+    .features-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-24);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .features-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+</style>

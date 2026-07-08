@@ -1,0 +1,107 @@
+---
+const problems = [
+  {
+    id: 'scattered-knowledge',
+    title: 'Scattered Institutional Knowledge',
+    description: 'Critical information lives in emails, chat threads, and personal drives — with no reliable way to find or reuse it.',
+  },
+  {
+    id: 'repetitive-admin',
+    title: 'Repetitive Administrative Work',
+    description: 'Staff spend significant time on routine tasks that could be structured, templated, or automated.',
+  },
+  {
+    id: 'meeting-documentation',
+    title: 'Meeting Documentation Gaps',
+    description: 'Decisions made in meetings rarely produce structured records. Follow-through depends on individual memory.',
+  },
+  {
+    id: 'fragmented-information',
+    title: 'Fragmented Information Systems',
+    description: 'Data exists across multiple platforms with no unified view, making coordination and reporting slow and error-prone.',
+  },
+];
+---
+<section class="section section-content problem-section" aria-labelledby="problem-heading">
+  <div class="container-xl">
+    <div class="problem-header">
+      <span class="section-label">The Challenge</span>
+      <h2 id="problem-heading" class="problem-title">
+        Government organizations manage complexity with limited tools.
+      </h2>
+    </div>
+    <div class="problem-grid">
+      {problems.map((problem) => (
+        <div class="problem-card" id={`problem-${problem.id}`}>
+          <h3 class="problem-card-title">{problem.title}</h3>
+          <p class="problem-card-desc">{problem.description}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .problem-section {
+    border-top: var(--border-thin);
+    background-color: var(--color-background);
+  }
+
+  .problem-header {
+    margin-block-end: var(--space-48);
+    max-width: 52rem;
+  }
+
+  .section-label {
+    display: block;
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-12);
+  }
+
+  .problem-title {
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--color-text-primary);
+    margin-block: 0;
+  }
+
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-16);
+  }
+
+  .problem-card {
+    background-color: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-large);
+    padding: var(--space-24);
+  }
+
+  .problem-card-title {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    color: var(--color-text-primary);
+    margin-block: 0 var(--space-8);
+  }
+
+  .problem-card-desc {
+    font-size: var(--text-body);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-block: 0;
+  }
+
+  @media (min-width: 768px) {
+    .problem-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-24);
+    }
+  }
+</style>

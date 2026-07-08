@@ -1,0 +1,23 @@
+---
+interface Props {
+  type?: 'default' | 'hero' | 'content' | 'feature' | 'cta' | 'footer';
+  as?: string;
+  class?: string;
+  [x: string]: any;
+}
+
+const { type = 'default', as: Tag = type === 'footer' ? 'footer' : 'section', class: className = '', ...rest } = Astro.props;
+
+const typeClass = type === 'default' ? 'section' : `section-${type}`;
+---
+<Tag class:list={[typeClass, className]} {...rest}>
+  <slot />
+</Tag>
+<style>
+  .section-cta {
+    padding-block: var(--space-64);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    text-align: center;
+  }
+</style>

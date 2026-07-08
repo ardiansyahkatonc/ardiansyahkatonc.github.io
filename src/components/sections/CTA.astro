@@ -1,0 +1,101 @@
+---
+import { social } from '../../config/social';
+---
+<section class="section section-cta cta-section" aria-labelledby="cta-heading">
+  <div class="container-xl cta-inner">
+    <div class="cta-content">
+      <span class="section-label">Collaboration</span>
+      <h2 id="cta-heading" class="cta-title">Let's build something meaningful.</h2>
+      <p class="cta-invitation">We invite partnerships to accelerate digital transformation in Indonesia's public sector.</p>
+    </div>
+    <ul class="cta-links" aria-label="Social Links">
+      <li><a href={social.github} class="cta-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+      <li><a href={social.linkedin} class="cta-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
+      <li><a href={social.instagram} class="cta-link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+      <li><a href={social.email} class="cta-link">Email</a></li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .cta-section {
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+  }
+
+  .cta-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-48);
+  }
+
+  .section-label {
+    display: block;
+    font-size: var(--text-label);
+    font-weight: var(--weight-medium);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-block-end: var(--space-16);
+  }
+
+  .cta-title {
+    font-size: var(--text-h2);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.01em;
+    line-height: 1.25;
+    color: var(--color-surface);
+    margin-block: 0 var(--space-8);
+  }
+
+  .cta-invitation {
+    font-size: var(--text-body-lg);
+    line-height: 1.6;
+    color: var(--color-muted);
+    margin-block: 0;
+    max-width: 50ch;
+  }
+
+  .cta-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-16);
+  }
+
+  .cta-link {
+    font-size: var(--text-h4);
+    font-weight: var(--weight-semibold);
+    color: var(--color-surface);
+    text-decoration: none;
+    transition: color var(--motion-fast);
+  }
+
+  .cta-link:hover,
+  .cta-link:focus-visible {
+    color: var(--color-accent);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .cta-link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-small);
+  }
+
+  @media (min-width: 768px) {
+    .cta-inner {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cta-links {
+      flex-direction: row;
+      gap: var(--space-32);
+    }
+  }
+</style>

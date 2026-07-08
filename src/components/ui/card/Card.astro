@@ -1,0 +1,33 @@
+---
+interface Props {
+  variant?: 'default' | 'outlined' | 'interactive' | 'feature';
+  class?: string;
+  as?: string;
+  href?: string;
+  [x: string]: any;
+}
+const { variant = 'default', class: className = '', as: Tag = Astro.props.href ? 'a' : 'div', href, ...rest } = Astro.props;
+---
+<Tag href={href} class:list={['katon-card', `card-${variant}`, className]} {...rest}>
+  <slot />
+</Tag>
+<style>
+  .katon-card {
+    display: block;
+    background-color: var(--color-surface);
+    border-radius: var(--radius-large);
+    padding: var(--space-24);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: transform var(--motion-normal), box-shadow var(--motion-normal);
+  }
+  .card-default { box-shadow: var(--shadow-sm); border: var(--border-thin); }
+  .card-outlined { border: var(--border-default); background-color: transparent; }
+  .card-interactive { box-shadow: var(--shadow-sm); border: var(--border-thin); cursor: pointer; }
+  .card-interactive:hover, .card-interactive:focus-visible {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    outline: 2px solid var(--color-accent);
+  }
+  .card-feature { padding: var(--space-32); background-color: var(--color-secondary); border-radius: var(--radius-xl); border: none; }
+</style>
