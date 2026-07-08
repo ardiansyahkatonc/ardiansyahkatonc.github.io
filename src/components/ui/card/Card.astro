@@ -13,21 +13,53 @@ const { variant = 'default', class: className = '', as: Tag = Astro.props.href ?
 </Tag>
 <style>
   .katon-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
     background-color: var(--color-surface);
-    border-radius: var(--radius-large);
-    padding: var(--space-24);
+    border-radius: var(--radius-2xl); /* Softer radius */
+    padding: var(--space-32);
     color: var(--color-text-primary);
     text-decoration: none;
-    transition: transform var(--motion-normal), box-shadow var(--motion-normal);
+    transition: transform var(--motion-normal), box-shadow var(--motion-normal), border-color var(--motion-normal);
   }
-  .card-default { box-shadow: var(--shadow-sm); border: var(--border-thin); }
-  .card-outlined { border: var(--border-default); background-color: transparent; }
-  .card-interactive { box-shadow: var(--shadow-sm); border: var(--border-thin); cursor: pointer; }
+  
+  .card-default { 
+    box-shadow: var(--shadow-sm); 
+    border: var(--border-light); 
+  }
+  
+  .card-default:hover {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-2px);
+  }
+  
+  .card-outlined { 
+    border: var(--border-thin); 
+    background-color: transparent; 
+  }
+  
+  .card-interactive { 
+    box-shadow: var(--shadow-sm); 
+    border: var(--border-light); 
+    cursor: pointer; 
+  }
+  
   .card-interactive:hover, .card-interactive:focus-visible {
     transform: translateY(-4px);
     box-shadow: var(--shadow-lg);
-    outline: 2px solid var(--color-accent);
+    border-color: var(--color-border);
+    outline: none; /* Relying on shadow/border for focus, or explicit focus ring */
   }
-  .card-feature { padding: var(--space-32); background-color: var(--color-secondary); border-radius: var(--radius-xl); border: none; }
+  
+  .card-interactive:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
+  
+  .card-feature { 
+    padding: var(--space-48); 
+    background-color: var(--color-surface-muted); 
+    border-radius: var(--radius-2xl); 
+    border: var(--border-light); 
+  }
 </style>

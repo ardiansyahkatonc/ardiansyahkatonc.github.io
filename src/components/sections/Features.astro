@@ -29,17 +29,17 @@ const features = [
 <section class="section section-content features-section" aria-labelledby="features-heading">
   <div class="container-xl">
     <div class="features-header">
-      <span class="section-label">Key Features</span>
-      <h2 id="features-heading" class="features-title">
-        What ARIA does
-      </h2>
+      <span class="section-label label">Key Features</span>
+      <h2 id="features-heading" class="features-title h2">What ARIA does</h2>
     </div>
     <div class="features-grid">
       {features.map((feature) => (
         <div class="feature-card" id={`feature-${feature.id}`}>
           <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
-          <h3 class="feature-title">{feature.title}</h3>
-          <p class="feature-desc">{feature.description}</p>
+          <div class="feature-body">
+            <h3 class="feature-title h4">{feature.title}</h3>
+            <p class="feature-desc body text-muted">{feature.description}</p>
+          </div>
         </div>
       ))}
     </div>
@@ -48,79 +48,77 @@ const features = [
 
 <style>
   .features-section {
-    border-top: var(--border-thin);
     background-color: var(--color-background);
+    border-top: var(--border-light);
   }
 
   .features-header {
-    margin-block-end: var(--space-48);
+    margin-block-end: var(--space-64);
   }
 
   .section-label {
     display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-12);
+    color: var(--color-muted);
+    margin-block-end: var(--space-16);
   }
 
   .features-title {
-    font-size: var(--text-h2);
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-    color: var(--color-text-primary);
     margin-block: 0;
+    max-width: 20ch;
   }
 
   .features-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-16);
+    gap: var(--space-2);
   }
 
   .feature-card {
-    background-color: var(--color-surface);
-    border: var(--border-thin);
-    border-radius: var(--radius-large);
-    padding: var(--space-24);
     display: flex;
     flex-direction: column;
-    gap: var(--space-12);
-    transition: box-shadow var(--motion-normal), transform var(--motion-normal);
+    gap: var(--space-24);
+    padding: var(--space-32);
+    border-radius: var(--radius-2xl);
+    border: var(--border-light);
+    background-color: var(--color-surface);
+    transition: transform var(--motion-normal), box-shadow var(--motion-normal), border-color var(--motion-fast);
   }
 
   .feature-card:hover {
     box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    border-color: var(--color-border);
   }
 
   .feature-icon {
-    font-size: var(--text-h3);
-    color: var(--color-text-secondary);
+    font-size: var(--text-h2);
     line-height: 1;
+    color: var(--color-text-secondary);
+  }
+
+  .feature-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    flex: 1;
   }
 
   .feature-title {
-    font-size: var(--text-h4);
-    font-weight: var(--weight-semibold);
-    color: var(--color-text-primary);
     margin-block: 0;
+    color: var(--color-text-primary);
   }
 
   .feature-desc {
-    font-size: var(--text-body);
-    line-height: 1.6;
-    color: var(--color-text-secondary);
     margin-block: 0;
+    color: var(--color-text-secondary);
   }
+
+  .text-muted { color: var(--color-text-secondary); }
 
   @media (min-width: 768px) {
     .features-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: var(--space-24);
+      gap: var(--space-16);
     }
   }
 

@@ -1,17 +1,21 @@
 ---
+import { Badge } from '../ui/badge';
 ---
-<section class="section section-lg hero-section" aria-labelledby="hero-heading">
+<section class="section section-hero hero-section" aria-labelledby="hero-heading">
   <div class="container-xl hero-inner">
     <div class="hero-content">
-      <h1 id="hero-heading" class="hero-headline">
-        Building AI-Native Solutions<br class="hero-break" /> for Public Sector Indonesia
+      <div class="hero-eyebrow">
+        <Badge variant="primary">ARIA Launch Edition</Badge>
+      </div>
+      <h1 id="hero-heading" class="display-xl hero-headline">
+        Building AI-Native Solutions <br class="hero-break" />for Public Sector Indonesia
       </h1>
       <p class="hero-subheadline">
         kat.on develops practical AI products that simplify government workflows through automation, knowledge systems, and human-centered AI.
       </p>
       <div class="hero-actions">
-        <a href="/aria" class="cta-primary">Explore ARIA</a>
-        <a href="/projects" class="cta-secondary">View Projects</a>
+        <a href="/aria" class="btn-primary">Explore ARIA</a>
+        <a href="/projects" class="btn-secondary">View Projects</a>
       </div>
     </div>
   </div>
@@ -19,30 +23,36 @@
 
 <style>
   .hero-section {
-    min-height: 72vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    background-color: var(--color-background);
   }
 
   .hero-inner {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center; /* Centered for premium impact */
+    text-align: center;
   }
 
   .hero-content {
-    max-width: 52rem;
+    max-width: 64rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .hero-eyebrow {
+    margin-block-end: var(--space-24);
+    animation: fade-in-up 0.8s var(--motion-slow) forwards;
+    opacity: 0;
   }
 
   .hero-headline {
-    font-size: var(--text-h1);
-    font-weight: var(--weight-bold);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
     color: var(--color-text-primary);
     margin-block-start: 0;
-    margin-block-end: var(--space-24);
+    margin-block-end: var(--space-32);
+    animation: fade-in-up 0.8s var(--motion-slow) 0.1s forwards;
+    opacity: 0;
   }
 
   .hero-break {
@@ -50,68 +60,84 @@
   }
 
   .hero-subheadline {
-    font-size: var(--text-body-lg);
-    line-height: 1.6;
+    font-size: var(--text-h4); /* Larger, more confident subheadline */
+    font-weight: var(--weight-regular);
+    line-height: 1.5;
     color: var(--color-text-secondary);
-    max-width: 60ch;
+    max-width: 55ch;
     margin-block-start: 0;
-    margin-block-end: var(--space-32);
+    margin-block-end: var(--space-48);
+    animation: fade-in-up 0.8s var(--motion-slow) 0.2s forwards;
+    opacity: 0;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: var(--space-16);
+    animation: fade-in-up 0.8s var(--motion-slow) 0.3s forwards;
+    opacity: 0;
   }
 
-  /* CTA anchor styles — styled via ECF tokens, not Button component (buttons are for actions, anchors for navigation) */
-  .cta-primary,
-  .cta-secondary {
+  .btn-primary,
+  .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: var(--space-48);
-    padding-inline: var(--space-24);
+    padding-inline: var(--space-32);
     font-family: var(--font-primary);
     font-size: var(--text-body);
     font-weight: var(--weight-medium);
     text-decoration: none;
-    border-radius: var(--radius-medium);
+    border-radius: var(--radius-full); /* Pill shape for premium feel */
     transition: all var(--motion-fast);
   }
 
-  .cta-primary:focus-visible,
-  .cta-secondary:focus-visible {
-    outline: 2px solid var(--color-accent);
+  .btn-primary:focus-visible,
+  .btn-secondary:focus-visible {
+    outline: 2px solid var(--color-primary);
     outline-offset: 2px;
   }
 
-  .cta-primary {
+  .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-surface);
-    border: 2px solid var(--color-primary);
+    border: 1px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
   }
 
-  .cta-primary:hover {
-    opacity: 0.88;
+  .btn-primary:hover {
+    background-color: var(--color-accent-hover);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
   }
 
-  .cta-secondary {
-    background-color: transparent;
+  .btn-secondary {
+    background-color: var(--color-surface);
     color: var(--color-text-primary);
-    border: var(--border-thin);
+    border: var(--border-light);
+    box-shadow: var(--shadow-xs);
   }
 
-  .cta-secondary:hover {
-    background-color: var(--color-secondary);
-    border-color: var(--color-text-secondary);
+  .btn-secondary:hover {
+    background-color: var(--color-surface-muted);
+    border-color: var(--color-border);
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   @media (min-width: 768px) {
-    .hero-headline {
-      font-size: var(--text-display);
-    }
-
     .hero-break {
       display: inline;
     }

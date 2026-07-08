@@ -3,20 +3,23 @@ import { products } from '../../config/products';
 
 const aria = products.find(p => p.id === 'aria');
 ---
-<section class="section section-feature aria-section" aria-labelledby="aria-heading">
+<section class="section section-content aria-section" aria-labelledby="aria-heading">
   <div class="container-xl">
-    <span class="section-label">Flagship Product</span>
     {aria && (
       <div class="aria-card">
         <div class="aria-header">
-          <div class="aria-identity">
-            <h2 id="aria-heading" class="aria-title">{aria.title}</h2>
-            <p class="aria-subtitle">{aria.description}</p>
-          </div>
+          <span class="section-label label">Flagship Product</span>
           <span class="aria-badge">{aria.featuredStatus}</span>
         </div>
-        <p class="aria-description">{aria.featuredDescription}</p>
-        <a href="/aria" class="aria-cta">Learn More →</a>
+        <h2 id="aria-heading" class="aria-title display">{aria.title}</h2>
+        <p class="aria-subtitle title text-muted">{aria.description}</p>
+        <p class="aria-desc body-lg text-muted">{aria.featuredDescription}</p>
+        <a href="/aria" class="aria-cta">
+          Learn More
+          <svg class="cta-arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </a>
       </div>
     )}
   </div>
@@ -24,80 +27,62 @@ const aria = products.find(p => p.id === 'aria');
 
 <style>
   .aria-section {
-    border-top: var(--border-thin);
     background-color: var(--color-surface);
-  }
-
-  .section-label {
-    display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-24);
+    border-top: var(--border-light);
   }
 
   .aria-card {
-    border: var(--border-thin);
-    border-radius: var(--radius-xl);
-    padding: var(--space-32);
-    background-color: var(--color-secondary);
-    max-width: 52rem;
+    border: var(--border-light);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-64);
+    background-color: var(--color-surface-muted);
+    max-width: 56rem;
   }
 
   .aria-header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    margin-block-end: var(--space-32);
+    flex-wrap: wrap;
     gap: var(--space-16);
-    margin-block-end: var(--space-24);
   }
 
-  .aria-identity {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-  }
-
-  .aria-title {
-    font-size: var(--text-h1);
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-    color: var(--color-text-primary);
-    margin-block: 0;
-  }
-
-  .aria-subtitle {
-    font-size: var(--text-title);
-    font-weight: var(--weight-medium);
-    color: var(--color-text-secondary);
-    margin-block: 0;
+  .section-label {
+    color: var(--color-muted);
   }
 
   .aria-badge {
     display: inline-flex;
     align-items: center;
-    align-self: flex-start;
-    padding: var(--space-4) var(--space-12);
+    padding: var(--space-4) var(--space-16);
     border-radius: var(--radius-full);
     border: var(--border-thin);
-    background-color: var(--color-background);
     font-size: var(--text-caption);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.05em;
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--color-text-secondary);
-    white-space: nowrap;
+    background-color: var(--color-surface);
   }
 
-  .aria-description {
-    font-size: var(--text-body-lg);
-    line-height: 1.6;
-    color: var(--color-text-secondary);
-    margin-block: 0 var(--space-32);
-    max-width: 55ch;
+  .aria-title {
+    margin-block: 0 var(--space-16);
+    color: var(--color-text-primary);
   }
+
+  .aria-subtitle {
+    color: var(--color-text-secondary);
+    margin-block: 0 var(--space-24);
+  }
+
+  .aria-desc {
+    color: var(--color-text-secondary);
+    max-width: 55ch;
+    margin-block: 0 var(--space-48);
+  }
+
+  .text-muted { color: var(--color-text-secondary); }
 
   .aria-cta {
     display: inline-flex;
@@ -110,23 +95,21 @@ const aria = products.find(p => p.id === 'aria');
     transition: gap var(--motion-fast);
   }
 
+  .cta-arrow {
+    transition: transform var(--motion-fast);
+  }
+
   .aria-cta:hover {
     gap: var(--space-12);
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  }
+
+  .aria-cta:hover .cta-arrow {
+    transform: translateX(3px);
   }
 
   .aria-cta:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
     border-radius: var(--radius-small);
-  }
-
-  @media (min-width: 768px) {
-    .aria-header {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-    }
   }
 </style>

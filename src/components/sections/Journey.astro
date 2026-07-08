@@ -4,30 +4,27 @@ import { journey } from '../../config/journey';
 <section class="section section-content journey-section" aria-labelledby="journey-heading">
   <div class="container-xl">
     <div class="journey-header">
-      <span class="section-label">Timeline</span>
-      <h2 id="journey-heading" class="journey-title">Journey</h2>
+      <span class="section-label label">Timeline</span>
+      <h2 id="journey-heading" class="h2">Journey</h2>
     </div>
     <div class="timeline">
       {journey.map(group => (
-        <div class="timeline-group">
-          <h3 class="timeline-year">{group.year}</h3>
-          <ol class="timeline-list">
-            {group.milestones.map((milestone, index) => (
-              <li class="timeline-item">
-                <div class="timeline-node">
-                  <span class="timeline-dot" aria-hidden="true"></span>
-                  {index < group.milestones.length - 1 && (
-                    <span class="timeline-line" aria-hidden="true"></span>
-                  )}
-                </div>
-                <div class="timeline-content">
-                  <h4 class="timeline-milestone-title">{milestone.title}</h4>
-                  <p class="timeline-milestone-desc">{milestone.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-        </div>
+        <ol class="timeline-list" aria-label={`${group.year} milestones`}>
+          {group.milestones.map((milestone, index) => (
+            <li class="timeline-item">
+              <div class="timeline-indicator" aria-hidden="true">
+                <span class="timeline-dot"></span>
+                {index < group.milestones.length - 1 && (
+                  <span class="timeline-line"></span>
+                )}
+              </div>
+              <div class="timeline-content">
+                <h3 class="milestone-title title">{milestone.title}</h3>
+                <p class="milestone-desc body text-muted">{milestone.description}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
       ))}
     </div>
   </div>
@@ -35,56 +32,28 @@ import { journey } from '../../config/journey';
 
 <style>
   .journey-section {
-    border-top: var(--border-thin);
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
+    border-top: var(--border-light);
   }
 
   .journey-header {
-    margin-block-end: var(--space-48);
+    margin-block-end: var(--space-64);
   }
 
   .section-label {
     display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-text-secondary);
-    margin-block-end: var(--space-12);
-  }
-
-  .journey-title {
-    font-size: var(--text-h2);
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.01em;
-    line-height: 1.25;
-    color: var(--color-text-primary);
-    margin-block: 0;
+    color: var(--color-muted);
+    margin-block-end: var(--space-16);
   }
 
   .timeline {
-    max-width: 52rem;
-  }
-
-  .timeline-group {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-24);
-  }
-
-  .timeline-year {
-    font-size: var(--text-h3);
-    font-weight: var(--weight-bold);
-    color: var(--color-text-primary);
-    margin-block: 0;
+    max-width: 40rem;
   }
 
   .timeline-list {
     list-style: none;
     padding: 0;
     margin: 0;
-    display: flex;
-    flex-direction: column;
   }
 
   .timeline-item {
@@ -92,49 +61,45 @@ import { journey } from '../../config/journey';
     gap: var(--space-24);
   }
 
-  .timeline-node {
+  .timeline-indicator {
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding-top: var(--space-8);
     width: var(--space-16);
+    flex-shrink: 0;
   }
 
   .timeline-dot {
-    width: var(--space-12);
-    height: var(--space-12);
+    width: 7px;
+    height: 7px;
     border-radius: var(--radius-full);
-    background-color: var(--color-primary);
-    margin-top: var(--space-8);
+    background-color: var(--color-text-primary);
     flex-shrink: 0;
   }
 
   .timeline-line {
-    width: 2px;
+    width: 1px;
     flex-grow: 1;
     background-color: var(--color-border);
-    margin-top: var(--space-8);
-    margin-bottom: var(--space-8);
-    min-height: var(--space-32);
+    margin-block: var(--space-8);
+    min-height: var(--space-48);
   }
 
   .timeline-content {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
-    padding-bottom: var(--space-32);
+    padding-bottom: var(--space-48);
   }
 
-  .timeline-milestone-title {
-    font-size: var(--text-title);
-    font-weight: var(--weight-semibold);
+  .milestone-title {
     color: var(--color-text-primary);
-    margin-block: 0;
+    margin-block: 0 var(--space-8);
   }
 
-  .timeline-milestone-desc {
-    font-size: var(--text-body);
-    line-height: 1.6;
+  .milestone-desc {
     color: var(--color-text-secondary);
     margin-block: 0;
+    max-width: 45ch;
   }
+
+  .text-muted { color: var(--color-text-secondary); }
 </style>

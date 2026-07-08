@@ -1,14 +1,14 @@
 ---
 import { social } from '../../config/social';
 ---
-<section class="section section-cta cta-section" aria-labelledby="cta-heading">
+<section class="section section-content cta-section" aria-labelledby="cta-heading">
   <div class="container-xl cta-inner">
     <div class="cta-content">
-      <span class="section-label">Collaboration</span>
-      <h2 id="cta-heading" class="cta-title">Let's build something meaningful.</h2>
-      <p class="cta-invitation">We invite partnerships to accelerate digital transformation in Indonesia's public sector.</p>
+      <span class="section-label label">Collaboration</span>
+      <h2 id="cta-heading" class="h2 cta-title">Let's build something meaningful.</h2>
+      <p class="body-lg cta-invitation">We invite partnerships to accelerate public service delivery in Indonesia's public sector.</p>
     </div>
-    <ul class="cta-links" aria-label="Social Links">
+    <ul class="cta-links" aria-label="Contact & Social Links">
       <li><a href={social.github} class="cta-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
       <li><a href={social.linkedin} class="cta-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
       <li><a href={social.instagram} class="cta-link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
@@ -20,40 +20,31 @@ import { social } from '../../config/social';
 <style>
   .cta-section {
     background-color: var(--color-primary);
-    color: var(--color-surface);
+    border-top: none;
   }
 
   .cta-inner {
     display: flex;
     flex-direction: column;
-    gap: var(--space-48);
+    gap: var(--space-64);
   }
 
   .section-label {
     display: block;
-    font-size: var(--text-label);
-    font-weight: var(--weight-medium);
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    color: var(--color-muted);
-    margin-block-end: var(--space-16);
+    color: rgba(255, 255, 255, 0.4);
+    margin-block-end: var(--space-24);
   }
 
   .cta-title {
-    font-size: var(--text-h2);
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.01em;
-    line-height: 1.25;
     color: var(--color-surface);
-    margin-block: 0 var(--space-8);
+    margin-block: 0 var(--space-16);
+    max-width: 20ch;
   }
 
   .cta-invitation {
-    font-size: var(--text-body-lg);
-    line-height: 1.6;
-    color: var(--color-muted);
+    color: rgba(255, 255, 255, 0.6);
     margin-block: 0;
-    max-width: 50ch;
+    max-width: 45ch;
   }
 
   .cta-links {
@@ -62,28 +53,30 @@ import { social } from '../../config/social';
     margin: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-16);
+    gap: var(--space-4);
+    justify-content: flex-end;
   }
 
   .cta-link {
-    font-size: var(--text-h4);
-    font-weight: var(--weight-semibold);
-    color: var(--color-surface);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.02em;
+    color: rgba(255, 255, 255, 0.35);
     text-decoration: none;
     transition: color var(--motion-fast);
+    display: block;
+    line-height: 1.2;
   }
 
-  .cta-link:hover,
-  .cta-link:focus-visible {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 4px;
+  .cta-link:hover {
+    color: var(--color-surface);
   }
 
   .cta-link:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 2px solid rgba(255, 255, 255, 0.5);
     outline-offset: 4px;
     border-radius: var(--radius-small);
+    color: var(--color-surface);
   }
 
   @media (min-width: 768px) {
@@ -94,8 +87,7 @@ import { social } from '../../config/social';
     }
 
     .cta-links {
-      flex-direction: row;
-      gap: var(--space-32);
+      text-align: right;
     }
   }
 </style>
