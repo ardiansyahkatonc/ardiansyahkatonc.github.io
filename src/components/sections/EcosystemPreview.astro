@@ -1,37 +1,99 @@
 ---
-import { Card } from '../ui/card';
-import { Badge } from '../ui/badge';
+const products = [
+  {
+    id: 'aria',
+    name: 'ARIA',
+    status: 'Flagship Product',
+    statusVariant: 'primary',
+    desc: 'Asisten Eksekutif AI untuk Sektor Publik.',
+    descEn: 'AI Executive Assistant for the Public Sector.',
+    href: '/aria',
+    cta: 'Explore ARIA',
+    active: true,
+  },
+  {
+    id: 'kcc',
+    name: 'KCC',
+    status: 'Internal Platform',
+    statusVariant: 'neutral',
+    desc: 'Pusat komando pengetahuan dan standar rekayasa kat.on.',
+    descEn: 'kat.on Command Center — the knowledge and engineering standard hub.',
+    href: null,
+    cta: 'Internal Access Only',
+    active: false,
+  },
+  {
+    id: 'future',
+    name: 'Future Products',
+    status: 'Coming Soon',
+    statusVariant: 'neutral',
+    desc: 'Ekosistem AI yang terus berkembang untuk layanan publik.',
+    descEn: 'A continuously expanding AI ecosystem for public service.',
+    href: '/projects',
+    cta: 'View Roadmap',
+    active: false,
+  },
+];
 ---
-<section class="section section-content ecosystem-section" aria-labelledby="ecosystem-heading">
-  <div class="container-xl">
-    <div class="section-header">
-      <span class="label text-muted">Ecosystem</span>
-      <h2 id="ecosystem-heading" class="h2">kat.on Products</h2>
-    </div>
-    <div class="grid-3 ecosystem-grid">
-      <Card variant="default" class="ecosystem-card">
-        <Badge variant="primary">Flagship</Badge>
-        <h3 class="h4 mt-24">ARIA</h3>
-        <p class="body text-muted mt-8">AI Executive Assistant for government workflows.</p>
-        <a href="/aria" class="ecosystem-link mt-auto">Explore ARIA &rarr;</a>
-      </Card>
-      
-      <Card variant="default" class="ecosystem-card">
-        <Badge variant="neutral">Internal Platform</Badge>
-        <h3 class="h4 mt-24">KCC</h3>
-        <p class="body text-muted mt-8">kat.on Command Center. The single source of truth for engineering and product knowledge.</p>
-        <span class="ecosystem-link-disabled mt-auto text-muted">Internal Access Only</span>
-      </Card>
 
-      <Card variant="outlined" class="ecosystem-card coming-soon">
-        <Badge variant="neutral">Coming Soon</Badge>
-        <h3 class="h4 mt-24 text-muted">Future Products</h3>
-        <p class="body text-muted mt-8">Expanding the AI-Native ecosystem for public service.</p>
-        <a href="/projects" class="ecosystem-link mt-auto">View Roadmap &rarr;</a>
-      </Card>
+<section class="section section-xl ecosystem-section" aria-labelledby="ecosystem-heading">
+  <div class="container-xl">
+
+    <div class="ecosystem-header reveal">
+      <span class="label text-muted">Ekosistem / Ecosystem</span>
+      <h2 id="ecosystem-heading" class="section-title">Produk kat.on</h2>
+      <p class="bilingual-en text-muted">kat.on Products</p>
     </div>
+
+    <div class="ecosystem-roadmap">
+      {products.map((product, index) => (
+        <div class="roadmap-item reveal" id={`product-${product.id}`}>
+          {/* Connector line between cards */}
+          {index < products.length - 1 && (
+            <div class="roadmap-connector">
+              <div class="connector-line"></div>
+              <div class="connector-arrow">↓</div>
+            </div>
+          )}
+          
+          <div class={`roadmap-card ${product.active ? 'is-active' : ''}`}>
+            <div class="roadmap-card-header">
+              <div class="roadmap-badge-group">
+                <span class={`roadmap-badge badge-${product.statusVariant}`}>{product.status}</span>
+              </div>
+              <h3 class={`card-title product-name ${!product.active ? 'text-muted' : ''}`}>{product.name}</h3>
+            </div>
+            
+            <div class="bilingual-group roadmap-desc">
+              <p class="bilingual-id">{product.desc}</p>
+              <p class="bilingual-en">{product.descEn}</p>
+            </div>
+
+            {product.href ? (
+              <a href={product.href} class={`roadmap-cta ${product.active ? 'cta-primary' : 'cta-secondary'}`}>
+                {product.cta} →
+              </a>
+            ) : (
+              <span class="roadmap-cta cta-disabled">{product.cta}</span>
+            )}
+          </div>
+        </div>
+      ))}
+    </div>
+
   </div>
 </section>
+
+<script>
+  if (typeof window !== 'undefined') {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+</script>
 
 <style>
   .ecosystem-section {
@@ -39,47 +101,138 @@ import { Badge } from '../ui/badge';
     border-top: var(--border-light);
   }
 
-  .section-header {
-    margin-block-end: var(--space-64);
+  .ecosystem-header {
+    margin-block-end: var(--space-80);
   }
 
-  .label {
-    display: block;
+  .text-muted { color: var(--color-text-secondary); }
+
+  .ecosystem-roadmap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .roadmap-item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .roadmap-card {
+    width: 100%;
+    background: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-2xl);
+    padding: var(--space-48);
+    transition: box-shadow var(--motion-normal), transform var(--motion-normal);
+  }
+
+  .roadmap-card.is-active {
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-lg);
+  }
+
+  .roadmap-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .roadmap-card-header {
+    margin-block-end: var(--space-24);
+  }
+
+  .roadmap-badge-group {
     margin-block-end: var(--space-16);
   }
 
-  .text-muted {
+  .roadmap-badge {
+    display: inline-block;
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    padding: var(--space-4) var(--space-12);
+    border-radius: var(--radius-full);
+  }
+
+  .badge-primary {
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-accent);
+  }
+
+  .badge-neutral {
+    background: rgba(15, 23, 42, 0.05);
     color: var(--color-text-secondary);
   }
 
-  .mt-8 { margin-block-start: var(--space-8); }
-  .mt-24 { margin-block-start: var(--space-24); }
-  .mt-auto { margin-block-start: auto; padding-top: var(--space-24); }
-
-  .ecosystem-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    height: 100%;
+  .product-name {
+    margin-block-start: 0;
+    margin-block-end: 0;
   }
 
-  .coming-soon {
-    border-style: dashed;
-    background-color: transparent;
+  .roadmap-desc {
+    margin-block-end: var(--space-32);
   }
 
-  .ecosystem-link {
-    color: var(--color-primary);
-    text-decoration: none;
+  .roadmap-cta {
+    display: inline-flex;
     font-weight: var(--weight-medium);
-    font-size: var(--text-body-sm);
+    font-size: var(--text-caption);
+    text-decoration: none;
+    transition: all var(--motion-fast);
   }
 
-  .ecosystem-link:hover {
+  .cta-primary {
+    color: var(--color-accent);
+  }
+
+  .cta-primary:hover {
     text-decoration: underline;
   }
-  
-  .ecosystem-link-disabled {
-    font-size: var(--text-body-sm);
+
+  .cta-secondary {
+    color: var(--color-text-secondary);
+  }
+
+  .cta-secondary:hover {
+    color: var(--color-primary);
+  }
+
+  .cta-disabled {
+    color: var(--color-muted);
+    cursor: default;
+  }
+
+  .roadmap-connector {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-block: var(--space-16);
+    color: var(--color-muted);
+  }
+
+  .connector-line {
+    width: 2px;
+    height: var(--space-32);
+    background: var(--color-border);
+  }
+
+  .connector-arrow {
+    font-size: var(--text-caption);
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>

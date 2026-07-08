@@ -1,63 +1,192 @@
 ---
-import Navigation from './Navigation.astro';
 import { brand } from '../../config/brand';
+import Logo from '../ui/Logo.astro';
 ---
 
-<header class="site-header">
+<header class="site-header" id="site-header">
   <div class="container-xl header-inner">
-    <div class="brand">
+    
+    <!-- Left: Logo & Brand Name -->
+    <div class="header-left">
       <a href="/" aria-label={`${brand.name} - Home`} class="brand-link">
-        <span class="brand-name">{brand.name}</span>
+        <Logo />
+        <div class="brand-text">
+          <span class="brand-name">{brand.name}</span>
+          <span class="brand-tagline">AI-Native Product Studio</span>
+        </div>
       </a>
     </div>
-    <Navigation />
+    
+    <!-- Center: Navigation -->
+    <nav class="header-center" aria-label="Main Navigation">
+      <ul class="nav-list">
+        <li class="nav-item">
+          <a href="/aria" class="nav-link {Astro.url.pathname.startsWith('/aria') ? 'active' : ''}">ARIA</a>
+        </li>
+        <li class="nav-item">
+          <a href="/projects" class="nav-link {Astro.url.pathname.startsWith('/projects') ? 'active' : ''}">Ecosystem</a>
+        </li>
+        <li class="nav-item">
+          <a href="/about" class="nav-link {Astro.url.pathname.startsWith('/about') ? 'active' : ''}">Story</a>
+        </li>
+        <li class="nav-item">
+          <a href="/contact" class="nav-link {Astro.url.pathname.startsWith('/contact') ? 'active' : ''}">Contact</a>
+        </li>
+      </ul>
+    </nav>
+    
+    <!-- Right: CTA -->
+    <div class="header-right">
+      <a href="/aria" class="nav-cta">Launch ARIA &rarr;</a>
+    </div>
+
   </div>
 </header>
 
+<script>
+  // Transparent at top, solid on scroll
+  const header = document.getElementById('site-header');
+  
+  if (header) {
+    const handleScroll = () => {
+      if (window.scrollY > 20) {
+        header.classList.add('scrolled');
+      } else {
+        header.classList.remove('scrolled');
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Check initial state
+    handleScroll();
+  }
+</script>
+
 <style>
   .site-header {
-    background-color: rgba(255, 255, 255, 0.85); /* Glassmorphism background */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: var(--border-light); /* Ultra subtle border */
-    padding-block: var(--space-12);
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    transition: background-color var(--motion-normal), padding var(--motion-normal);
+    padding-block: var(--space-24);
+    background-color: transparent;
+    border-bottom: 1px solid transparent;
+    transition: all var(--motion-normal);
   }
   
+  /* Scrolled State */
+  .site-header.scrolled {
+    background-color: rgba(248, 250, 252, 0.85); /* F8FAFC with opacity */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: var(--border-light);
+    padding-block: var(--space-16);
+  }
+
   .header-inner {
     display: flex;
-    flex-direction: column;
-    gap: var(--space-8);
+    align-items: center;
+    justify-content: space-between;
   }
 
-  .brand-link {
-    text-decoration: none;
-    color: var(--color-primary);
-    display: inline-block;
-    transition: transform var(--motion-fast);
+  /* Left */
+  .header-left {
+    display: flex;
+    align-items: center;
   }
   
-  .brand-link:hover {
-    transform: scale(1.02);
+  .brand-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    text-decoration: none;
+    color: var(--color-primary);
   }
 
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+  }
+  
   .brand-name {
-    font-size: var(--text-h4);
+    font-size: var(--text-body);
     font-weight: var(--weight-bold);
+    line-height: 1.1;
     letter-spacing: -0.02em;
   }
 
+  .brand-tagline {
+    font-size: 10px;
+    font-weight: var(--weight-medium);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--color-text-secondary);
+  }
+
+  /* Center */
+  .header-center {
+    display: none; /* Hidden on mobile */
+  }
+
   @media (min-width: 768px) {
-    .site-header {
-      padding-block: var(--space-16);
+    .header-center {
+      display: block;
     }
-    .header-inner {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
+    
+    .nav-list {
+      display: flex;
+      gap: var(--space-8);
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      background-color: var(--color-surface);
+      border: var(--border-light);
+      border-radius: var(--radius-full);
+      padding: var(--space-4);
+      box-shadow: var(--shadow-xs);
     }
+    
+    .nav-link {
+      display: block;
+      padding: var(--space-8) var(--space-16);
+      border-radius: var(--radius-full);
+      font-size: var(--text-caption);
+      font-weight: var(--weight-medium);
+      color: var(--color-text-secondary);
+      text-decoration: none;
+      transition: all var(--motion-fast);
+    }
+    
+    .nav-link:hover {
+      color: var(--color-primary);
+      background-color: var(--color-background);
+    }
+
+    .nav-link.active {
+      color: var(--color-primary);
+      background-color: var(--color-background);
+      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    }
+  }
+
+  /* Right */
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    padding-inline: var(--space-16);
+    background-color: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: var(--radius-full);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+    text-decoration: none;
+    transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+  }
+
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    background-color: var(--color-accent-hover);
   }
 </style>

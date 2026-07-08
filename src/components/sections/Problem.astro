@@ -1,53 +1,66 @@
 ---
-const problems = [
+const storytelling = [
   {
-    id: 'scattered-knowledge',
-    title: 'Scattered Institutional Knowledge',
-    description: 'Critical information lives in emails, chat threads, and personal drives — with no reliable way to find or reuse it.',
+    id: 'problem',
+    label: 'Masalah',
+    labelEn: 'The Problem',
+    title: 'Fragmentasi & Beban Administrasi',
+    titleEn: 'Fragmentation & Administrative Burden',
+    description: 'Informasi penting tersebar di email, dokumen terpisah, dan rapat yang tidak tercatat. Staf menghabiskan waktu berharga untuk tugas rutin yang berulang.',
+    descriptionEn: 'Critical information is scattered across emails, disjointed documents, and unrecorded meetings. Staff spend valuable time on repetitive routine tasks.',
   },
   {
-    id: 'repetitive-admin',
-    title: 'Repetitive Administrative Work',
-    description: 'Staff spend significant time on routine tasks that could be structured, templated, or automated.',
+    id: 'impact',
+    label: 'Dampak',
+    labelEn: 'The Impact',
+    title: 'Penurunan Kecepatan Layanan Publik',
+    titleEn: 'Slower Public Service Delivery',
+    description: 'Hilangnya konteks institusional menyebabkan pengambilan keputusan menjadi lambat, tidak konsisten, dan sangat bergantung pada ingatan individu.',
+    descriptionEn: 'Loss of institutional context leads to slow, inconsistent decision-making that heavily relies on individual memory.',
   },
   {
-    id: 'meeting-documentation',
-    title: 'Meeting Documentation Gaps',
-    description: 'Decisions made in meetings rarely produce structured records. Follow-through depends on individual memory.',
-  },
-  {
-    id: 'fragmented-information',
-    title: 'Fragmented Information Systems',
-    description: 'Data exists across multiple platforms with no unified view, making coordination and reporting slow and error-prone.',
+    id: 'solution',
+    label: 'Solusi ARIA',
+    labelEn: 'The ARIA Solution',
+    title: 'Inteligensi Eksekutif Terpusat',
+    titleEn: 'Centralized Executive Intelligence',
+    description: 'ARIA mengintegrasikan alur kerja otomatis ke dalam operasi harian—menangkap, menyusun, dan mengamankan informasi tanpa menambah beban kerja.',
+    descriptionEn: 'ARIA integrates automated workflows into daily operations—capturing, structuring, and securing information without adding to the workload.',
   },
 ];
 ---
 <section class="section section-content problem-section" aria-labelledby="problem-heading">
-  <div class="container-xl">
-    <div class="problem-grid-layout">
-      
-      <div class="problem-header">
-        <span class="section-label label">The Challenge</span>
-        <h2 id="problem-heading" class="problem-title h2">
-          Government organizations manage complexity with limited tools.
-        </h2>
-        <p class="body-lg text-muted">
-          The public sector runs on critical information, but the current systems create friction instead of flow.
-        </p>
-      </div>
-      
-      <div class="problem-list">
-        {problems.map((problem, index) => (
-          <div class="problem-item" id={`problem-${problem.id}`}>
-            <div class="problem-number">0{index + 1}</div>
-            <div class="problem-content">
-              <h3 class="problem-item-title h4">{problem.title}</h3>
-              <p class="problem-item-desc body text-muted">{problem.description}</p>
+  <div class="container-lg">
+    <div class="section-header text-center reveal">
+      <h2 id="problem-heading" class="section-title">Mengapa Kami Membangun ARIA</h2>
+      <p class="bilingual-en">Why We Built ARIA</p>
+    </div>
+    
+    <div class="storytelling-flow">
+      {storytelling.map((story, index) => (
+        <div class="story-card reveal" id={`story-${story.id}`}>
+          <div class="story-indicator">
+            <div class="story-dot"></div>
+            {index < storytelling.length - 1 && <div class="story-line"></div>}
+          </div>
+          <div class="story-content">
+            <div class="bilingual-group mb-8">
+              <span class="label text-accent">{story.label}</span>
+              <span class="bilingual-en label">{story.labelEn}</span>
+            </div>
+            
+            <div class="bilingual-group mb-16">
+              <h3 class="card-title">{story.title}</h3>
+              <p class="bilingual-en">{story.titleEn}</p>
+            </div>
+            
+            <div class="bilingual-group">
+              <p class="body text-muted">{story.description}</p>
+              <p class="bilingual-en">{story.descriptionEn}</p>
             </div>
           </div>
-        ))}
-      </div>
-      
+        </div>
+      ))}
     </div>
   </div>
 </section>
@@ -57,71 +70,85 @@ const problems = [
     background-color: var(--color-surface);
     border-top: var(--border-light);
   }
-
-  .problem-grid-layout {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--space-64);
-  }
   
-  .section-label {
-    color: var(--color-muted);
-    margin-block-end: var(--space-16);
-    display: block;
+  .section-header {
+    margin-block-end: var(--space-80);
   }
 
-  .problem-title {
-    margin-block-start: 0;
-    margin-block-end: var(--space-24);
-    max-width: 20ch;
-  }
+  .text-center { text-align: center; }
+  .text-accent { color: var(--color-accent); }
+  .text-muted { color: var(--color-text-secondary); }
+  .mb-8 { margin-block-end: var(--space-8); }
+  .mb-16 { margin-block-end: var(--space-16); }
 
-  .text-muted {
-    color: var(--color-text-secondary);
-  }
-
-  .problem-list {
+  .storytelling-flow {
     display: flex;
     flex-direction: column;
-    gap: var(--space-48);
+    max-width: 800px;
+    margin: 0 auto;
   }
 
-  .problem-item {
+  .story-card {
     display: flex;
-    gap: var(--space-24);
-    align-items: flex-start;
+    gap: var(--space-32);
   }
 
-  .problem-number {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
-    font-weight: var(--weight-bold);
-    color: var(--color-muted);
-    padding-top: var(--space-8);
-    border-top: 2px solid var(--color-border);
-    min-width: 2rem;
+  .story-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 24px;
+    flex-shrink: 0;
+    padding-top: var(--space-12);
   }
 
-  .problem-item-title {
-    margin-block: 0 var(--space-8);
-    color: var(--color-text-primary);
+  .story-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: var(--radius-full);
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
+    flex-shrink: 0;
   }
 
-  .problem-item-desc {
-    margin-block: 0;
-    max-width: 45ch;
+  .story-line {
+    width: 2px;
+    flex-grow: 1;
+    background-color: var(--color-border);
+    margin-block: var(--space-8);
+    min-height: var(--space-64);
   }
 
-  @media (min-width: 1024px) {
-    .problem-grid-layout {
-      grid-template-columns: 5fr 7fr;
-      gap: var(--space-128);
-    }
-    
-    .problem-header {
-      position: sticky;
-      top: var(--space-128);
-      align-self: flex-start;
-    }
+  .story-content {
+    padding-bottom: var(--space-64);
+    background: transparent;
+  }
+  
+  /* Reveal Animation Logic handled globally but setup here */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
   }
 </style>
+
+<script>
+  // Simple intersection observer for scroll reveals
+  if (typeof window !== 'undefined') {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+</script>

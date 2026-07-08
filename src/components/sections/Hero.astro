@@ -1,145 +1,134 @@
 ---
 import { Badge } from '../ui/badge';
+import PremiumMockup from '../ui/mockup/PremiumMockup.astro';
 ---
-<section class="section section-hero hero-section" aria-labelledby="hero-heading">
-  <div class="container-xl hero-inner">
-    <div class="hero-content">
-      <div class="hero-eyebrow">
-        <Badge variant="primary">ARIA Launch Edition</Badge>
+
+<section class="section section-hero hero-split" aria-labelledby="hero-heading">
+  <div class="container-xl">
+    <div class="hero-grid">
+      
+      <!-- LEFT: Copy & CTA -->
+      <div class="hero-content">
+        <div class="hero-eyebrow animate-fade-in">
+          <Badge variant="primary">AI-NATIVE PRODUCT STUDIO</Badge>
+        </div>
+        
+        <h1 id="hero-heading" class="display hero-headline animate-fade-in animate-delay-100">
+          Building AI<br />for Indonesia.
+        </h1>
+        
+        <div class="hero-subheadline animate-fade-in animate-delay-200">
+          <div class="bilingual-group">
+            <p class="bilingual-id body-lg">
+              Kami membangun produk AI yang membantu pemerintah, organisasi dan eksekutif bekerja lebih cepat.
+            </p>
+            <p class="bilingual-en">
+              We build AI products that help governments, organizations, and executives work faster.
+            </p>
+          </div>
+        </div>
+        
+        <div class="hero-actions animate-fade-in animate-delay-300">
+          <a href="/aria" class="btn-primary ripple">Explore ARIA</a>
+          <a href="/projects" class="btn-secondary">See Ecosystem</a>
+        </div>
       </div>
-      <h1 id="hero-heading" class="display-xl hero-headline">
-        Building AI-Native Solutions <br class="hero-break" />for Public Sector Indonesia
-      </h1>
-      <p class="hero-subheadline">
-        kat.on develops practical AI products that simplify government workflows through automation, knowledge systems, and human-centered AI.
-      </p>
-      <div class="hero-actions">
-        <a href="/aria" class="btn-primary">Explore ARIA</a>
-        <a href="/projects" class="btn-secondary">View Projects</a>
+      
+      <!-- RIGHT: Illustration -->
+      <div class="hero-illustration">
+        <PremiumMockup />
       </div>
+
     </div>
   </div>
 </section>
 
 <style>
-  .hero-section {
+  .hero-split {
     background-color: var(--color-background);
+    overflow: hidden;
   }
 
-  .hero-inner {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; /* Centered for premium impact */
-    text-align: center;
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-64);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 5fr 7fr;
+      gap: var(--space-32);
+    }
   }
 
   .hero-content {
-    max-width: 64rem;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
   }
   
   .hero-eyebrow {
-    margin-block-end: var(--space-24);
-    animation: fade-in-up 0.8s var(--motion-slow) forwards;
-    opacity: 0;
+    margin-block-end: var(--space-32);
   }
 
   .hero-headline {
-    color: var(--color-text-primary);
     margin-block-start: 0;
     margin-block-end: var(--space-32);
-    animation: fade-in-up 0.8s var(--motion-slow) 0.1s forwards;
-    opacity: 0;
-  }
-
-  .hero-break {
-    display: none;
+    color: var(--color-primary);
   }
 
   .hero-subheadline {
-    font-size: var(--text-h4); /* Larger, more confident subheadline */
-    font-weight: var(--weight-regular);
-    line-height: 1.5;
-    color: var(--color-text-secondary);
-    max-width: 55ch;
-    margin-block-start: 0;
     margin-block-end: var(--space-48);
-    animation: fade-in-up 0.8s var(--motion-slow) 0.2s forwards;
-    opacity: 0;
+    max-width: 50ch;
   }
 
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: var(--space-16);
-    animation: fade-in-up 0.8s var(--motion-slow) 0.3s forwards;
-    opacity: 0;
   }
 
-  .btn-primary,
-  .btn-secondary {
+  /* Refined Buttons */
+  .btn-primary, .btn-secondary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: var(--space-48);
     padding-inline: var(--space-32);
-    font-family: var(--font-primary);
-    font-size: var(--text-body);
     font-weight: var(--weight-medium);
+    border-radius: var(--radius-full);
     text-decoration: none;
-    border-radius: var(--radius-full); /* Pill shape for premium feel */
     transition: all var(--motion-fast);
-  }
-
-  .btn-primary:focus-visible,
-  .btn-secondary:focus-visible {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
   }
 
   .btn-primary {
     background-color: var(--color-primary);
     color: var(--color-surface);
-    border: 1px solid var(--color-primary);
     box-shadow: var(--shadow-sm);
   }
 
   .btn-primary:hover {
-    background-color: var(--color-accent-hover);
+    background-color: var(--color-accent);
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
 
   .btn-secondary {
-    background-color: var(--color-surface);
+    background-color: transparent;
     color: var(--color-text-primary);
     border: var(--border-light);
-    box-shadow: var(--shadow-xs);
   }
 
   .btn-secondary:hover {
-    background-color: var(--color-surface-muted);
+    background-color: var(--color-surface);
     border-color: var(--color-border);
   }
-
-  @keyframes fade-in-up {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (min-width: 768px) {
-    .hero-break {
-      display: inline;
-    }
+  
+  /* Ripple Effect (CSS only fake ripple on active) */
+  .ripple:active {
+    transform: scale(0.98);
+    opacity: 0.8;
   }
 </style>

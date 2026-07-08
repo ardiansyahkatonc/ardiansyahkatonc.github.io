@@ -3,36 +3,63 @@ import { brand } from '../../config/brand';
 import { social } from '../../config/social';
 
 const currentYear = new Date().getFullYear();
+const buildVersion = 'v1.0.0';
+const lastUpdated = '2026-07-15';
 ---
 
-<footer class="site-footer">
-  <div class="container-xl footer-inner">
-    <div class="footer-brand">
-      <p class="brand-name">{brand.name}</p>
-      <p class="brand-tagline text-muted">{brand.tagline}</p>
-    </div>
+<footer class="site-footer" id="site-footer">
+  <div class="container-xl footer-main">
     
-    <div class="footer-grid">
-      
-      <div class="footer-column">
-        <h3 class="footer-heading label">Products</h3>
-        <ul class="footer-links">
-          <li><a href="/aria" class="footer-link">ARIA Flagship</a></li>
+    <!-- Brand Column -->
+    <div class="footer-brand">
+      <div class="footer-logo-group">
+        <svg class="footer-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <rect x="2" y="2" width="28" height="28" rx="6" fill="var(--color-primary)" />
+          <path d="M10 8V24" stroke="white" stroke-width="3" stroke-linecap="round" />
+          <path d="M22 8L12 16L22 24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        <span class="footer-brand-name">{brand.name}</span>
+      </div>
+      <p class="footer-brand-tagline">AI-Native Product Studio</p>
+      <div class="footer-meta">
+        <span class="meta-badge">
+          <span class="meta-dot active"></span>
+          Build {buildVersion}
+        </span>
+        <span class="meta-badge">Updated {lastUpdated}</span>
+      </div>
+    </div>
+
+    <!-- Navigation Grid -->
+    <div class="footer-nav-grid">
+
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Products</h3>
+        <ul class="footer-link-list">
+          <li><a href="/aria" class="footer-link">ARIA <span class="footer-link-badge">Flagship</span></a></li>
           <li><a href="/projects" class="footer-link">Ecosystem</a></li>
         </ul>
       </div>
 
-      <div class="footer-column">
-        <h3 class="footer-heading label">Company</h3>
-        <ul class="footer-links">
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Company</h3>
+        <ul class="footer-link-list">
           <li><a href="/about" class="footer-link">About</a></li>
           <li><a href="/contact" class="footer-link">Partnerships</a></li>
         </ul>
       </div>
 
-      <div class="footer-column">
-        <h3 class="footer-heading label">Connect</h3>
-        <ul class="footer-links">
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Resources</h3>
+        <ul class="footer-link-list">
+          <li><a href="/aria#capabilities" class="footer-link">Documentation</a></li>
+          <li><a href="/aria#roadmap" class="footer-link">Roadmap</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3 class="footer-col-heading">Social</h3>
+        <ul class="footer-link-list">
           <li><a href={social.github} class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           <li><a href={social.linkedin} class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
           <li><a href={social.instagram} class="footer-link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
@@ -42,122 +69,216 @@ const currentYear = new Date().getFullYear();
 
     </div>
   </div>
-  
+
+  <!-- Footer Bottom Row -->
   <div class="container-xl footer-bottom">
-    <p class="copyright">&copy; {currentYear} {brand.name}. All rights reserved. <span class="divider">|</span> AI-Native Product Studio</p>
+    <p class="footer-copyright">&copy; {currentYear} {brand.name}. All rights reserved.</p>
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path d="M18 15l-6-6-6 6"/>
+      </svg>
+    </button>
   </div>
 </footer>
 
+<script>
+  // Back to Top
+  const backToTopBtn = document.getElementById('back-to-top');
+  const footerEl = document.getElementById('site-footer');
+  
+  if (backToTopBtn && footerEl) {
+    backToTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    
+    // Show/hide based on scroll position
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        backToTopBtn.classList.add('visible');
+      } else {
+        backToTopBtn.classList.remove('visible');
+      }
+    }, { passive: true });
+  }
+</script>
+
 <style>
   .site-footer {
-    background-color: var(--color-surface-muted);
+    background-color: var(--color-surface);
     border-top: var(--border-light);
-    padding-block-start: var(--space-64);
-    padding-block-end: var(--space-32);
-    margin-top: auto;
+    padding-block-start: var(--space-80);
   }
-  
-  .footer-inner {
-    display: flex;
-    flex-direction: column;
+
+  .footer-main {
+    display: grid;
+    grid-template-columns: 1fr;
     gap: var(--space-64);
-    margin-bottom: var(--space-48);
+    margin-block-end: var(--space-64);
   }
-  
-  .footer-brand {
+
+  @media (min-width: 768px) {
+    .footer-main {
+      grid-template-columns: 1fr 2fr;
+      gap: var(--space-96);
+    }
+  }
+
+  /* Brand */
+  .footer-logo-group {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    margin-block-end: var(--space-12);
+  }
+
+  .footer-logo {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+
+  .footer-brand-name {
+    font-size: var(--text-body);
+    font-weight: var(--weight-bold);
+    letter-spacing: -0.02em;
+    color: var(--color-primary);
+  }
+
+  .footer-brand-tagline {
+    font-size: var(--text-caption);
+    color: var(--color-text-secondary);
+    margin-block-end: var(--space-24);
+  }
+
+  .footer-meta {
     display: flex;
     flex-direction: column;
     gap: var(--space-8);
   }
-  
-  .brand-name {
-    font-size: var(--text-h4);
-    font-weight: var(--weight-bold);
-    letter-spacing: -0.02em;
-    color: var(--color-primary);
-    margin: 0;
-  }
-  
-  .brand-tagline {
-    color: var(--color-text-secondary);
-    font-size: var(--text-body);
-    margin: 0;
-    max-width: 30ch;
+
+  .meta-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-size: var(--text-label);
+    color: var(--color-muted);
+    font-family: var(--font-mono);
   }
 
-  .text-muted {
-    color: var(--color-text-secondary);
+  .meta-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: var(--radius-full);
+    background: var(--color-border);
   }
 
-  .footer-grid {
+  .meta-dot.active {
+    background: var(--color-success);
+  }
+
+  /* Nav Grid */
+  .footer-nav-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-48);
   }
-  
-  .footer-heading {
-    margin-block-end: var(--space-16);
-    color: var(--color-text-primary);
+
+  @media (min-width: 768px) {
+    .footer-nav-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
   }
-  
-  .footer-links {
+
+  .footer-col-heading {
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-text-primary);
+    margin-block-start: 0;
+    margin-block-end: var(--space-16);
+  }
+
+  .footer-link-list {
     list-style: none;
+    padding: 0;
+    margin: 0;
     display: flex;
     flex-direction: column;
     gap: var(--space-12);
-    padding: 0;
-    margin: 0;
   }
-  
+
   .footer-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
     color: var(--color-text-secondary);
     text-decoration: none;
-    font-size: var(--text-body);
+    font-size: var(--text-caption);
     transition: color var(--motion-fast);
   }
-  
-  .footer-link:hover,
-  .footer-link:focus-visible {
+
+  .footer-link:hover {
     color: var(--color-primary);
   }
-  
-  .footer-bottom {
-    border-top: var(--border-light);
-    padding-block-start: var(--space-32);
+
+  .footer-link-badge {
+    font-size: 10px;
+    font-weight: var(--weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: var(--radius-full);
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-accent);
   }
-  
-  .copyright {
+
+  /* Bottom row */
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: var(--space-24);
+    border-top: var(--border-light);
+  }
+
+  .footer-copyright {
+    font-size: var(--text-label);
     color: var(--color-muted);
-    font-size: var(--text-caption);
-    text-align: left;
     margin: 0;
   }
 
-  .divider {
-    margin-inline: var(--space-8);
-    opacity: 0.5;
+  /* Back to Top (Floating) */
+  .back-to-top {
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full);
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all var(--motion-normal);
+    pointer-events: none;
   }
 
-  @media (min-width: 768px) {
-    .site-footer {
-      padding-block-start: var(--space-96);
-      padding-block-end: var(--space-48);
-    }
-    
-    .footer-inner {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-      margin-bottom: var(--space-96);
-    }
-    
-    .footer-grid {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-80);
-    }
-    
-    .footer-brand {
-      max-width: 300px;
-    }
+  .back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+  }
+
+  .back-to-top:hover {
+    background: var(--color-accent);
+    transform: translateY(-3px);
+  }
+
+  .back-to-top svg {
+    width: 18px;
+    height: 18px;
   }
 </style>

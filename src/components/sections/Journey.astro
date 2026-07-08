@@ -1,32 +1,95 @@
 ---
-import { journey } from '../../config/journey';
+const milestones = [
+  {
+    id: 'vibe-coding',
+    year: '2024',
+    title: 'Google AI Vibe Coding',
+    desc: 'Eksperimen awal dengan AI-assisted development menggunakan Google AI Studio.',
+    descEn: 'Early experiments with AI-assisted development using Google AI Studio.',
+    status: 'completed',
+  },
+  {
+    id: 'kcc',
+    year: '2024',
+    title: 'KATON COMMAND CENTER',
+    desc: 'Fondasi pengetahuan dan standar rekayasa kat.on dibangun sebagai pusat komando internal.',
+    descEn: 'kat.on knowledge foundation and engineering standards built as an internal command center.',
+    status: 'completed',
+  },
+  {
+    id: 'knowledge-arch',
+    year: '2025',
+    title: 'Knowledge Architecture',
+    desc: 'Arsitektur pengetahuan institusional dirancang dan diimplementasikan untuk mendukung ARIA.',
+    descEn: 'Institutional knowledge architecture designed and implemented to support ARIA.',
+    status: 'completed',
+  },
+  {
+    id: 'aria-mvp',
+    year: '2026',
+    title: 'ARIA MVP',
+    desc: 'Minimum Viable Product ARIA selesai dibangun dengan kapabilitas Meeting Intelligence dan Document Automation.',
+    descEn: 'ARIA MVP completed with Meeting Intelligence and Document Automation capabilities.',
+    status: 'completed',
+  },
+  {
+    id: 'aria-launch',
+    year: 'Jul 2026',
+    title: 'ARIA Launch',
+    desc: 'Peluncuran resmi ARIA sebagai produk unggulan kat.on untuk sektor publik Indonesia.',
+    descEn: 'Official public launch of ARIA as kat.on\'s flagship product for the Indonesian public sector.',
+    status: 'active',
+  },
+  {
+    id: 'enterprise',
+    year: '2027',
+    title: 'Enterprise Edition',
+    desc: 'Ekspansi ARIA ke skala enterprise dengan dukungan multi-organisasi dan API publik.',
+    descEn: 'ARIA expansion to enterprise scale with multi-organization support and public API.',
+    status: 'upcoming',
+  },
+  {
+    id: 'ecosystem',
+    year: '2028',
+    title: 'AI Native Ecosystem',
+    desc: 'Ekosistem produk AI penuh yang saling terhubung untuk transformasi layanan publik.',
+    descEn: 'Full interconnected AI product ecosystem for public service transformation.',
+    status: 'upcoming',
+  },
+];
 ---
-<section class="section section-content journey-section" aria-labelledby="journey-heading">
+
+<section class="section section-xl journey-section" aria-labelledby="journey-heading">
   <div class="container-xl">
-    <div class="journey-header">
-      <span class="section-label label">Timeline</span>
-      <h2 id="journey-heading" class="h2">Journey</h2>
+
+    <div class="journey-header reveal">
+      <span class="label text-muted">Perjalanan / Story</span>
+      <h2 id="journey-heading" class="section-title">Dari Nol ke Produk</h2>
+      <p class="bilingual-en text-muted">From Zero to Product</p>
     </div>
-    <div class="timeline">
-      {journey.map(group => (
-        <ol class="timeline-list" aria-label={`${group.year} milestones`}>
-          {group.milestones.map((milestone, index) => (
-            <li class="timeline-item">
-              <div class="timeline-indicator" aria-hidden="true">
-                <span class="timeline-dot"></span>
-                {index < group.milestones.length - 1 && (
-                  <span class="timeline-line"></span>
-                )}
+
+    <!-- Horizontal Desktop Timeline -->
+    <div class="timeline-scroll-wrapper">
+      <div class="timeline-track">
+        {milestones.map((milestone, index) => (
+          <div class={`timeline-node ${milestone.status}`} id={`milestone-${milestone.id}`}>
+            <div class="node-marker">
+              <div class="node-dot"></div>
+              {index < milestones.length - 1 && <div class="node-line"></div>}
+            </div>
+            <div class="node-content">
+              <span class="node-year label text-muted">{milestone.year}</span>
+              <h3 class="card-title node-title">{milestone.title}</h3>
+              <div class="bilingual-group">
+                <p class="bilingual-id">{milestone.desc}</p>
+                <p class="bilingual-en">{milestone.descEn}</p>
               </div>
-              <div class="timeline-content">
-                <h3 class="milestone-title title">{milestone.title}</h3>
-                <p class="milestone-desc body text-muted">{milestone.description}</p>
-              </div>
-            </li>
-          ))}
-        </ol>
-      ))}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
+
   </div>
 </section>
 
@@ -34,72 +97,178 @@ import { journey } from '../../config/journey';
   .journey-section {
     background-color: var(--color-surface);
     border-top: var(--border-light);
+    overflow: hidden; /* clip horizontal scroll from bleeding out */
   }
 
   .journey-header {
     margin-block-end: var(--space-64);
   }
 
-  .section-label {
-    display: block;
-    color: var(--color-muted);
-    margin-block-end: var(--space-16);
+  .text-muted { color: var(--color-text-secondary); }
+
+  /* -----------------------------------------------------------------------
+     Mobile: Vertical Timeline
+     ----------------------------------------------------------------------- */
+  .timeline-scroll-wrapper {
+    width: 100%;
   }
 
-  .timeline {
-    max-width: 40rem;
+  .timeline-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
   }
 
-  .timeline-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-
-  .timeline-item {
+  .timeline-node {
     display: flex;
     gap: var(--space-24);
+    position: relative;
   }
 
-  .timeline-indicator {
+  .node-marker {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-top: var(--space-8);
-    width: var(--space-16);
     flex-shrink: 0;
+    width: 24px;
+    padding-top: var(--space-4);
   }
 
-  .timeline-dot {
-    width: 7px;
-    height: 7px;
+  .node-dot {
+    width: 14px;
+    height: 14px;
     border-radius: var(--radius-full);
-    background-color: var(--color-text-primary);
+    background-color: var(--color-border);
+    border: 2px solid var(--color-surface);
+    box-shadow: 0 0 0 2px var(--color-border);
+    z-index: 1;
     flex-shrink: 0;
   }
 
-  .timeline-line {
-    width: 1px;
-    flex-grow: 1;
-    background-color: var(--color-border);
-    margin-block: var(--space-8);
-    min-height: var(--space-48);
+  .timeline-node.completed .node-dot {
+    background-color: var(--color-primary);
+    box-shadow: 0 0 0 2px rgba(15, 23, 42, 0.1);
   }
 
-  .timeline-content {
+  .timeline-node.active .node-dot {
+    background-color: var(--color-accent);
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.2);
+    width: 16px;
+    height: 16px;
+  }
+
+  .node-line {
+    width: 2px;
+    flex-grow: 1;
+    background: var(--color-border);
+    min-height: 40px;
+    margin-block: var(--space-8);
+  }
+
+  .node-content {
     padding-bottom: var(--space-48);
   }
 
-  .milestone-title {
-    color: var(--color-text-primary);
-    margin-block: 0 var(--space-8);
+  .node-year {
+    display: block;
+    margin-block-end: var(--space-8);
   }
 
-  .milestone-desc {
-    color: var(--color-text-secondary);
-    margin-block: 0;
-    max-width: 45ch;
+  .node-title {
+    margin-block-start: 0;
+    margin-block-end: var(--space-12);
   }
 
-  .text-muted { color: var(--color-text-secondary); }
+  .timeline-node.upcoming .node-title,
+  .timeline-node.upcoming .bilingual-id,
+  .timeline-node.upcoming .bilingual-en {
+    color: var(--color-muted);
+  }
+
+  .timeline-node.active .node-title {
+    color: var(--color-accent);
+  }
+
+  /* -----------------------------------------------------------------------
+     Desktop: Horizontal Timeline
+     ----------------------------------------------------------------------- */
+  @media (min-width: 1024px) {
+    .timeline-scroll-wrapper {
+      overflow-x: auto;
+      padding-block-end: var(--space-32);
+      scrollbar-width: thin;
+      scrollbar-color: var(--color-border) transparent;
+    }
+
+    .timeline-scroll-wrapper::-webkit-scrollbar {
+      height: 4px;
+    }
+
+    .timeline-scroll-wrapper::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .timeline-scroll-wrapper::-webkit-scrollbar-thumb {
+      background: var(--color-border);
+      border-radius: var(--radius-full);
+    }
+
+    .timeline-track {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 0;
+      min-width: max-content;
+      padding-inline: var(--space-32);
+    }
+
+    .timeline-node {
+      flex-direction: column;
+      gap: var(--space-16);
+      width: 240px;
+      flex-shrink: 0;
+    }
+
+    .node-marker {
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      padding-top: 0;
+    }
+
+    .node-line {
+      width: auto;
+      flex-grow: 1;
+      height: 2px;
+      min-height: 0;
+      margin-block: 0;
+      margin-inline: var(--space-8);
+    }
+
+    .node-content {
+      padding-bottom: 0;
+      padding-inline-end: var(--space-24);
+    }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
+
+<script>
+  if (typeof window !== 'undefined') {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('active');
+      });
+    }, { threshold: 0.05 });
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  }
+</script>
