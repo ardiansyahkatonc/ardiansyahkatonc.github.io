@@ -1,6 +1,7 @@
 ---
 import Logo from '../common/Logo.astro';
 import LanguageSwitcher from '../common/LanguageSwitcher.astro';
+import ThemeSwitcher from '../common/ThemeSwitcher.astro';
 import { HOME_HREF, NAV_ITEMS, NAV_CTA } from '../../config/navigation';
 import { getLangFromUrl, useTranslations, localizePath, stripLangPrefix } from '../../i18n';
 
@@ -36,12 +37,7 @@ const isActive = (href: string) =>
 
     <!-- Right: Theme + Language + CTA -->
     <div class="header-right">
-      <button
-        id="theme-toggle"
-        class="theme-toggle"
-        aria-label="Theme"
-        title="Theme"
-      >💻</button>
+      <ThemeSwitcher />
       <LanguageSwitcher />
       <a href={localizePath(NAV_CTA.href, lang)} class="header-cta" id="header-cta">
         {t(NAV_CTA.key as any)}
@@ -188,49 +184,6 @@ const isActive = (href: string) =>
     gap: var(--space-12);
     flex-shrink: 0;
   }
-
-  /* Theme Toggle */
-  .theme-toggle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 32px;
-    height: 32px;
-    padding: 0;
-    border: var(--border-thin);
-    border-radius: var(--radius-full);
-    background: transparent;
-    font-size: 14px;
-    line-height: 1;
-    cursor: pointer;
-    transition: all var(--motion-fast);
-  }
-  .theme-toggle:hover {
-    background-color: var(--color-surface);
-    border-color: var(--color-border);
-  }
-
-  /* Language Toggle */
-  .lang-toggle {
-    display: none;
-    height: 32px;
-    padding-inline: var(--space-12);
-    border: var(--border-thin);
-    border-radius: var(--radius-full);
-    background: transparent;
-    color: var(--color-text-secondary);
-    font-size: var(--text-label);
-    font-weight: var(--weight-semibold);
-    letter-spacing: 0.06em;
-    cursor: pointer;
-    transition: all var(--motion-fast);
-  }
-  .lang-toggle:hover {
-    background-color: var(--color-surface);
-    color: var(--color-primary);
-    border-color: var(--color-border);
-  }
-  @media (min-width: 768px) { .lang-toggle { display: flex; align-items: center; } }
 
   /* CTA Button */
   .header-cta {

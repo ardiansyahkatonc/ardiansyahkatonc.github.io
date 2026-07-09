@@ -116,6 +116,23 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   --surface-nav-active:      rgba(255, 255, 255, 0.90);
   --surface-nav-hover:       rgba(15, 23, 42, 0.04);
 
+  /* 15. Brand Colors — official, CONSTANT across themes (never overridden) */
+  --brand-navy:     #0F172A;
+  --brand-blue:     #2563EB;
+  --brand-cyan:     #06B6D4;
+  --brand-electric: #3B82F6;
+  --brand-purple:   #6366F1;
+  --brand-glow-cyan:#22D3EE;
+
+  /* 16. Focus Ring — accent-based, adapts with theme */
+  --focus-ring-color: var(--color-accent);
+  --focus-ring:       0 0 0 3px var(--color-accent-glow);
+
+  /* 17. Decorative / dashboard chrome — theme-adaptive */
+  --grid-line:      rgba(15, 23, 42, 0.025);
+  --dash-topbar-bg: rgba(255, 255, 255, 0.55);
+  --dash-sidebar-bg:rgba(15, 23, 42, 0.03);
+
   color-scheme: light;
 }
 
@@ -163,6 +180,10 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   --surface-nav-active:      rgba(255, 255, 255, 0.12);
   --surface-nav-hover:       rgba(255, 255, 255, 0.08);
 
+  --grid-line:      rgba(255, 255, 255, 0.035);
+  --dash-topbar-bg: rgba(255, 255, 255, 0.03);
+  --dash-sidebar-bg:rgba(255, 255, 255, 0.02);
+
   color-scheme: dark;
 }
 
@@ -178,6 +199,49 @@ body {
 
 a { color: inherit; }
 button { cursor: pointer; }
+
+/* ==========================================================================
+   Focus Visibility (Accessibility) — consistent, theme-aware ring
+   ========================================================================== */
+:where(a, button, summary, input, select, textarea, [tabindex]):focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-small);
+}
+
+/* ==========================================================================
+   Theme Transition — brief, smooth color crossfade on manual theme switch.
+   The `.theme-transition` class is added to <html> by the theme engine for
+   ~220ms during a switch, then removed (never permanent → no repaint cost
+   at rest). Only color-ish properties transition; layout/transform untouched.
+   ========================================================================== */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-transition,
+  html.theme-transition *,
+  html.theme-transition *::before,
+  html.theme-transition *::after {
+    transition:
+      background-color 220ms ease,
+      border-color 220ms ease,
+      color 220ms ease,
+      fill 220ms ease,
+      box-shadow 220ms ease !important;
+    transition-delay: 0ms !important;
+  }
+}
+
+/* ==========================================================================
+   Reduced Motion — respect the user's OS preference
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1 !important; transform: none !important; }
+}
 
 /* ==========================================================================
    Layout Wrapper

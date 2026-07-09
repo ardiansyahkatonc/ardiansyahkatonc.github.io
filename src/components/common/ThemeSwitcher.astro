@@ -1,0 +1,137 @@
+---
+// =============================================================================
+// ThemeSwitcher — Light / Dark / System.
+// Desktop: segmented ☀ 🌙 💻. Mobile: compact <details> dropdown.
+// Accessible: real <button>s, aria-pressed (set by the theme engine),
+// keyboard-native, visible focus (global :focus-visible ring).
+// Wiring + persistence live in src/scripts/theme.ts.
+// =============================================================================
+import { THEME_ICONS, THEME_LABELS } from '../../scripts/theme';
+
+const prefs = ['light', 'dark', 'system'] as const;
+const options = prefs.map((p) => ({ pref: p, icon: THEME_ICONS[p], label: THEME_LABELS[p] }));
+---
+<div class="theme-switch">
+  <!-- Desktop: segmented -->
+  <div class="theme-seg" role="group" aria-label="Theme">
+    {options.map((o) => (
+      <button
+        type="button"
+        class="theme-seg-btn"
+        data-theme-choice={o.pref}
+        aria-label={o.label}
+        title={o.label}
+        aria-pressed="false"
+      ><span aria-hidden="true">{o.icon}</span></button>
+    ))}
+  </div>
+
+  <!-- Mobile: compact dropdown -->
+  <details class="theme-drop">
+    <summary aria-label="Theme" aria-haspopup="menu">
+      <span data-theme-current aria-hidden="true">💻</span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+    </summary>
+    <ul class="theme-drop-menu" role="list">
+      {options.map((o) => (
+        <li>
+          <button type="button" class="theme-drop-item" data-theme-choice={o.pref} aria-pressed="false">
+            <span class="drop-icon" aria-hidden="true">{o.icon}</span>
+            {o.label}
+          </button>
+        </li>
+      ))}
+    </ul>
+  </details>
+</div>
+
+<style>
+  .theme-switch { display: flex; align-items: center; }
+
+  /* ── Segmented (desktop) ─────────────────────────── */
+  .theme-seg {
+    display: none;
+    padding: 3px;
+    gap: 2px;
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: var(--surface-nav-pill);
+  }
+  @media (min-width: 768px) { .theme-seg { display: inline-flex; } }
+
+  .theme-seg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 26px;
+    padding: 0;
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-full);
+    font-size: 13px;
+    line-height: 1;
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background var(--motion-fast), transform var(--motion-fast);
+  }
+  .theme-seg-btn:hover { transform: translateY(-1px); }
+  .theme-seg-btn.is-active {
+    background: var(--color-surface);
+    box-shadow: var(--shadow-xs);
+  }
+
+  /* ── Dropdown (mobile) ───────────────────────────── */
+  .theme-drop { position: relative; display: block; }
+  @media (min-width: 768px) { .theme-drop { display: none; } }
+
+  .theme-drop > summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+    padding-inline: var(--space-12);
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: 14px;
+    cursor: pointer;
+    list-style: none;
+  }
+  .theme-drop > summary::-webkit-details-marker { display: none; }
+  .theme-drop > summary svg { width: 12px; height: 12px; }
+
+  .theme-drop-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    min-width: 150px;
+    list-style: none;
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-dropdown);
+  }
+
+  .theme-drop-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    width: 100%;
+    padding: var(--space-8) var(--space-12);
+    border: none;
+    background: transparent;
+    border-radius: var(--radius-medium);
+    font-size: var(--text-body-sm);
+    color: var(--color-text-secondary);
+    text-align: left;
+    cursor: pointer;
+  }
+  .theme-drop-item:hover { background: var(--surface-nav-hover); color: var(--color-primary); }
+  .theme-drop-item.is-active { color: var(--color-accent); font-weight: var(--weight-semibold); }
+  .drop-icon { width: 18px; text-align: center; }
+</style>

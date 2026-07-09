@@ -279,11 +279,11 @@ const L = strings[lang];
     z-index: 1;
     display: flex;
     border-radius: var(--radius-2xl);
-    border: 1px solid rgba(255, 255, 255, 0.7);
+    border: 1px solid var(--color-glass-border);
     background: var(--color-glass);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,0.5) inset;
+    box-shadow: var(--shadow-xl), 0 0 0 1px var(--color-glass-border) inset;
     overflow: hidden;
     height: 520px;
     animation: floatY 7s ease-in-out infinite;
@@ -298,8 +298,8 @@ const L = strings[lang];
   .dash-sidebar {
     width: 180px;
     flex-shrink: 0;
-    background: rgba(15, 23, 42, 0.03);
-    border-right: 1px solid rgba(15, 23, 42, 0.05);
+    background: var(--dash-sidebar-bg);
+    border-right: 1px solid var(--color-border-light);
     display: flex;
     flex-direction: column;
     padding: 20px 12px;
@@ -349,7 +349,7 @@ const L = strings[lang];
   }
 
   .sidebar-nav-item--active {
-    background: rgba(37, 99, 235, 0.08);
+    background: var(--color-accent-light);
     color: var(--color-accent);
   }
 
@@ -365,7 +365,7 @@ const L = strings[lang];
     gap: 8px;
     padding: 8px;
     border-radius: 10px;
-    border: 1px solid rgba(15,23,42,0.06);
+    border: 1px solid var(--color-border-light);
     background: var(--color-surface);
   }
 
@@ -410,8 +410,8 @@ const L = strings[lang];
     align-items: center;
     justify-content: space-between;
     padding: 16px 20px;
-    border-bottom: 1px solid rgba(15,23,42,0.05);
-    background: rgba(255,255,255,0.5);
+    border-bottom: 1px solid var(--color-border-light);
+    background: var(--dash-topbar-bg);
     flex-shrink: 0;
   }
 
@@ -439,7 +439,7 @@ const L = strings[lang];
     width: 28px;
     height: 28px;
     border-radius: 7px;
-    border: 1px solid rgba(15,23,42,0.08);
+    border: 1px solid var(--color-border);
     background: var(--color-surface);
     display: flex;
     align-items: center;
@@ -469,10 +469,10 @@ const L = strings[lang];
   /* ── Cards ─────────────────────────────────────────── */
   .dash-card {
     background: var(--color-surface);
-    border: 1px solid rgba(15,23,42,0.06);
+    border: 1px solid var(--color-border-light);
     border-radius: 14px;
     padding: 14px;
-    box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    box-shadow: var(--shadow-sm);
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -574,7 +574,7 @@ const L = strings[lang];
     align-items: center;
     gap: 8px;
     padding: 6px 0;
-    border-bottom: 1px solid rgba(15,23,42,0.04);
+    border-bottom: 1px solid var(--color-border-light);
   }
 
   .meeting-item:last-child { border-bottom: none; }
@@ -642,7 +642,7 @@ const L = strings[lang];
     width: 14px;
     height: 14px;
     border-radius: 4px;
-    border: 1.5px solid rgba(15,23,42,0.15);
+    border: 1.5px solid var(--color-border);
     flex-shrink: 0;
   }
 
@@ -683,7 +683,7 @@ const L = strings[lang];
     align-items: center;
     gap: 6px;
     background: var(--color-surface-muted);
-    border: 1px solid rgba(15,23,42,0.06);
+    border: 1px solid var(--color-border-light);
     border-radius: 8px;
     padding: 6px 10px;
   }
