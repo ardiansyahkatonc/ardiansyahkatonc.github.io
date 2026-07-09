@@ -1,63 +1,28 @@
 ---
-const storytelling = [
-  {
-    id: 'problem',
-    label: 'Masalah',
-    labelEn: 'The Problem',
-    title: 'Fragmentasi & Beban Administrasi',
-    titleEn: 'Fragmentation & Administrative Burden',
-    description: 'Informasi penting tersebar di email, dokumen terpisah, dan rapat yang tidak tercatat. Staf menghabiskan waktu berharga untuk tugas rutin yang berulang.',
-    descriptionEn: 'Critical information is scattered across emails, disjointed documents, and unrecorded meetings. Staff spend valuable time on repetitive routine tasks.',
-  },
-  {
-    id: 'impact',
-    label: 'Dampak',
-    labelEn: 'The Impact',
-    title: 'Penurunan Kecepatan Layanan Publik',
-    titleEn: 'Slower Public Service Delivery',
-    description: 'Hilangnya konteks institusional menyebabkan pengambilan keputusan menjadi lambat, tidak konsisten, dan sangat bergantung pada ingatan individu.',
-    descriptionEn: 'Loss of institutional context leads to slow, inconsistent decision-making that heavily relies on individual memory.',
-  },
-  {
-    id: 'solution',
-    label: 'Solusi ARIA',
-    labelEn: 'The ARIA Solution',
-    title: 'Inteligensi Eksekutif Terpusat',
-    titleEn: 'Centralized Executive Intelligence',
-    description: 'ARIA mengintegrasikan alur kerja otomatis ke dalam operasi harian—menangkap, menyusun, dan mengamankan informasi tanpa menambah beban kerja.',
-    descriptionEn: 'ARIA integrates automated workflows into daily operations—capturing, structuring, and securing information without adding to the workload.',
-  },
-];
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const stories = ['p1', 'p2', 'p3'] as const;
 ---
 <section class="section section-content problem-section" aria-labelledby="problem-heading">
   <div class="container-lg">
     <div class="section-header text-center reveal">
-      <h2 id="problem-heading" class="section-title">Mengapa Kami Membangun ARIA</h2>
-      <p class="bilingual-en">Why We Built ARIA</p>
+      <h2 id="problem-heading" class="section-title">{t('problem.heading')}</h2>
     </div>
-    
+
     <div class="storytelling-flow">
-      {storytelling.map((story, index) => (
-        <div class="story-card reveal" id={`story-${story.id}`}>
+      {stories.map((s, index) => (
+        <div class="story-card reveal" id={`story-${s}`}>
           <div class="story-indicator">
             <div class="story-dot"></div>
-            {index < storytelling.length - 1 && <div class="story-line"></div>}
+            {index < stories.length - 1 && <div class="story-line"></div>}
           </div>
           <div class="story-content">
-            <div class="bilingual-group mb-8">
-              <span class="label text-accent">{story.label}</span>
-              <span class="bilingual-en label">{story.labelEn}</span>
-            </div>
-            
-            <div class="bilingual-group mb-16">
-              <h3 class="card-title">{story.title}</h3>
-              <p class="bilingual-en">{story.titleEn}</p>
-            </div>
-            
-            <div class="bilingual-group">
-              <p class="body text-muted">{story.description}</p>
-              <p class="bilingual-en">{story.descriptionEn}</p>
-            </div>
+            <div class="mb-8 label text-accent">{t(`problem.${s}.label` as any)}</div>
+            <h3 class="card-title mb-16">{t(`problem.${s}.title` as any)}</h3>
+            <p class="body text-muted">{t(`problem.${s}.desc` as any)}</p>
           </div>
         </div>
       ))}
@@ -124,31 +89,4 @@ const storytelling = [
     padding-bottom: var(--space-64);
     background: transparent;
   }
-  
-  /* Reveal Animation Logic handled globally but setup here */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
 </style>
-
-<script>
-  // Simple intersection observer for scroll reveals
-  if (typeof window !== 'undefined') {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-        }
-      });
-    }, { threshold: 0.1 });
-
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
-</script>

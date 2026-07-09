@@ -1,80 +1,51 @@
 ---
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const products = [
-  {
-    id: 'aria',
-    name: 'ARIA',
-    status: 'Flagship Product',
-    statusVariant: 'primary',
-    desc: 'Asisten Eksekutif AI untuk Sektor Publik.',
-    descEn: 'AI Executive Assistant for the Public Sector.',
-    href: '/aria',
-    cta: 'Explore ARIA',
-    active: true,
-  },
-  {
-    id: 'kcc',
-    name: 'KCC',
-    status: 'Internal Platform',
-    statusVariant: 'neutral',
-    desc: 'Pusat komando pengetahuan dan standar rekayasa kat.on.',
-    descEn: 'kat.on Command Center — the knowledge and engineering standard hub.',
-    href: null,
-    cta: 'Internal Access Only',
-    active: false,
-  },
-  {
-    id: 'future',
-    name: 'Future Products',
-    status: 'Coming Soon',
-    statusVariant: 'neutral',
-    desc: 'Ekosistem AI yang terus berkembang untuk layanan publik.',
-    descEn: 'A continuously expanding AI ecosystem for public service.',
-    href: '/projects',
-    cta: 'View Roadmap',
-    active: false,
-  },
-];
+  { id: 'aria', name: 'ARIA', statusVariant: 'primary', href: '/aria', active: true },
+  { id: 'kcc', name: 'KCC', statusVariant: 'neutral', href: null, active: false },
+  { id: 'future', name: 'Future Products', statusVariant: 'neutral', href: '/projects', active: false },
+] as const;
 ---
 
 <section class="section section-xl ecosystem-section" aria-labelledby="ecosystem-heading">
   <div class="container-xl">
 
     <div class="ecosystem-header reveal">
-      <span class="label text-muted">Ekosistem / Ecosystem</span>
-      <h2 id="ecosystem-heading" class="section-title">Produk kat.on</h2>
-      <p class="bilingual-en text-muted">kat.on Products</p>
+      <span class="label text-muted">{t('ecosystem.label')}</span>
+      <h2 id="ecosystem-heading" class="section-title">{t('ecosystem.title')}</h2>
     </div>
 
     <div class="ecosystem-roadmap">
       {products.map((product, index) => (
         <div class="roadmap-item reveal" id={`product-${product.id}`}>
-          {/* Connector line between cards */}
           {index < products.length - 1 && (
             <div class="roadmap-connector">
               <div class="connector-line"></div>
               <div class="connector-arrow">↓</div>
             </div>
           )}
-          
+
           <div class={`roadmap-card ${product.active ? 'is-active' : ''}`}>
             <div class="roadmap-card-header">
               <div class="roadmap-badge-group">
-                <span class={`roadmap-badge badge-${product.statusVariant}`}>{product.status}</span>
+                <span class={`roadmap-badge badge-${product.statusVariant}`}>{t(`ecosystem.${product.id}.status` as any)}</span>
               </div>
               <h3 class={`card-title product-name ${!product.active ? 'text-muted' : ''}`}>{product.name}</h3>
             </div>
-            
-            <div class="bilingual-group roadmap-desc">
-              <p class="bilingual-id">{product.desc}</p>
-              <p class="bilingual-en">{product.descEn}</p>
-            </div>
+
+            <div class="roadmap-desc body-sm">{t(`ecosystem.${product.id}.desc` as any)}</div>
 
             {product.href ? (
-              <a href={product.href} class={`roadmap-cta ${product.active ? 'cta-primary' : 'cta-secondary'}`}>
-                {product.cta} →
+              <a href={localizePath(product.href, lang)} class={`roadmap-cta ${product.active ? 'cta-primary' : 'cta-secondary'}`}>
+                {t(`ecosystem.${product.id}.cta` as any)}
+                <span aria-hidden="true" class="cta-arr">→</span>
               </a>
             ) : (
-              <span class="roadmap-cta cta-disabled">{product.cta}</span>
+              <span class="roadmap-cta cta-disabled">{t(`ecosystem.${product.id}.cta` as any)}</span>
             )}
           </div>
         </div>
@@ -84,25 +55,15 @@ const products = [
   </div>
 </section>
 
-<script>
-  if (typeof window !== 'undefined') {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
-</script>
-
 <style>
   .ecosystem-section {
-    background-color: var(--color-background);
+    background-color: var(--color-surface);
     border-top: var(--border-light);
   }
 
   .ecosystem-header {
     margin-block-end: var(--space-80);
+    text-align: center;
   }
 
   .text-muted { color: var(--color-text-secondary); }
@@ -111,7 +72,7 @@ const products = [
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 640px;
+    max-width: 500px;
     margin: 0 auto;
   }
 
@@ -124,16 +85,17 @@ const products = [
 
   .roadmap-card {
     width: 100%;
-    background: var(--color-surface);
+    background: var(--color-background);
     border: var(--border-thin);
     border-radius: var(--radius-2xl);
-    padding: var(--space-48);
+    padding: var(--space-32);
     transition: box-shadow var(--motion-normal), transform var(--motion-normal);
   }
 
   .roadmap-card.is-active {
-    border-color: var(--color-accent);
-    box-shadow: 0 0 0 1px var(--color-accent), var(--shadow-lg);
+    background: var(--color-surface);
+    border-color: var(--color-border-accent);
+    box-shadow: 0 0 0 1px var(--color-border-accent), var(--shadow-sm);
   }
 
   .roadmap-card:hover {
@@ -141,13 +103,8 @@ const products = [
     box-shadow: var(--shadow-lg);
   }
 
-  .roadmap-card-header {
-    margin-block-end: var(--space-24);
-  }
-
-  .roadmap-badge-group {
-    margin-block-end: var(--space-16);
-  }
+  .roadmap-card-header { margin-block-end: var(--space-16); }
+  .roadmap-badge-group { margin-block-end: var(--space-12); }
 
   .roadmap-badge {
     display: inline-block;
@@ -169,50 +126,36 @@ const products = [
     color: var(--color-text-secondary);
   }
 
-  .product-name {
-    margin-block-start: 0;
-    margin-block-end: 0;
-  }
-
-  .roadmap-desc {
-    margin-block-end: var(--space-32);
-  }
+  .product-name { margin: 0; }
+  .roadmap-desc { margin-block-end: var(--space-24); color: var(--color-text-secondary); }
 
   .roadmap-cta {
     display: inline-flex;
+    align-items: center;
+    gap: var(--space-4);
     font-weight: var(--weight-medium);
     font-size: var(--text-caption);
     text-decoration: none;
     transition: all var(--motion-fast);
   }
 
-  .cta-primary {
-    color: var(--color-accent);
-  }
+  .cta-primary { color: var(--color-accent); }
+  .cta-primary:hover { color: var(--color-accent-hover); }
+  .cta-primary:hover .cta-arr { transform: translateX(3px); }
 
-  .cta-primary:hover {
-    text-decoration: underline;
-  }
+  .cta-secondary { color: var(--color-text-secondary); }
+  .cta-secondary:hover { color: var(--color-primary); }
 
-  .cta-secondary {
-    color: var(--color-text-secondary);
-  }
+  .cta-disabled { color: var(--color-muted); cursor: default; }
 
-  .cta-secondary:hover {
-    color: var(--color-primary);
-  }
-
-  .cta-disabled {
-    color: var(--color-muted);
-    cursor: default;
-  }
+  .cta-arr { transition: transform var(--motion-fast); }
 
   .roadmap-connector {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-block: var(--space-16);
-    color: var(--color-muted);
+    color: var(--color-border);
   }
 
   .connector-line {
@@ -221,18 +164,5 @@ const products = [
     background: var(--color-border);
   }
 
-  .connector-arrow {
-    font-size: var(--text-caption);
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  .connector-arrow { font-size: var(--text-caption); }
 </style>

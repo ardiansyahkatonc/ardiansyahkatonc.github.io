@@ -1,49 +1,47 @@
 ---
-import { Card } from '../ui/card';
-import { Badge } from '../ui/badge';
-import PremiumMockup from '../ui/mockup/PremiumMockup.astro';
+import ARIADashboard from '../ui/mockup/ARIADashboard.astro';
 
 const capabilities = [
   {
     icon: '◎',
     id: 'exec-briefing',
     title: 'Executive Briefing',
-    desc: 'Ringkasan eksekutif harian otomatis dari semua aktivitas, rapat, dan keputusan penting.',
+    descId: 'Ringkasan eksekutif harian otomatis dari semua aktivitas, rapat, dan keputusan penting.',
     descEn: 'Automated daily executive summaries from all activities, meetings, and key decisions.',
   },
   {
     icon: '◈',
     id: 'meeting-intel',
     title: 'Meeting Intelligence',
-    desc: 'Mengubah percakapan menjadi notulen resmi, keputusan, dan tindak lanjut secara otomatis.',
+    descId: 'Mengubah percakapan menjadi notulen resmi, keputusan, dan tindak lanjut secara otomatis.',
     descEn: 'Automatically converts meetings into structured minutes, decisions, and follow-up actions.',
   },
   {
     icon: '▣',
     id: 'knowledge-mgmt',
     title: 'Knowledge Management',
-    desc: 'Membangun basis pengetahuan institusional yang dinamis, dapat dicari, dan berkelanjutan.',
+    descId: 'Membangun basis pengetahuan institusional yang dinamis, dapat dicari, dan berkelanjutan.',
     descEn: 'Builds a dynamic institutional knowledge base that is searchable, contextual, and sustainable.',
   },
   {
     icon: '⬡',
     id: 'doc-auto',
     title: 'Document Automation',
-    desc: 'Mempercepat pembuatan dokumen administrasi menggunakan konteks organisasi secara langsung.',
+    descId: 'Mempercepat pembuatan dokumen administrasi menggunakan konteks organisasi secara langsung.',
     descEn: 'Accelerates administrative document creation using your organization\'s context directly.',
   },
   {
     icon: '◇',
     id: 'decision-support',
     title: 'Decision Support',
-    desc: 'Memberikan rekomendasi berbasis data dari memori institusional untuk mendukung pengambilan keputusan.',
+    descId: 'Memberikan rekomendasi berbasis data dari memori institusional untuk mendukung pengambilan keputusan.',
     descEn: 'Provides data-driven recommendations from institutional memory to support decision-making.',
   },
   {
     icon: '◉',
     id: 'workspace',
     title: 'AI Workspace',
-    desc: 'Antarmuka terpusat dan aman untuk semua tugas berbantuan AI—rapat, dokumen, dan pengetahuan.',
+    descId: 'Antarmuka terpusat dan aman untuk semua tugas berbantuan AI—rapat, dokumen, dan pengetahuan.',
     descEn: 'A centralized, secure interface for all AI-assisted tasks — meetings, documents, and knowledge.',
   },
 ];
@@ -55,75 +53,69 @@ const capabilities = [
     <!-- Section Header -->
     <div class="aria-header reveal">
       <div class="aria-badge-row">
-        <Badge variant="primary">Flagship Product</Badge>
+        <span class="aria-badge">
+          <span data-lang-id>Produk Unggulan</span>
+          <span data-lang-en style="display:none">Flagship Product</span>
+        </span>
       </div>
       <h2 id="aria-heading" class="section-title aria-title">ARIA</h2>
-      <div class="bilingual-group aria-subtitle-group">
-        <p class="bilingual-id body-lg text-measure">Asisten Eksekutif AI untuk Sektor Publik — mengelola rapat, dokumen, pengetahuan, dan keputusan organisasi Anda.</p>
-        <p class="bilingual-en text-measure">AI Executive Assistant for the Public Sector — managing your organization's meetings, documents, knowledge, and decisions.</p>
+      <div class="aria-subtitle-group">
+        <p class="body-lg text-measure text-muted">
+          <span data-lang-id>Asisten Eksekutif AI untuk Sektor Publik — mengelola rapat, dokumen, pengetahuan, dan keputusan organisasi Anda.</span>
+          <span data-lang-en style="display:none">AI Executive Assistant for the Public Sector — managing your organization's meetings, documents, knowledge, and decisions.</span>
+        </p>
       </div>
     </div>
 
     <!-- Mockup -->
-    <div class="aria-mockup reveal animate-delay-100">
-      <PremiumMockup />
+    <div class="aria-mockup reveal animate-delay-1">
+      <ARIADashboard />
     </div>
 
     <!-- Capabilities Grid -->
     <div class="capabilities-header reveal">
-      <span class="label text-muted">Kapabilitas Utama / Core Capabilities</span>
+      <span class="label text-muted">
+        <span data-lang-id>Kapabilitas Utama</span>
+        <span data-lang-en style="display:none">Core Capabilities</span>
+      </span>
     </div>
     <div class="grid-2 capabilities-grid">
-      {capabilities.map((cap) => (
-        <div class="capability-card reveal" id={cap.id}>
+      {capabilities.map((cap, idx) => (
+        <div class={`capability-card reveal reveal-delay-${(idx % 2) + 1}`} id={cap.id}>
           <div class="capability-icon">{cap.icon}</div>
           <div class="capability-text">
             <h3 class="card-title capability-title">{cap.title}</h3>
-            <div class="bilingual-group">
-              <p class="bilingual-id">{cap.desc}</p>
-              <p class="bilingual-en">{cap.descEn}</p>
-            </div>
+            <p class="body-sm text-secondary">
+              <span data-lang-id>{cap.descId}</span>
+              <span data-lang-en style="display:none">{cap.descEn}</span>
+            </p>
           </div>
         </div>
       ))}
     </div>
 
-    <!-- Value Block -->
-    <div class="aria-cta-block reveal">
-      <h3 class="card-title">Siap mengubah cara kerja tim Anda?</h3>
-      <p class="bilingual-en text-muted">Ready to transform how your team works?</p>
-      <div class="aria-cta-actions">
-        <a href="/aria" class="btn-primary">Lihat ARIA Selengkapnya</a>
-        <a href="/contact" class="btn-secondary">Hubungi Kami</a>
-      </div>
-    </div>
-
   </div>
 </section>
 
-<script>
-  if (typeof window !== 'undefined') {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('active');
-      });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-  }
-</script>
-
 <style>
   .aria-section {
-    background: linear-gradient(180deg, var(--color-background) 0%, var(--color-surface) 100%);
+    background: var(--color-background);
     border-top: var(--border-light);
   }
 
-  .aria-header {
-    margin-block-end: var(--space-64);
-  }
+  .aria-header { margin-block-end: var(--space-64); }
+  .aria-badge-row { margin-block-end: var(--space-24); }
 
-  .aria-badge-row {
-    margin-block-end: var(--space-24);
+  .aria-badge {
+    display: inline-flex;
+    padding: var(--space-4) var(--space-12);
+    border-radius: var(--radius-full);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(37, 99, 235, 0.1);
+    color: var(--color-accent);
   }
 
   .aria-title {
@@ -131,19 +123,12 @@ const capabilities = [
     margin-block-end: var(--space-24);
   }
 
-  .aria-subtitle-group {
-    max-width: 60ch;
-  }
-
-  .aria-mockup {
-    margin-block-end: var(--space-96);
-  }
-
-  .capabilities-header {
-    margin-block-end: var(--space-48);
-  }
-
+  .aria-subtitle-group { max-width: 60ch; }
   .text-muted { color: var(--color-text-secondary); }
+  .text-secondary { color: var(--color-text-secondary); }
+  
+  .aria-mockup { margin-block-end: var(--space-96); }
+  .capabilities-header { margin-block-end: var(--space-48); }
 
   .capabilities-grid {
     gap: var(--space-2);
@@ -178,86 +163,11 @@ const capabilities = [
     margin-block-end: var(--space-12);
   }
 
-  .aria-cta-block {
-    padding: var(--space-64);
-    background: var(--color-primary);
-    border-radius: var(--radius-2xl);
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: var(--space-8);
-  }
-
-  .aria-cta-block .card-title {
-    color: var(--color-surface);
-    margin: 0;
-  }
-
-  .aria-cta-block .text-muted {
-    color: rgba(255,255,255,0.6);
-    font-size: var(--text-caption);
-  }
-
-  .aria-cta-actions {
-    display: flex;
-    gap: var(--space-16);
-    flex-wrap: wrap;
-    margin-block-start: var(--space-32);
-  }
-
-  .btn-primary, .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    height: var(--space-48);
-    padding-inline: var(--space-32);
-    border-radius: var(--radius-full);
-    font-weight: var(--weight-medium);
-    text-decoration: none;
-    transition: all var(--motion-fast);
-  }
-
-  .btn-primary {
-    background: var(--color-surface);
-    color: var(--color-primary);
-  }
-
-  .btn-primary:hover {
-    background: var(--color-accent);
-    color: var(--color-surface);
-    transform: translateY(-2px);
-  }
-
-  .btn-secondary {
-    background: transparent;
-    color: rgba(255,255,255,0.7);
-    border: 1px solid rgba(255,255,255,0.2);
-  }
-
-  .btn-secondary:hover {
-    background: rgba(255,255,255,0.1);
-    color: var(--color-surface);
-  }
-
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-
-  .reveal.active {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   @media (min-width: 768px) {
-    .capabilities-grid {
-      grid-template-columns: repeat(2, 1fr);
-    }
+    .capabilities-grid { grid-template-columns: repeat(2, 1fr); }
   }
 
   @media (min-width: 1024px) {
-    .capabilities-grid {
-      grid-template-columns: repeat(3, 1fr);
-    }
+    .capabilities-grid { grid-template-columns: repeat(3, 1fr); }
   }
 </style>

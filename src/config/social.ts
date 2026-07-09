@@ -1,6 +1,9 @@
+import { BRAND } from './brand';
+
+// Backward-compatible social map. Derived from BRAND.social (single source).
 export const social = {
-  github: "https://github.com",
-  linkedin: "https://linkedin.com",
-  instagram: "https://instagram.com",
-  email: "mailto:hello@example.com"
+  github: BRAND.social.github,
+  linkedin: BRAND.social.linkedin,
+  instagram: BRAND.social.instagram,
+  email: BRAND.social.email,
 };

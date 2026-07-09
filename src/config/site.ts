@@ -1,7 +1,11 @@
+import { BRAND } from './brand';
+
+// Site-level identity. Brand facts are derived from BRAND (single source);
+// only site-specific values (canonical URL, SEO headline) live here.
 export const site = {
-  name: "kat.on",
-  title: "Building AI-Native Solutions for Public Sector Indonesia",
-  description: "Helping public sector organizations simplify complex work through AI, automation, and context engineering.",
-  url: "https://ardiansyahkatonc.github.io",
-  author: "Ardiansyah Katon Cahyadi"
+  name: BRAND.name,
+  title: 'Building AI-Native Solutions for Public Sector Indonesia',
+  description: BRAND.description,
+  url: 'https://ardiansyahkatonc.github.io',
+  author: BRAND.author,
 };

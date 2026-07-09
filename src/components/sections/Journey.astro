@@ -1,78 +1,33 @@
 ---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const milestones = [
-  {
-    id: 'vibe-coding',
-    year: '2024',
-    title: 'Google AI Vibe Coding',
-    desc: 'Eksperimen awal dengan AI-assisted development menggunakan Google AI Studio.',
-    descEn: 'Early experiments with AI-assisted development using Google AI Studio.',
-    status: 'completed',
-  },
-  {
-    id: 'kcc',
-    year: '2024',
-    title: 'KATON COMMAND CENTER',
-    desc: 'Fondasi pengetahuan dan standar rekayasa kat.on dibangun sebagai pusat komando internal.',
-    descEn: 'kat.on knowledge foundation and engineering standards built as an internal command center.',
-    status: 'completed',
-  },
-  {
-    id: 'knowledge-arch',
-    year: '2025',
-    title: 'Knowledge Architecture',
-    desc: 'Arsitektur pengetahuan institusional dirancang dan diimplementasikan untuk mendukung ARIA.',
-    descEn: 'Institutional knowledge architecture designed and implemented to support ARIA.',
-    status: 'completed',
-  },
-  {
-    id: 'aria-mvp',
-    year: '2026',
-    title: 'ARIA MVP',
-    desc: 'Minimum Viable Product ARIA selesai dibangun dengan kapabilitas Meeting Intelligence dan Document Automation.',
-    descEn: 'ARIA MVP completed with Meeting Intelligence and Document Automation capabilities.',
-    status: 'completed',
-  },
-  {
-    id: 'aria-launch',
-    year: 'Jul 2026',
-    title: 'ARIA Launch',
-    desc: 'Peluncuran resmi ARIA sebagai produk unggulan kat.on untuk sektor publik Indonesia.',
-    descEn: 'Official public launch of ARIA as kat.on\'s flagship product for the Indonesian public sector.',
-    status: 'active',
-  },
-  {
-    id: 'enterprise',
-    year: '2027',
-    title: 'Enterprise Edition',
-    desc: 'Ekspansi ARIA ke skala enterprise dengan dukungan multi-organisasi dan API publik.',
-    descEn: 'ARIA expansion to enterprise scale with multi-organization support and public API.',
-    status: 'upcoming',
-  },
-  {
-    id: 'ecosystem',
-    year: '2028',
-    title: 'AI Native Ecosystem',
-    desc: 'Ekosistem produk AI penuh yang saling terhubung untuk transformasi layanan publik.',
-    descEn: 'Full interconnected AI product ecosystem for public service transformation.',
-    status: 'upcoming',
-  },
-];
+  { key: 'journey.vibe.desc', year: '2024', title: 'Google AI Vibe Coding', status: 'completed' },
+  { key: 'journey.kcc.desc', year: '2024', title: 'KATON COMMAND CENTER', status: 'completed' },
+  { key: 'journey.arch.desc', year: '2025', title: 'Knowledge Architecture', status: 'completed' },
+  { key: 'journey.mvp.desc', year: '2026', title: 'ARIA MVP', status: 'completed' },
+  { key: 'journey.launch.desc', year: 'Jul 2026', title: 'ARIA Launch', status: 'active' },
+  { key: 'journey.enterprise.desc', year: '2027', title: 'Enterprise Edition', status: 'upcoming' },
+  { key: 'journey.ecosystem.desc', year: '2028', title: 'AI Native Ecosystem', status: 'upcoming' },
+] as const;
 ---
 
 <section class="section section-xl journey-section" aria-labelledby="journey-heading">
   <div class="container-xl">
 
     <div class="journey-header reveal">
-      <span class="label text-muted">Perjalanan / Story</span>
-      <h2 id="journey-heading" class="section-title">Dari Nol ke Produk</h2>
-      <p class="bilingual-en text-muted">From Zero to Product</p>
+      <span class="label text-muted">{t('journey.label')}</span>
+      <h2 id="journey-heading" class="section-title">{t('journey.title')}</h2>
     </div>
 
     <!-- Horizontal Desktop Timeline -->
     <div class="timeline-scroll-wrapper">
       <div class="timeline-track">
         {milestones.map((milestone, index) => (
-          <div class={`timeline-node ${milestone.status}`} id={`milestone-${milestone.id}`}>
+          <div class={`timeline-node ${milestone.status}`} id={`milestone-${index}`}>
             <div class="node-marker">
               <div class="node-dot"></div>
               {index < milestones.length - 1 && <div class="node-line"></div>}
@@ -80,10 +35,7 @@ const milestones = [
             <div class="node-content">
               <span class="node-year label text-muted">{milestone.year}</span>
               <h3 class="card-title node-title">{milestone.title}</h3>
-              <div class="bilingual-group">
-                <p class="bilingual-id">{milestone.desc}</p>
-                <p class="bilingual-en">{milestone.descEn}</p>
-              </div>
+              <p class="body-sm text-muted">{t(milestone.key as any)}</p>
             </div>
           </div>
         ))}

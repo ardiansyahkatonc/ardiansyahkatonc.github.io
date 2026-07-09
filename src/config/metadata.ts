@@ -1,12 +1,17 @@
+import { SEO } from './seo';
+import { DEFAULT_LANG, LANGUAGE_MAP } from './languages';
+
+// Backward-compatible metadata shape. The canonical SEO source is `./seo.ts`;
+// this shim keeps the legacy `metadata.seo.*` / `metadata.openGraph.*` API.
 export const metadata = {
   seo: {
-    defaultTitle: "kat.on | AI-Native Product Studio",
-    defaultDescription: "Helping public sector organizations simplify complex work through AI, automation, and context engineering.",
-    defaultImage: "/og-image.jpg",
-    twitterHandle: "@kat_on",
+    defaultTitle: SEO.defaultTitle,
+    defaultDescription: SEO.defaultDescription,
+    defaultImage: SEO.defaultImage,
+    twitterHandle: SEO.twitterHandle,
   },
   openGraph: {
-    type: "website",
-    locale: "en_US",
-  }
+    type: SEO.openGraph.type,
+    locale: LANGUAGE_MAP[DEFAULT_LANG].locale,
+  },
 };

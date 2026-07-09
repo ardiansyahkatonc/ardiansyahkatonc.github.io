@@ -1,0 +1,26 @@
+---
+// =============================================================================
+// LanguageProvider — no-flash language bootstrap + first-visit detection.
+// Place EARLY in <head>. On first visit it detects the browser language and
+// persists a preference (default: `id`). It stamps <html lang / data-lang>
+// before paint. It does NOT redirect routes — localized routing (/id, /en) is
+// prepared in astro.config but deferred (see docs/IDENTITY_SYSTEM.md).
+// Span-level text switching is handled by `src/scripts/i18n.ts`.
+// =============================================================================
+---
+<script is:inline>
+  (function () {
+    try {
+      var KEY = 'katon-lang';
+      var stored = localStorage.getItem(KEY);
+      if (stored !== 'id' && stored !== 'en') {
+        var nav = (navigator.language || 'id').toLowerCase();
+        stored = nav.indexOf('en') === 0 ? 'en' : 'id';
+        localStorage.setItem(KEY, stored);
+      }
+      var root = document.documentElement;
+      root.setAttribute('lang', stored);
+      root.setAttribute('data-lang', stored);
+    } catch (e) {}
+  })();
+</script>

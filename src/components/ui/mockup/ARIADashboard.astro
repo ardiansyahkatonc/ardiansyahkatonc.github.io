@@ -1,0 +1,739 @@
+---
+// High-fidelity CSS ARIA Dashboard Illustration (decorative, aria-hidden).
+// Localized via a compact per-language map so it matches the page language.
+import { getLangFromUrl } from '../../../i18n';
+
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+
+const strings = {
+  id: {
+    nav: ['Briefing', 'Rapat', 'Kalender', 'Pengetahuan', 'Tugas'],
+    role: 'Eksekutif',
+    topTitle: 'Ringkasan Eksekutif',
+    date: 'Selasa, 15 Juli 2026',
+    summaryBadge: 'ARIA Summary',
+    today: 'Hari Ini',
+    briefHeadline: 'Ringkasan Eksekutif Hari Ini',
+    briefText:
+      'Terdapat 3 rapat dijadwalkan hari ini. Rapat anggaran Q3 memerlukan persetujuan Anda sebelum pukul 15.00. Tim teknis telah menyelesaikan review dokumen kebijakan digital.',
+    tags: ['3 Rapat', '1 Perlu Tindakan', '2 Selesai'],
+    recapLabel: 'Notulen Terakhir',
+    seeAll: 'Lihat semua',
+    m1: { title: 'Rapat Koordinasi Teknis', meta: 'Senin, 14 Jul · 10:00–11:30', status: 'Selesai' },
+    m2: { title: 'Review Anggaran Q3', meta: 'Selasa, 15 Jul · 14:00–15:00', status: 'Hari ini' },
+    tasksLabel: 'Tindak Lanjut',
+    taskCount: '4 item',
+    tasks: ['Kirim notulen rapat Senin', 'Review dokumen kebijakan digital', 'Setujui anggaran Q3', 'Respons email Direktorat SDM'],
+    urgent: 'Mendesak',
+    knowLabel: 'Basis Pengetahuan',
+    searchPlaceholder: 'Cari keputusan, kebijakan...',
+    k1: { title: 'Kebijakan Pengadaan 2026', meta: 'Diperbarui 3 hari lalu' },
+    k2: { title: 'Keputusan Rapat — Jun 2026', meta: '12 keputusan tercatat' },
+  },
+  en: {
+    nav: ['Briefing', 'Meetings', 'Calendar', 'Knowledge', 'Tasks'],
+    role: 'Executive',
+    topTitle: 'Executive Briefing',
+    date: 'Tuesday, 15 July 2026',
+    summaryBadge: 'ARIA Summary',
+    today: 'Today',
+    briefHeadline: "Today's Executive Summary",
+    briefText:
+      'There are 3 meetings scheduled today. The Q3 budget review needs your approval before 3:00 PM. The technical team has completed the digital policy document review.',
+    tags: ['3 Meetings', '1 Action Needed', '2 Done'],
+    recapLabel: 'Latest Minutes',
+    seeAll: 'View all',
+    m1: { title: 'Technical Coordination Meeting', meta: 'Mon, 14 Jul · 10:00–11:30', status: 'Done' },
+    m2: { title: 'Q3 Budget Review', meta: 'Tue, 15 Jul · 14:00–15:00', status: 'Today' },
+    tasksLabel: 'Follow-ups',
+    taskCount: '4 items',
+    tasks: ['Send Monday meeting minutes', 'Review digital policy document', 'Approve Q3 budget', 'Respond to HR Directorate email'],
+    urgent: 'Urgent',
+    knowLabel: 'Knowledge Base',
+    searchPlaceholder: 'Search decisions, policies...',
+    k1: { title: 'Procurement Policy 2026', meta: 'Updated 3 days ago' },
+    k2: { title: 'Meeting Decisions — Jun 2026', meta: '12 decisions recorded' },
+  },
+} as const;
+
+const L = strings[lang];
+---
+<div class={`aria-dashboard ${className}`} aria-hidden="true" role="presentation">
+  <!-- Ambient glow -->
+  <div class="dash-glow dash-glow--blue"></div>
+  <div class="dash-glow dash-glow--indigo"></div>
+
+  <!-- Dashboard Frame -->
+  <div class="dash-frame animate-float">
+
+    <!-- Sidebar -->
+    <aside class="dash-sidebar">
+      <div class="dash-sidebar-logo">
+        <div class="sidebar-mark"></div>
+        <span class="sidebar-brand-text">ARIA</span>
+      </div>
+
+      <nav class="dash-sidebar-nav" aria-hidden="true">
+        <div class="sidebar-nav-item sidebar-nav-item--active">
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="currentColor"><rect x="1" y="1" width="6" height="6" rx="1.5"/><rect x="9" y="1" width="6" height="6" rx="1.5"/><rect x="1" y="9" width="6" height="6" rx="1.5"/><rect x="9" y="9" width="6" height="6" rx="1.5"/></svg>
+          <span>{L.nav[0]}</span>
+        </div>
+        <div class="sidebar-nav-item">
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 5v3.5l2.5 1.5"/></svg>
+          <span>{L.nav[1]}</span>
+        </div>
+        <div class="sidebar-nav-item">
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="2.5" width="13" height="12" rx="1.5"/><path d="M1.5 6h13"/><path d="M5 1v3M11 1v3"/></svg>
+          <span>{L.nav[2]}</span>
+        </div>
+        <div class="sidebar-nav-item">
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h8M2 12h10"/></svg>
+          <span>{L.nav[3]}</span>
+        </div>
+        <div class="sidebar-nav-item">
+          <svg class="nav-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3.5h10M3 7.5h6M3 11.5h8"/><circle cx="12.5" cy="11.5" r="2.5" fill="currentColor" stroke="none" opacity="0.3"/><path d="M12.5 10.5v1h1"/></svg>
+          <span>{L.nav[4]}</span>
+        </div>
+      </nav>
+
+      <div class="sidebar-user">
+        <div class="user-avatar">A</div>
+        <div class="user-info">
+          <span class="user-name">Admin</span>
+          <span class="user-role">{L.role}</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="dash-main">
+      <!-- Top Bar -->
+      <div class="dash-topbar">
+        <div class="topbar-left">
+          <h2 class="topbar-title">{L.topTitle}</h2>
+          <span class="topbar-date">{L.date}</span>
+        </div>
+        <div class="topbar-right">
+          <button class="topbar-btn" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+          </button>
+          <button class="topbar-btn" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2.5a4.5 4.5 0 014.5 4.5c0 2-1 3.5-1 5H4.5c0-1.5-1-3.5-1-5A4.5 4.5 0 018 2.5z"/><path d="M6.5 12a1.5 1.5 0 003 0"/><path d="M8 1v1.5"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Briefing Content -->
+      <div class="dash-content">
+
+        <!-- Left column: briefing -->
+        <div class="dash-col dash-col--main">
+
+          <!-- AI Summary Card -->
+          <div class="dash-card dash-card--briefing">
+            <div class="card-header-row">
+              <div class="ai-badge">
+                <div class="ai-dot"></div>
+                <span>{L.summaryBadge}</span>
+              </div>
+              <span class="card-tag">{L.today}</span>
+            </div>
+            <h3 class="briefing-headline">{L.briefHeadline}</h3>
+            <p class="briefing-text">{L.briefText}</p>
+            <div class="briefing-tags">
+              <span class="tag tag--blue">{L.tags[0]}</span>
+              <span class="tag tag--amber">{L.tags[1]}</span>
+              <span class="tag tag--green">{L.tags[2]}</span>
+            </div>
+          </div>
+
+          <!-- Meeting Recap Card -->
+          <div class="dash-card">
+            <div class="card-header-row">
+              <span class="card-section-label">{L.recapLabel}</span>
+              <button class="card-link-btn" aria-hidden="true">{L.seeAll}</button>
+            </div>
+            <div class="meeting-item">
+              <div class="meeting-dot meeting-dot--blue"></div>
+              <div class="meeting-info">
+                <span class="meeting-title">{L.m1.title}</span>
+                <span class="meeting-meta">{L.m1.meta}</span>
+              </div>
+              <span class="meeting-status meeting-status--done">{L.m1.status}</span>
+            </div>
+            <div class="meeting-item">
+              <div class="meeting-dot meeting-dot--amber"></div>
+              <div class="meeting-info">
+                <span class="meeting-title">{L.m2.title}</span>
+                <span class="meeting-meta">{L.m2.meta}</span>
+              </div>
+              <span class="meeting-status meeting-status--upcoming">{L.m2.status}</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right column: tasks & calendar -->
+        <div class="dash-col dash-col--side">
+
+          <!-- Tasks -->
+          <div class="dash-card dash-card--tasks">
+            <div class="card-header-row">
+              <span class="card-section-label">{L.tasksLabel}</span>
+              <span class="task-count">{L.taskCount}</span>
+            </div>
+            <div class="task-list">
+              <div class="task-item">
+                <div class="task-check task-check--done"></div>
+                <span class="task-text task-text--done">{L.tasks[0]}</span>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <span class="task-text">{L.tasks[1]}</span>
+              </div>
+              <div class="task-item">
+                <div class="task-check"></div>
+                <span class="task-text">{L.tasks[2]}</span>
+              </div>
+              <div class="task-item task-item--urgent">
+                <div class="task-check"></div>
+                <span class="task-text">{L.tasks[3]}</span>
+                <span class="task-urgent-badge">{L.urgent}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Knowledge -->
+          <div class="dash-card dash-card--knowledge">
+            <div class="card-header-row">
+              <span class="card-section-label">{L.knowLabel}</span>
+            </div>
+            <div class="knowledge-search">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" class="search-icon"><circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14"/></svg>
+              <span class="search-placeholder">{L.searchPlaceholder}</span>
+            </div>
+            <div class="knowledge-item">
+              <div class="know-icon">📋</div>
+              <div class="know-info">
+                <span class="know-title">{L.k1.title}</span>
+                <span class="know-meta">{L.k1.meta}</span>
+              </div>
+            </div>
+            <div class="knowledge-item">
+              <div class="know-icon">🎯</div>
+              <div class="know-info">
+                <span class="know-title">{L.k2.title}</span>
+                <span class="know-meta">{L.k2.meta}</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<style>
+  /* ── Wrapper & Glow ────────────────────────────────── */
+  .aria-dashboard {
+    position: relative;
+    width: 100%;
+    max-width: 720px;
+    margin-inline: auto;
+  }
+
+  .dash-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .dash-glow--blue {
+    width: 360px;
+    height: 360px;
+    top: -60px;
+    right: -40px;
+    background: rgba(37, 99, 235, 0.12);
+  }
+
+  .dash-glow--indigo {
+    width: 280px;
+    height: 280px;
+    bottom: -40px;
+    left: -20px;
+    background: rgba(79, 70, 229, 0.08);
+  }
+
+  /* ── Dashboard Frame ───────────────────────────────── */
+  .dash-frame {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    border-radius: var(--radius-2xl);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: var(--color-glass);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    box-shadow: var(--shadow-xl), 0 0 0 1px rgba(255,255,255,0.5) inset;
+    overflow: hidden;
+    height: 520px;
+    animation: floatY 7s ease-in-out infinite;
+  }
+
+  @keyframes floatY {
+    0%,100% { transform: translateY(0); }
+    50%      { transform: translateY(-8px); }
+  }
+
+  /* ── Sidebar ───────────────────────────────────────── */
+  .dash-sidebar {
+    width: 180px;
+    flex-shrink: 0;
+    background: rgba(15, 23, 42, 0.03);
+    border-right: 1px solid rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-direction: column;
+    padding: 20px 12px;
+    gap: 20px;
+  }
+
+  .dash-sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-inline: 8px;
+  }
+
+  .sidebar-mark {
+    width: 18px;
+    height: 18px;
+    background: var(--color-accent);
+    border-radius: 5px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand-text {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .dash-sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    flex: 1;
+  }
+
+  .sidebar-nav-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+    border-radius: 8px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--color-text-secondary);
+    cursor: default;
+    transition: background var(--motion-fast);
+  }
+
+  .sidebar-nav-item--active {
+    background: rgba(37, 99, 235, 0.08);
+    color: var(--color-accent);
+  }
+
+  .nav-icon {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+
+  .sidebar-user {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid rgba(15,23,42,0.06);
+    background: var(--color-surface);
+  }
+
+  .user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--gradient-accent);
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .user-name {
+    display: block;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .user-role {
+    display: block;
+    font-size: 10px;
+    color: var(--color-muted);
+  }
+
+  /* ── Main Area ─────────────────────────────────────── */
+  .dash-main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    min-width: 0;
+  }
+
+  .dash-topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    border-bottom: 1px solid rgba(15,23,42,0.05);
+    background: rgba(255,255,255,0.5);
+    flex-shrink: 0;
+  }
+
+  .topbar-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0;
+    line-height: 1;
+  }
+
+  .topbar-date {
+    display: block;
+    font-size: 10px;
+    color: var(--color-muted);
+    margin-top: 3px;
+  }
+
+  .topbar-right {
+    display: flex;
+    gap: 6px;
+  }
+
+  .topbar-btn {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    border: 1px solid rgba(15,23,42,0.08);
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+  }
+
+  .topbar-btn svg {
+    width: 13px;
+    height: 13px;
+    color: var(--color-text-secondary);
+  }
+
+  /* ── Content Grid ──────────────────────────────────── */
+  .dash-content {
+    display: flex;
+    gap: 12px;
+    padding: 16px;
+    flex: 1;
+    overflow: hidden;
+  }
+
+  .dash-col { display: flex; flex-direction: column; gap: 12px; }
+  .dash-col--main { flex: 1.6; min-width: 0; }
+  .dash-col--side { flex: 1; min-width: 0; }
+
+  /* ── Cards ─────────────────────────────────────────── */
+  .dash-card {
+    background: var(--color-surface);
+    border: 1px solid rgba(15,23,42,0.06);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(15,23,42,0.04);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    overflow: hidden;
+  }
+
+  .dash-card--briefing { flex: 1.2; }
+  .dash-card--tasks    { flex: 1; }
+  .dash-card--knowledge{ flex: 1; }
+
+  .card-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .card-section-label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-muted);
+  }
+
+  .card-link-btn {
+    font-size: 10px;
+    color: var(--color-accent);
+    background: none;
+    border: none;
+    cursor: default;
+    font-weight: 500;
+  }
+
+  .card-tag {
+    font-size: 10px;
+    color: var(--color-muted);
+  }
+
+  /* AI Briefing Card */
+  .ai-badge {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 3px 8px;
+    background: var(--color-accent-light);
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--color-accent);
+  }
+
+  .ai-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  .briefing-headline {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .briefing-text {
+    font-size: 11px;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+  }
+
+  .briefing-tags {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    padding: 2px 8px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 600;
+  }
+
+  .tag--blue   { background: rgba(37,99,235,0.08);  color: var(--color-accent); }
+  .tag--amber  { background: rgba(245,158,11,0.10); color: #D97706; }
+  .tag--green  { background: rgba(22,163,74,0.08);  color: var(--color-success); }
+
+  /* Meeting Items */
+  .meeting-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(15,23,42,0.04);
+  }
+
+  .meeting-item:last-child { border-bottom: none; }
+
+  .meeting-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .meeting-dot--blue  { background: var(--color-accent); }
+  .meeting-dot--amber { background: var(--color-warning); }
+
+  .meeting-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .meeting-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .meeting-meta {
+    font-size: 9.5px;
+    color: var(--color-muted);
+  }
+
+  .meeting-status {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: 20px;
+    flex-shrink: 0;
+  }
+
+  .meeting-status--done     { background: rgba(22,163,74,0.08); color: var(--color-success); }
+  .meeting-status--upcoming { background: rgba(245,158,11,0.10); color: #D97706; }
+
+  /* Tasks */
+  .task-count {
+    font-size: 10px;
+    color: var(--color-muted);
+  }
+
+  .task-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .task-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .task-item--urgent .task-text { color: var(--color-text-secondary); }
+
+  .task-check {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    border: 1.5px solid rgba(15,23,42,0.15);
+    flex-shrink: 0;
+  }
+
+  .task-check--done {
+    background: var(--color-success);
+    border-color: var(--color-success);
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 10 10' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5l2.5 2.5 3.5-4' stroke='white' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-size: 10px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .task-text {
+    font-size: 10.5px;
+    color: var(--color-primary);
+    flex: 1;
+    line-height: 1.3;
+  }
+
+  .task-text--done {
+    text-decoration: line-through;
+    color: var(--color-muted);
+  }
+
+  .task-urgent-badge {
+    font-size: 9px;
+    font-weight: 600;
+    padding: 1px 6px;
+    border-radius: 10px;
+    background: rgba(239,68,68,0.08);
+    color: var(--color-danger);
+    flex-shrink: 0;
+  }
+
+  /* Knowledge */
+  .knowledge-search {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--color-surface-muted);
+    border: 1px solid rgba(15,23,42,0.06);
+    border-radius: 8px;
+    padding: 6px 10px;
+  }
+
+  .search-icon {
+    width: 12px;
+    height: 12px;
+    color: var(--color-muted);
+    flex-shrink: 0;
+  }
+
+  .search-placeholder {
+    font-size: 10.5px;
+    color: var(--color-muted);
+  }
+
+  .knowledge-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 0;
+  }
+
+  .know-icon {
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .know-title {
+    display: block;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: var(--color-primary);
+  }
+
+  .know-meta {
+    display: block;
+    font-size: 9.5px;
+    color: var(--color-muted);
+  }
+
+  /* ── Responsive ────────────────────────────────────── */
+  @media (max-width: 900px) {
+    .dash-frame { height: 420px; }
+    .dash-sidebar { width: 140px; }
+    .dash-col--side { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    .dash-frame { height: 340px; }
+    .dash-sidebar { display: none; }
+  }
+</style>

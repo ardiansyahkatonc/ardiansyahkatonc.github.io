@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-label="kat.on — AI-Native Product Studio">
+  <!-- PLACEHOLDER OpenGraph image (1200×630). Replace with final raster art. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0B1120"/>
+      <stop offset="0.5" stop-color="#111827"/>
+      <stop offset="1" stop-color="#0B1120"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <circle cx="150" cy="150" r="220" fill="#3B82F6" opacity="0.10"/>
+  <g transform="translate(96, 250)">
+    <circle cx="26" cy="40" r="26" fill="#3B82F6" opacity="0.25"/>
+    <circle cx="44" cy="40" r="26" fill="#3B82F6"/>
+    <text x="92" y="58" font-family="Inter, system-ui, sans-serif" font-size="72" font-weight="700" fill="#F8FAFC" letter-spacing="-0.03em">kat.on</text>
+  </g>
+  <text x="96" y="380" font-family="Inter, system-ui, sans-serif" font-size="34" font-weight="600" fill="#94A3B8">AI-Native Product Studio</text>
+  <text x="96" y="430" font-family="Inter, system-ui, sans-serif" font-size="24" font-weight="400" fill="#64748B">The AI Executive Assistant for Indonesia's Public Sector</text>
+</svg>

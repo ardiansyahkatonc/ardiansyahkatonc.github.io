@@ -1,4 +1,17 @@
-export const products = [
+export interface Product {
+  id: string;
+  title: string;
+  description: string;
+  status: string;
+  featured: boolean;
+  featuredDescription?: string;
+  featuredStatus?: string;
+  /** Optional detail fields surfaced on the projects page. */
+  technology?: string;
+  impact?: string;
+}
+
+export const products: Product[] = [
   {
     id: 'aria',
     title: 'ARIA',

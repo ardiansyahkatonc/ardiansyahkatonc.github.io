@@ -1,53 +1,56 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { Section } from '../components/ui/section';
-import { Container } from '../components/ui/container';
-import { Card } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import { products } from '../config/products';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Section } from '../../components/ui/section';
+import { Container } from '../../components/ui/container';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import { products } from '../../config/products';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'id' } }, { params: { lang: 'en' } }];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<BaseLayout 
-  title="Product Ecosystem | kat.on"
-  description="Explore the kat.on product ecosystem, featuring our flagship AI Executive Assistant ARIA, and our internal knowledge platforms."
->
+<BaseLayout title={t('meta.projects.title')} description={t('meta.projects.desc')}>
   <Section type="hero">
     <Container size="md">
-      <span class="label text-muted">Ecosystem</span>
-      <h1 class="display">Products & Projects</h1>
-      <p class="body-lg text-muted">
-        Our ecosystem is designed around solving specific government and administrative challenges through AI, automation, and strict knowledge management.
-      </p>
+      <span class="label text-muted">{t('projects.label')}</span>
+      <h1 class="display">{t('projects.h1')}</h1>
+      <p class="body-lg text-muted">{t('projects.desc')}</p>
     </Container>
   </Section>
 
   <Section type="content">
     <Container size="lg">
       <div class="grid-1 flow-xl">
-        {products.map(product => (
+        {products.map((product) => (
           <Card variant="default" class="product-card">
             <div class="product-header">
               <div class="product-title-group">
                 <h2 class="h2 product-title">{product.title}</h2>
                 <Badge variant={product.status === 'Available' ? 'primary' : 'neutral'}>{product.status}</Badge>
               </div>
-              <p class="body-lg text-muted product-desc">{product.description}</p>
+              <p class="body-lg text-muted product-desc">{t(`projects.${product.id}.desc` as any)}</p>
             </div>
-            
+
             <div class="product-details grid-2">
               <div class="detail-block">
-                <h3 class="label text-muted">Technology</h3>
-                <p class="body">{product.technology || 'AI-Native Stack'}</p>
+                <h3 class="label text-muted">{t('projects.tech')}</h3>
+                <p class="body">{product.technology || t('projects.techDefault')}</p>
               </div>
               <div class="detail-block">
-                <h3 class="label text-muted">Impact</h3>
-                <p class="body">{product.impact || 'Streamlined operations and knowledge continuity.'}</p>
+                <h3 class="label text-muted">{t('projects.impact')}</h3>
+                <p class="body">{product.impact || t('projects.impactDefault')}</p>
               </div>
             </div>
 
             {product.id === 'aria' && (
               <div class="product-actions">
-                <a href={`/${product.id}`} class="btn-primary">View Product Details</a>
+                <a href={localizePath('/aria', lang)} class="btn-primary">{t('projects.viewDetails')}</a>
               </div>
             )}
           </Card>
@@ -81,7 +84,7 @@ import { products } from '../config/products';
     flex-wrap: wrap;
     margin-block-end: var(--space-16);
   }
-  
+
   .product-title {
     margin: 0;
   }
@@ -98,7 +101,7 @@ import { products } from '../config/products';
   .detail-block .label {
     margin-block-end: var(--space-8);
   }
-  
+
   .detail-block .body {
     margin: 0;
     color: var(--color-text-primary);
@@ -121,7 +124,7 @@ import { products } from '../config/products';
     font-weight: var(--weight-medium);
     transition: transform var(--motion-fast);
   }
-  
+
   .btn-primary:hover {
     transform: translateY(-2px);
   }

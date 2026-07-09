@@ -1,0 +1,24 @@
+---
+// =============================================================================
+// ThemeProvider — no-flash dark/light bootstrap.
+// Place EARLY in <head>. Resolves the stored preference (or system) and stamps
+// `data-theme` on <html> synchronously, before first paint, to avoid a flash.
+// Runtime wiring (toggle button, system-change listener) lives in
+// `src/scripts/theme.ts`.
+// =============================================================================
+---
+<script is:inline>
+  (function () {
+    try {
+      var pref = localStorage.getItem('katon-theme') || 'system';
+      var dark =
+        pref === 'dark' ||
+        (pref === 'system' &&
+          window.matchMedia &&
+          window.matchMedia('(prefers-color-scheme: dark)').matches);
+      var root = document.documentElement;
+      root.setAttribute('data-theme', dark ? 'dark' : 'light');
+      root.setAttribute('data-theme-pref', pref);
+    } catch (e) {}
+  })();
+</script>

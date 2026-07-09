@@ -4,108 +4,166 @@
 /* ==========================================================================
    CSS Reset
    ========================================================================== */
-*, *::before, *::after {
-  box-sizing: border-box;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  height: 100%;
-  scroll-behavior: smooth; /* Smooth anchor */
-}
-
-img, picture, video, canvas, svg {
-  display: block;
-  max-width: 100%;
-}
-
-input, button, textarea, select {
-  font: inherit;
-}
-
-p, h1, h2, h3, h4, h5, h6 {
-  overflow-wrap: break-word;
-}
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+html, body { height: 100%; scroll-behavior: smooth; }
+img, picture, video, canvas, svg { display: block; max-width: 100%; }
+input, button, textarea, select { font: inherit; }
+p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 
 /* ==========================================================================
-   Design Tokens - Premium AI-Native v5.0
+   Design Tokens — v6.0 (Apple-Level Premium)
    ========================================================================== */
 :root {
-  /* 1. Color Tokens */
-  --color-primary: #0F172A;
-  --color-secondary: #F1F5F9;
-  --color-surface: #FFFFFF;
-  --color-background: #F8FAFC;
-  --color-surface-muted: #F8FAFC;
-  
-  --color-border: rgba(15, 23, 42, 0.08);
-  --color-border-light: rgba(15, 23, 42, 0.04);
-  
-  --color-text-primary: #0F172A;
-  --color-text-secondary: #475569;
-  --color-muted: #94A3B8;
-  
-  --color-success: #16A34A;
-  --color-warning: #F59E0B;
-  --color-danger: #EF4444;
-  --color-info: #3B82F6;
-  --color-accent: #2563EB;
-  --color-accent-hover: #1D4ED8;
+  /* 1. Core Colors */
+  --color-primary:         #0F172A;
+  --color-surface:         #FFFFFF;
+  --color-surface-muted:   #F8FAFC;
+  --color-background:      #F1F5F9;
 
-  /* 2. Spacing Tokens - Premium Loose Spacing */
-  --space-0: 0px;
-  --space-4: 0.25rem;
-  --space-8: 0.5rem;
-  --space-12: 0.75rem;
-  --space-16: 1rem;
-  --space-24: 1.5rem;
-  --space-32: 2rem;
-  --space-48: 3rem;
-  --space-64: 4rem;
-  --space-80: 5rem;
-  --space-96: 6rem;
+  /* 2. Accent Palette */
+  --color-accent:          #2563EB;
+  --color-accent-hover:    #1D4ED8;
+  --color-accent-light:    rgba(37, 99, 235, 0.08);
+  --color-accent-mid:      rgba(37, 99, 235, 0.15);
+  --color-accent-glow:     rgba(37, 99, 235, 0.25);
+
+  /* 3. Semantic Colors */
+  --color-success:         #16A34A;
+  --color-warning:         #F59E0B;
+  --color-danger:          #EF4444;
+
+  /* 4. Text Colors */
+  --color-text-primary:    #0F172A;
+  --color-text-secondary:  #475569;
+  --color-muted:           #94A3B8;
+
+  /* 5. Border Colors */
+  --color-border:          rgba(15, 23, 42, 0.10);
+  --color-border-light:    rgba(15, 23, 42, 0.05);
+  --color-border-accent:   rgba(37, 99, 235, 0.25);
+
+  /* 6. Glass / Depth Tokens */
+  --color-glass:           rgba(255, 255, 255, 0.75);
+  --color-glass-border:    rgba(255, 255, 255, 0.60);
+  --color-glass-dark:      rgba(15, 23, 42, 0.04);
+
+  /* 7. Gradient Tokens */
+  --gradient-hero:         linear-gradient(135deg, #F8FAFC 0%, #EEF2FF 50%, #F8FAFC 100%);
+  --gradient-card:         linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
+  --gradient-accent:       linear-gradient(135deg, #2563EB 0%, #4F46E5 100%);
+  --gradient-subtle:       linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 100%);
+
+  /* 8. Spacing Scale */
+  --space-0:   0px;
+  --space-2:   0.125rem;
+  --space-4:   0.25rem;
+  --space-8:   0.5rem;
+  --space-12:  0.75rem;
+  --space-16:  1rem;
+  --space-24:  1.5rem;
+  --space-32:  2rem;
+  --space-48:  3rem;
+  --space-64:  4rem;
+  --space-80:  5rem;
+  --space-96:  6rem;
   --space-128: 8rem;
   --space-160: 10rem;
   --space-192: 12rem;
 
-  /* 3. Radius Tokens */
-  --radius-none: 0;
-  --radius-small: 0.5rem;
-  --radius-medium: 0.75rem;
-  --radius-large: 1rem;
-  --radius-xl: 1.5rem; /* 24px */
-  --radius-2xl: 1.5rem; /* 24px */
-  --radius-full: 9999px;
+  /* 9. Border Radius */
+  --radius-small:   0.375rem;
+  --radius-medium:  0.625rem;
+  --radius-large:   1rem;
+  --radius-xl:      1.25rem;
+  --radius-2xl:     1.5rem;   /* 24px — global card standard */
+  --radius-3xl:     2rem;
+  --radius-full:    9999px;
 
-  /* 4. Shadow Tokens - Soft & Deep */
-  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.02);
-  --shadow-sm: 0 4px 12px -4px rgba(15, 23, 42, 0.05), 0 2px 4px -2px rgba(15, 23, 42, 0.02);
-  --shadow-md: 0 12px 32px -8px rgba(15, 23, 42, 0.06), 0 4px 12px -4px rgba(15, 23, 42, 0.03);
-  --shadow-lg: 0 32px 64px -12px rgba(15, 23, 42, 0.08), 0 16px 32px -8px rgba(15, 23, 42, 0.04);
-  
-  /* 5. Glow/Glass Tokens (For Hero & Dashboard Mockups) */
-  --glow-primary: 0 0 120px rgba(37, 99, 235, 0.15);
-  --glow-secondary: 0 0 120px rgba(15, 23, 42, 0.05);
+  /* 10. Shadows — layered for depth */
+  --shadow-xs: 0 1px 2px rgba(15, 23, 42, 0.03);
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(15, 23, 42, 0.04);
+  --shadow-md: 0 4px 6px rgba(15, 23, 42, 0.04), 0 12px 28px rgba(15, 23, 42, 0.07);
+  --shadow-lg: 0 8px 16px rgba(15, 23, 42, 0.05), 0 24px 48px rgba(15, 23, 42, 0.10);
+  --shadow-xl: 0 16px 32px rgba(15, 23, 42, 0.06), 0 40px 80px rgba(15, 23, 42, 0.12);
+  --shadow-accent: 0 8px 32px rgba(37, 99, 235, 0.20);
+  --shadow-glow: 0 0 40px rgba(37, 99, 235, 0.15), 0 0 80px rgba(37, 99, 235, 0.08);
 
-  /* 6. Border Tokens */
-  --border-thin: 1px solid var(--color-border);
+  /* 11. Borders */
+  --border-thin:  1px solid var(--color-border);
   --border-light: 1px solid var(--color-border-light);
+  --border-glass: 1px solid var(--color-glass-border);
 
-  /* 7. Motion Tokens */
-  --motion-fast: 150ms cubic-bezier(0.16, 1, 0.3, 1);
-  --motion-normal: 300ms cubic-bezier(0.16, 1, 0.3, 1);
-  --motion-slow: 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  /* 12. Motion */
+  --motion-instant: 80ms  cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-fast:    150ms cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-normal:  300ms cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-slow:    500ms cubic-bezier(0.16, 1, 0.3, 1);
+  --motion-spring:  600ms cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* 8. Z-index Tokens */
+  /* 13. Z-index Scale */
+  --z-base:     0;
+  --z-raised:   10;
   --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-overlay: 300;
-  --z-modal: 400;
-  --z-toast: 500;
+  --z-sticky:   200;
+  --z-overlay:  300;
+  --z-modal:    400;
+  --z-toast:    500;
+
+  /* 14. Chrome Surfaces — theme-adaptive (header / nav pill) */
+  --surface-header-scrolled: rgba(248, 250, 252, 0.88);
+  --surface-nav-pill:        rgba(255, 255, 255, 0.80);
+  --surface-nav-active:      rgba(255, 255, 255, 0.90);
+  --surface-nav-hover:       rgba(15, 23, 42, 0.04);
+
+  color-scheme: light;
+}
+
+/* ==========================================================================
+   Dark Theme — token overrides only (no structural / layout changes)
+   Applied when the ThemeProvider sets data-theme="dark" on <html>.
+   ========================================================================== */
+:root[data-theme='dark'] {
+  --color-primary:         #F8FAFC;
+  --color-surface:         #111827;
+  --color-surface-muted:   #1E293B;
+  --color-background:      #0B1120;
+
+  --color-accent:          #3B82F6;
+  --color-accent-hover:    #60A5FA;
+  --color-accent-light:    rgba(59, 130, 246, 0.12);
+  --color-accent-mid:      rgba(59, 130, 246, 0.20);
+  --color-accent-glow:     rgba(59, 130, 246, 0.30);
+
+  --color-text-primary:    #F1F5F9;
+  --color-text-secondary:  #94A3B8;
+  --color-muted:           #64748B;
+
+  --color-border:          rgba(255, 255, 255, 0.12);
+  --color-border-light:    rgba(255, 255, 255, 0.06);
+  --color-border-accent:   rgba(59, 130, 246, 0.35);
+
+  --color-glass:           rgba(17, 24, 39, 0.72);
+  --color-glass-border:    rgba(255, 255, 255, 0.08);
+  --color-glass-dark:      rgba(255, 255, 255, 0.04);
+
+  --gradient-hero:         linear-gradient(135deg, #0B1120 0%, #111827 50%, #0B1120 100%);
+  --gradient-card:         linear-gradient(135deg, #111827 0%, #0B1120 100%);
+  --gradient-accent:       linear-gradient(135deg, #3B82F6 0%, #6366F1 100%);
+  --gradient-subtle:       linear-gradient(180deg, #111827 0%, #0B1120 100%);
+
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.40);
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.50), 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.50), 0 12px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.55), 0 24px 48px rgba(0, 0, 0, 0.50);
+  --shadow-xl: 0 16px 32px rgba(0, 0, 0, 0.60), 0 40px 80px rgba(0, 0, 0, 0.55);
+
+  --surface-header-scrolled: rgba(11, 17, 32, 0.85);
+  --surface-nav-pill:        rgba(255, 255, 255, 0.06);
+  --surface-nav-active:      rgba(255, 255, 255, 0.12);
+  --surface-nav-hover:       rgba(255, 255, 255, 0.08);
+
+  color-scheme: dark;
 }
 
 /* ==========================================================================
@@ -118,44 +176,93 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+a { color: inherit; }
+button { cursor: pointer; }
+
 /* ==========================================================================
-   Micro Animations (Global Utility Classes)
+   Layout Wrapper
    ========================================================================== */
-.animate-fade-in {
-  animation: fadeIn 0.8s var(--motion-slow) forwards;
-  opacity: 0;
+.layout-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.animate-slide-up {
-  animation: slideUp 0.8s var(--motion-slow) forwards;
-  opacity: 0;
-  transform: translateY(20px);
+.main-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
-.animate-delay-100 { animation-delay: 100ms; }
-.animate-delay-200 { animation-delay: 200ms; }
-.animate-delay-300 { animation-delay: 300ms; }
-.animate-delay-400 { animation-delay: 400ms; }
+.main-content:focus { outline: none; }
 
-@keyframes fadeIn {
-  to { opacity: 1; }
+/* ==========================================================================
+   Skip Link (Accessibility)
+   ========================================================================== */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--color-accent);
+  color: #fff;
+  padding: var(--space-8) var(--space-16);
+  z-index: var(--z-toast);
+  transition: top var(--motion-fast);
+  text-decoration: none;
+  font-weight: 500;
+  border-radius: 0 0 var(--radius-medium) 0;
 }
+.skip-link:focus { top: 0; }
 
-@keyframes slideUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
+/* ==========================================================================
+   Micro-Animation Utilities
+   ========================================================================== */
 
-/* Scroll reveal (Using simple CSS animation trigger class) */
+/* Scroll reveal — JS adds .active class */
 .reveal {
   opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transform: translateY(24px);
+  transition: opacity var(--motion-slow), transform var(--motion-slow);
 }
-
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
+.reveal-delay-1 { transition-delay: 100ms; }
+.reveal-delay-2 { transition-delay: 200ms; }
+.reveal-delay-3 { transition-delay: 300ms; }
+.reveal-delay-4 { transition-delay: 400ms; }
+
+/* Entry Animations */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes floatY {
+  0%   { transform: translateY(0px); }
+  50%  { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+@keyframes pulseGlow {
+  0%   { box-shadow: var(--shadow-glow); }
+  50%  { box-shadow: 0 0 60px rgba(37,99,235,0.25), 0 0 100px rgba(37,99,235,0.12); }
+  100% { box-shadow: var(--shadow-glow); }
+}
+
+.animate-fade-slide-up {
+  animation: fadeSlideUp var(--motion-slow) both;
+}
+.animate-fade-in {
+  animation: fadeIn var(--motion-slow) both;
+}
+.animate-float {
+  animation: floatY 6s ease-in-out infinite;
+}
+.animate-delay-1 { animation-delay: 100ms; }
+.animate-delay-2 { animation-delay: 220ms; }
+.animate-delay-3 { animation-delay: 340ms; }
+.animate-delay-4 { animation-delay: 460ms; }

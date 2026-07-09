@@ -1,6 +1,11 @@
 ---
-import { brand } from '../../config/brand';
+import { BRAND } from '../../config/brand';
 import { social } from '../../config/social';
+import Logo from '../common/Logo.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 const currentYear = new Date().getFullYear();
 const buildVersion = 'v1.0.0';
@@ -13,20 +18,17 @@ const lastUpdated = '2026-07-15';
     <!-- Brand Column -->
     <div class="footer-brand">
       <div class="footer-logo-group">
-        <svg class="footer-logo" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect x="2" y="2" width="28" height="28" rx="6" fill="var(--color-primary)" />
-          <path d="M10 8V24" stroke="white" stroke-width="3" stroke-linecap="round" />
-          <path d="M22 8L12 16L22 24" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-        <span class="footer-brand-name">{brand.name}</span>
+        <Logo variant="full" size="md" />
       </div>
-      <p class="footer-brand-tagline">AI-Native Product Studio</p>
+      <p class="footer-brand-tagline">{BRAND.tagline} · {BRAND.country}</p>
+      <p class="footer-statement">{t('footer.statement')}</p>
       <div class="footer-meta">
         <span class="meta-badge">
           <span class="meta-dot active"></span>
-          Build {buildVersion}
+          {t('footer.build')} {buildVersion}
         </span>
-        <span class="meta-badge">Updated {lastUpdated}</span>
+        <span class="meta-badge">{t('footer.updated')} {lastUpdated}</span>
+        <span class="meta-badge"><span id="footer-visitors">—</span> {t('footer.visits')}</span>
       </div>
     </div>
 
@@ -34,36 +36,36 @@ const lastUpdated = '2026-07-15';
     <div class="footer-nav-grid">
 
       <div class="footer-col">
-        <h3 class="footer-col-heading">Products</h3>
+        <h3 class="footer-col-heading">{t('footer.products')}</h3>
         <ul class="footer-link-list">
-          <li><a href="/aria" class="footer-link">ARIA <span class="footer-link-badge">Flagship</span></a></li>
-          <li><a href="/projects" class="footer-link">Ecosystem</a></li>
+          <li><a href={localizePath('/aria', lang)} class="footer-link">ARIA <span class="footer-link-badge">{t('footer.flagship')}</span></a></li>
+          <li><a href={localizePath('/projects', lang)} class="footer-link">{t('footer.link.ecosystem')}</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-col-heading">Company</h3>
+        <h3 class="footer-col-heading">{t('footer.company')}</h3>
         <ul class="footer-link-list">
-          <li><a href="/about" class="footer-link">About</a></li>
-          <li><a href="/contact" class="footer-link">Partnerships</a></li>
+          <li><a href={localizePath('/about', lang)} class="footer-link">{t('footer.link.about')}</a></li>
+          <li><a href={localizePath('/contact', lang)} class="footer-link">{t('footer.link.partnerships')}</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-col-heading">Resources</h3>
+        <h3 class="footer-col-heading">{t('footer.resources')}</h3>
         <ul class="footer-link-list">
-          <li><a href="/aria#capabilities" class="footer-link">Documentation</a></li>
-          <li><a href="/aria#roadmap" class="footer-link">Roadmap</a></li>
+          <li><a href={localizePath('/aria#capabilities', lang)} class="footer-link">{t('footer.link.docs')}</a></li>
+          <li><a href={localizePath('/aria#roadmap', lang)} class="footer-link">{t('footer.link.roadmap')}</a></li>
         </ul>
       </div>
 
       <div class="footer-col">
-        <h3 class="footer-col-heading">Social</h3>
+        <h3 class="footer-col-heading">{t('footer.social')}</h3>
         <ul class="footer-link-list">
           <li><a href={social.github} class="footer-link" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           <li><a href={social.linkedin} class="footer-link" target="_blank" rel="noopener noreferrer">LinkedIn</a></li>
           <li><a href={social.instagram} class="footer-link" target="_blank" rel="noopener noreferrer">Instagram</a></li>
-          <li><a href={social.email} class="footer-link">Email</a></li>
+          <li><a href={social.email} class="footer-link">{t('contact.email')}</a></li>
         </ul>
       </div>
 
@@ -72,7 +74,7 @@ const lastUpdated = '2026-07-15';
 
   <!-- Footer Bottom Row -->
   <div class="container-xl footer-bottom">
-    <p class="footer-copyright">&copy; {currentYear} {brand.name}. All rights reserved.</p>
+    <p class="footer-copyright">&copy; {currentYear} {BRAND.name}. {t('footer.copyright')}</p>
     <button class="back-to-top" id="back-to-top" aria-label="Back to top">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
         <path d="M18 15l-6-6-6 6"/>
@@ -82,6 +84,20 @@ const lastUpdated = '2026-07-15';
 </footer>
 
 <script>
+  // Visitor placeholder — local, privacy-friendly (no network). Seeds a base
+  // number and increments once per browser so the footer feels alive.
+  (() => {
+    const el = document.getElementById('footer-visitors');
+    if (!el) return;
+    const KEY = 'katon-visits';
+    const base = 1240;
+    let n = parseInt(localStorage.getItem(KEY) || '', 10);
+    if (!Number.isFinite(n)) n = base + Math.floor(Math.random() * 60);
+    n += 1;
+    localStorage.setItem(KEY, String(n));
+    el.textContent = n.toLocaleString('en-US');
+  })();
+
   // Back to Top
   const backToTopBtn = document.getElementById('back-to-top');
   const footerEl = document.getElementById('site-footer');
@@ -147,6 +163,15 @@ const lastUpdated = '2026-07-15';
   .footer-brand-tagline {
     font-size: var(--text-caption);
     color: var(--color-text-secondary);
+    margin-block-start: var(--space-16);
+    margin-block-end: var(--space-12);
+  }
+
+  .footer-statement {
+    font-size: var(--text-caption);
+    line-height: 1.6;
+    color: var(--color-muted);
+    max-width: 34ch;
     margin-block-end: var(--space-24);
   }
 

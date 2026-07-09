@@ -1,42 +1,51 @@
 ---
-import { Badge } from '../ui/badge';
-import PremiumMockup from '../ui/mockup/PremiumMockup.astro';
----
+import ARIADashboard from '../ui/mockup/ARIADashboard.astro';
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
 
-<section class="section section-hero hero-split" aria-labelledby="hero-heading">
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+<section class="section section-hero hero-section" aria-labelledby="hero-heading">
   <div class="container-xl">
     <div class="hero-grid">
-      
-      <!-- LEFT: Copy & CTA -->
-      <div class="hero-content">
-        <div class="hero-eyebrow animate-fade-in">
-          <Badge variant="primary">AI-NATIVE PRODUCT STUDIO</Badge>
+
+      <!-- LEFT: Copy -->
+      <div class="hero-copy">
+        <div class="hero-eyebrow animate-fade-slide-up">
+          <span class="eyebrow-badge">
+            <span class="eyebrow-dot"></span>
+            {t('hero.eyebrow')}
+          </span>
         </div>
-        
-        <h1 id="hero-heading" class="display hero-headline animate-fade-in animate-delay-100">
-          Building AI<br />for Indonesia.
-        </h1>
-        
-        <div class="hero-subheadline animate-fade-in animate-delay-200">
-          <div class="bilingual-group">
-            <p class="bilingual-id body-lg">
-              Kami membangun produk AI yang membantu pemerintah, organisasi dan eksekutif bekerja lebih cepat.
-            </p>
-            <p class="bilingual-en">
-              We build AI products that help governments, organizations, and executives work faster.
-            </p>
+
+        <h1 id="hero-heading" class="display hero-headline animate-fade-slide-up animate-delay-1">{t('hero.headline')}</h1>
+
+        <p class="body-lg hero-sub animate-fade-slide-up animate-delay-2">{t('hero.sub')}</p>
+
+        <div class="hero-actions animate-fade-slide-up animate-delay-3">
+          <a href={localizePath('/aria', lang)} class="btn-primary" id="hero-cta-primary">
+            {t('hero.cta1')}
+            <svg class="btn-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M3 8h10M9 4l4 4-4 4"/>
+            </svg>
+          </a>
+          <a href={localizePath('/projects', lang)} class="btn-ghost" id="hero-cta-secondary">{t('hero.cta2')}</a>
+        </div>
+
+        <!-- Trust signals -->
+        <div class="hero-trust animate-fade-slide-up animate-delay-4">
+          <div class="trust-item">
+            <div class="trust-dot trust-dot--green"></div>
+            {t('hero.trust1')}
           </div>
-        </div>
-        
-        <div class="hero-actions animate-fade-in animate-delay-300">
-          <a href="/aria" class="btn-primary ripple">Explore ARIA</a>
-          <a href="/projects" class="btn-secondary">See Ecosystem</a>
+          <div class="trust-separator"></div>
+          <div class="trust-item">{t('hero.trust2')}</div>
         </div>
       </div>
-      
-      <!-- RIGHT: Illustration -->
-      <div class="hero-illustration">
-        <PremiumMockup />
+
+      <!-- RIGHT: Dashboard illustration -->
+      <div class="hero-illustration animate-fade-in animate-delay-2">
+        <ARIADashboard />
       </div>
 
     </div>
@@ -44,12 +53,27 @@ import PremiumMockup from '../ui/mockup/PremiumMockup.astro';
 </section>
 
 <style>
-  .hero-split {
-    background-color: var(--color-background);
+  .hero-section {
+    background: var(--gradient-hero);
+    position: relative;
     overflow: hidden;
   }
 
+  /* Subtle grid pattern */
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(15,23,42,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(15,23,42,0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+  }
+
+  /* ── Grid ───────────────────────────────────────────── */
   .hero-grid {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr;
     gap: var(--space-64);
@@ -58,77 +82,161 @@ import PremiumMockup from '../ui/mockup/PremiumMockup.astro';
 
   @media (min-width: 1024px) {
     .hero-grid {
-      grid-template-columns: 5fr 7fr;
-      gap: var(--space-32);
+      grid-template-columns: 1fr 1.15fr;
+      gap: var(--space-48);
     }
   }
 
-  .hero-content {
+  /* ── Copy ───────────────────────────────────────────── */
+  .hero-copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-  }
-  
-  .hero-eyebrow {
-    margin-block-end: var(--space-32);
+    gap: var(--space-32);
   }
 
+  /* Eyebrow */
+  .hero-eyebrow { display: flex; }
+
+  .eyebrow-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-16);
+    background: rgba(37, 99, 235, 0.06);
+    border: 1px solid rgba(37, 99, 235, 0.15);
+    border-radius: var(--radius-full);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .eyebrow-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* Headline */
   .hero-headline {
-    margin-block-start: 0;
-    margin-block-end: var(--space-32);
     color: var(--color-primary);
+    margin: 0;
   }
 
-  .hero-subheadline {
-    margin-block-end: var(--space-48);
-    max-width: 50ch;
+  /* Subheadline */
+  .hero-sub {
+    color: var(--color-text-secondary);
+    max-width: 48ch;
+    margin: 0;
   }
 
+  /* Actions */
   .hero-actions {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-16);
+    gap: var(--space-12);
   }
 
-  /* Refined Buttons */
-  .btn-primary, .btn-secondary {
+  .btn-primary, .btn-ghost {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    height: var(--space-48);
-    padding-inline: var(--space-32);
-    font-weight: var(--weight-medium);
+    gap: var(--space-8);
+    height: 48px;
+    padding-inline: var(--space-24);
     border-radius: var(--radius-full);
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-body-sm);
     text-decoration: none;
     transition: all var(--motion-fast);
+    white-space: nowrap;
   }
 
   .btn-primary {
-    background-color: var(--color-primary);
+    background: var(--color-primary);
     color: var(--color-surface);
-    box-shadow: var(--shadow-sm);
+    box-shadow: 0 4px 16px rgba(15,23,42,0.15);
   }
 
   .btn-primary:hover {
-    background-color: var(--color-accent);
+    background: var(--color-accent);
+    box-shadow: var(--shadow-accent);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
   }
 
-  .btn-secondary {
-    background-color: transparent;
-    color: var(--color-text-primary);
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-arrow {
+    width: 16px;
+    height: 16px;
+    transition: transform var(--motion-fast);
+  }
+
+  .btn-primary:hover .btn-arrow { transform: translateX(3px); }
+
+  .btn-ghost {
+    background: rgba(255,255,255,0.7);
+    color: var(--color-text-secondary);
     border: var(--border-light);
+    backdrop-filter: blur(8px);
   }
 
-  .btn-secondary:hover {
-    background-color: var(--color-surface);
+  .btn-ghost:hover {
+    background: var(--color-surface);
+    color: var(--color-primary);
     border-color: var(--color-border);
+    transform: translateY(-2px);
   }
-  
-  /* Ripple Effect (CSS only fake ripple on active) */
-  .ripple:active {
-    transform: scale(0.98);
-    opacity: 0.8;
+
+  /* Trust signals */
+  .hero-trust {
+    display: flex;
+    align-items: center;
+    gap: var(--space-16);
+    flex-wrap: wrap;
+  }
+
+  .trust-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-8);
+    font-size: var(--text-caption);
+    color: var(--color-muted);
+  }
+
+  .trust-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .trust-dot--green { background: var(--color-success); }
+
+  .trust-separator {
+    width: 1px;
+    height: 12px;
+    background: var(--color-border);
+  }
+
+  /* ── Illustration ───────────────────────────────────── */
+  .hero-illustration {
+    display: none;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-illustration { display: block; }
+  }
+
+  @media (min-width: 768px) {
+    .hero-illustration { display: block; }
   }
 </style>

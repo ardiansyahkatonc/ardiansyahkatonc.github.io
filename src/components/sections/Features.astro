@@ -1,44 +1,29 @@
 ---
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const features = [
-  {
-    id: 'meeting-intelligence',
-    title: 'Meeting Intelligence',
-    description: 'Automatically captures, structures, and distributes meeting outcomes — decisions, action items, and key points — without manual effort.',
-    icon: '◎',
-  },
-  {
-    id: 'knowledge-management',
-    title: 'Knowledge Management',
-    description: 'Organizes institutional knowledge into searchable, accessible formats so information is available when and where it is needed.',
-    icon: '▣',
-  },
-  {
-    id: 'document-automation',
-    title: 'Document Automation',
-    description: 'Generates, processes, and formats documents using AI-assisted workflows, reducing turnaround time for routine outputs.',
-    icon: '◈',
-  },
-  {
-    id: 'ai-workspace',
-    title: 'AI Workspace',
-    description: 'A unified interface for AI-assisted tasks across your organization — consistent, context-aware, and accessible to every team member.',
-    icon: '⬡',
-  },
-];
+  { id: 'meeting', icon: '◎' },
+  { id: 'knowledge', icon: '▣' },
+  { id: 'document', icon: '◈' },
+  { id: 'workspace', icon: '⬡' },
+] as const;
 ---
 <section class="section section-content features-section" aria-labelledby="features-heading">
   <div class="container-xl">
     <div class="features-header">
-      <span class="section-label label">Key Features</span>
-      <h2 id="features-heading" class="features-title h2">What ARIA does</h2>
+      <span class="section-label label">{t('features.label')}</span>
+      <h2 id="features-heading" class="features-title h2">{t('features.title')}</h2>
     </div>
     <div class="features-grid">
       {features.map((feature) => (
         <div class="feature-card" id={`feature-${feature.id}`}>
           <span class="feature-icon" aria-hidden="true">{feature.icon}</span>
           <div class="feature-body">
-            <h3 class="feature-title h4">{feature.title}</h3>
-            <p class="feature-desc body text-muted">{feature.description}</p>
+            <h3 class="feature-title h4">{t(`features.${feature.id}.title` as any)}</h3>
+            <p class="feature-desc body text-muted">{t(`features.${feature.id}.desc` as any)}</p>
           </div>
         </div>
       ))}
@@ -91,9 +76,22 @@ const features = [
   }
 
   .feature-icon {
-    font-size: var(--text-h2);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-large);
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    font-size: 1.5rem;
     line-height: 1;
-    color: var(--color-text-secondary);
+    transition: transform var(--motion-normal), background var(--motion-fast);
+  }
+
+  .feature-card:hover .feature-icon {
+    transform: scale(1.05);
+    background: var(--color-accent-mid);
   }
 
   .feature-body {

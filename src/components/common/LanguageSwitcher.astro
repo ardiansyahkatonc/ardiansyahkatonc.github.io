@@ -1,0 +1,161 @@
+---
+// =============================================================================
+// LanguageSwitcher — swaps only the language, preserving the current page.
+//   /id/aria  →  click EN  →  /en/aria   (never /en)
+// Desktop: ID | EN segmented control. Mobile: compact <details> dropdown.
+// Accessible: keyboard-native (anchors + <details>), aria-current, focus rings.
+// =============================================================================
+import { getLangFromUrl, stripLangPrefix, localizePath, LANGUAGES } from '../../i18n';
+import { useTranslations } from '../../i18n';
+
+const current = getLangFromUrl(Astro.url);
+const bare = stripLangPrefix(Astro.url.pathname);
+const t = useTranslations(current);
+
+const options = LANGUAGES.map((l) => ({
+  code: l.code,
+  short: l.short,
+  label: l.label,
+  href: localizePath(bare, l.code),
+  active: l.code === current,
+}));
+const currentOption = options.find((o) => o.active)!;
+---
+<div class="lang-switch" aria-label={t('a11y.langSwitch')}>
+  <!-- Desktop: segmented -->
+  <div class="lang-seg" role="group" aria-label={t('a11y.langSwitch')}>
+    {options.map((o) => (
+      <a
+        href={o.href}
+        class={`lang-seg-btn ${o.active ? 'is-active' : ''}`}
+        data-lang-choice={o.code}
+        aria-current={o.active ? 'true' : undefined}
+        hreflang={o.code}
+        lang={o.code}
+      >{o.short}</a>
+    ))}
+  </div>
+
+  <!-- Mobile: compact dropdown -->
+  <details class="lang-drop">
+    <summary aria-label={t('a11y.langSwitch')}>
+      <span>{currentOption.short}</span>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M4 6l4 4 4-4"/></svg>
+    </summary>
+    <ul class="lang-drop-menu" role="list">
+      {options.map((o) => (
+        <li>
+          <a
+            href={o.href}
+            class={`lang-drop-item ${o.active ? 'is-active' : ''}`}
+            data-lang-choice={o.code}
+            aria-current={o.active ? 'true' : undefined}
+            hreflang={o.code}
+            lang={o.code}
+          >{o.label}</a>
+        </li>
+      ))}
+    </ul>
+  </details>
+</div>
+
+<script>
+  // Persist the chosen language so the root redirect remembers it.
+  document.querySelectorAll('[data-lang-choice]').forEach((el) => {
+    el.addEventListener('click', () => {
+      try { localStorage.setItem('katon-lang', (el as HTMLElement).dataset.langChoice || 'id'); } catch (e) {}
+    });
+  });
+</script>
+
+<style>
+  .lang-switch { display: flex; align-items: center; }
+
+  /* ── Segmented (desktop) ─────────────────────────── */
+  .lang-seg {
+    display: none;
+    padding: 3px;
+    gap: 2px;
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: var(--surface-nav-pill);
+  }
+  @media (min-width: 768px) { .lang-seg { display: inline-flex; } }
+
+  .lang-seg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 26px;
+    padding-inline: var(--space-8);
+    border-radius: var(--radius-full);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--motion-fast), background var(--motion-fast);
+  }
+  .lang-seg-btn:hover { color: var(--color-primary); }
+  .lang-seg-btn.is-active {
+    background: var(--color-surface);
+    color: var(--color-primary);
+    box-shadow: var(--shadow-xs);
+  }
+  .lang-seg-btn:focus-visible,
+  .lang-drop-item:focus-visible,
+  .lang-drop summary:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+
+  /* ── Dropdown (mobile) ───────────────────────────── */
+  .lang-drop { position: relative; display: block; }
+  @media (min-width: 768px) { .lang-drop { display: none; } }
+
+  .lang-drop summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 32px;
+    padding-inline: var(--space-12);
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    list-style: none;
+  }
+  .lang-drop summary::-webkit-details-marker { display: none; }
+  .lang-drop summary svg { width: 12px; height: 12px; }
+
+  .lang-drop-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 6px);
+    min-width: 160px;
+    list-style: none;
+    margin: 0;
+    padding: var(--space-4);
+    background: var(--color-surface);
+    border: var(--border-thin);
+    border-radius: var(--radius-large);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-dropdown);
+  }
+
+  .lang-drop-item {
+    display: block;
+    padding: var(--space-8) var(--space-12);
+    border-radius: var(--radius-medium);
+    font-size: var(--text-body-sm);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+  }
+  .lang-drop-item:hover { background: var(--surface-nav-hover); color: var(--color-primary); }
+  .lang-drop-item.is-active { color: var(--color-accent); font-weight: var(--weight-semibold); }
+</style>

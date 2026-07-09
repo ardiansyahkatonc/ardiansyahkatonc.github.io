@@ -1,0 +1,106 @@
+---
+// Engineering Trust — concise signal of engineering quality. Not overly
+// technical: a single quiet band of capability badges.
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const signals = [
+  { label: 'Built with Astro', id: 'astro' },
+  { label: 'Laravel Ready', id: 'laravel' },
+  { label: 'AI Native', id: 'ai' },
+  { label: 'Production Ready', id: 'prod' },
+  { label: 'Security First', id: 'security' },
+];
+---
+<section class="eng-trust" aria-labelledby="eng-heading">
+  <div class="container-lg eng-inner reveal">
+    <div class="eng-head">
+      <span class="eng-eyebrow label">{t('engineering.label')}</span>
+      <h2 id="eng-heading" class="eng-title h3">{t('engineering.title')}</h2>
+    </div>
+    <ul class="eng-badges" role="list">
+      {signals.map((s) => (
+        <li class="eng-badge" id={`eng-${s.id}`}>
+          <span class="eng-check" aria-hidden="true">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3.5 8.5l3 3 6-6.5"/></svg>
+          </span>
+          {s.label}
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .eng-trust {
+    background:
+      linear-gradient(180deg, var(--color-surface) 0%, var(--color-surface-muted) 100%);
+    padding-block: var(--space-80);
+  }
+
+  .eng-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-32);
+    text-align: center;
+  }
+
+  .eng-eyebrow {
+    display: block;
+    color: var(--color-accent);
+    margin-block-end: var(--space-12);
+  }
+
+  .eng-title {
+    margin: 0;
+    color: var(--color-primary);
+    max-width: 24ch;
+  }
+
+  .eng-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-12);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .eng-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-16);
+    border-radius: var(--radius-full);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xs);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-primary);
+    transition: transform var(--motion-fast), box-shadow var(--motion-fast), border-color var(--motion-fast);
+  }
+
+  .eng-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-sm);
+    border-color: var(--color-border-accent);
+  }
+
+  .eng-check {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--color-accent-light);
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+  .eng-check svg { width: 11px; height: 11px; }
+</style>

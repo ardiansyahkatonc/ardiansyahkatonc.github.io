@@ -1,0 +1,24 @@
+{
+  "name": "kat.on — AI-Native Product Studio",
+  "short_name": "kat.on",
+  "description": "Helping public sector organizations simplify complex work through AI, automation, and context engineering.",
+  "lang": "id",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0B1120",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "/brand/favicon/apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

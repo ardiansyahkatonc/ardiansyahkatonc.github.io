@@ -1,31 +1,42 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { Section } from '../components/ui/section';
-import { Container } from '../components/ui/container';
-import { Card } from '../components/ui/card';
-import { Badge } from '../components/ui/badge';
-import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Section } from '../../components/ui/section';
+import { Container } from '../../components/ui/container';
+import { Card } from '../../components/ui/card';
+import { Badge } from '../../components/ui/badge';
+import ARIADashboard from '../../components/ui/mockup/ARIADashboard.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'id' } }, { params: { lang: 'en' } }];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const capabilities = ['meeting', 'document', 'knowledge', 'workspace'] as const;
+const capIcons: Record<string, string> = {
+  meeting: '◎',
+  document: '◈',
+  knowledge: '▣',
+  workspace: '⬡',
+};
 ---
 
-<BaseLayout 
-  title="ARIA | AI Executive Assistant for the Public Sector"
-  description="Transform meetings, documents, and organizational knowledge into structured, actionable information with ARIA's AI-assisted workflows."
->
-  
+<BaseLayout title={t('meta.aria.title')} description={t('meta.aria.desc')}>
+
   {/* A. Hero */}
   <Section type="hero" aria-labelledby="aria-hero-heading" class="aria-hero">
     <Container size="lg" class="center-container">
       <div class="aria-badges">
-        <Badge variant="primary">ARIA Flagship</Badge>
-        <Badge variant="neutral">Enterprise Ready</Badge>
+        <Badge variant="primary">{t('aria.badge1')}</Badge>
+        <Badge variant="neutral">{t('aria.badge2')}</Badge>
       </div>
-      <h1 id="aria-hero-heading" class="display-xl text-center">AI Executive Assistant</h1>
-      <p class="body-lg hero-desc text-center max-reading text-muted">
-        ARIA listens, structures, and organizes information securely—allowing government teams to focus on public service rather than paperwork.
-      </p>
+      <h1 id="aria-hero-heading" class="display-xl text-center">{t('aria.h1')}</h1>
+      <p class="body-lg hero-desc text-center max-reading text-muted">{t('aria.desc')}</p>
       <div class="hero-actions">
-        <a href="mailto:hello@kat.on" class="btn-primary">Request Demo</a>
-        <a href="#capabilities" class="btn-secondary">Explore Capabilities</a>
+        <a href="mailto:hello@kat.on" class="btn-primary">{t('aria.cta1')}</a>
+        <a href="#capabilities" class="btn-secondary">{t('aria.cta2')}</a>
       </div>
     </Container>
   </Section>
@@ -33,7 +44,7 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
   {/* B. Product Preview */}
   <Section type="content" class="mockup-section">
     <Container size="xl">
-      <ARIAMockup />
+      <ARIADashboard />
     </Container>
   </Section>
 
@@ -42,14 +53,14 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
     <Container size="xl">
       <div class="grid-2 paradigm-grid">
         <div class="paradigm-block problem">
-          <span class="label text-muted">The Problem</span>
-          <h2 class="h3">Friction and Fragmentation</h2>
-          <p class="body text-muted">Critical information remains scattered across emails, disjointed documents, and unrecorded meetings. This results in repetitive administrative work and siloed institutional knowledge.</p>
+          <span class="label text-muted">{t('aria.problem.label')}</span>
+          <h2 class="h3">{t('aria.problem.title')}</h2>
+          <p class="body text-muted">{t('aria.problem.desc')}</p>
         </div>
         <div class="paradigm-block solution">
-          <span class="label text-accent">The Solution</span>
-          <h2 class="h3">Structured Intelligence</h2>
-          <p class="body text-muted">By integrating directly into your daily operations, ARIA acts as an intelligent assistant that structures data at the source, creating a unified, searchable, and actionable organizational memory.</p>
+          <span class="label text-accent">{t('aria.solution.label')}</span>
+          <h2 class="h3">{t('aria.solution.title')}</h2>
+          <p class="body text-muted">{t('aria.solution.desc')}</p>
         </div>
       </div>
     </Container>
@@ -59,30 +70,17 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
   <Section type="feature" aria-labelledby="capabilities-heading" id="capabilities">
     <Container size="xl">
       <div class="section-header center-container text-center">
-        <span class="label text-muted">Capabilities</span>
-        <h2 id="capabilities-heading" class="h2">How ARIA Works</h2>
+        <span class="label text-muted">{t('aria.cap.label')}</span>
+        <h2 id="capabilities-heading" class="h2">{t('aria.cap.title')}</h2>
       </div>
       <div class="grid-2 features-grid">
-        <Card variant="feature">
-          <div class="feature-icon">◎</div>
-          <h3 class="h4">Meeting Intelligence</h3>
-          <p class="body text-muted">Automatically organize meetings into structured notes, decisions, and tracked action items without manual intervention.</p>
-        </Card>
-        <Card variant="feature">
-          <div class="feature-icon">◈</div>
-          <h3 class="h4">Document Automation</h3>
-          <p class="body text-muted">Accelerate administrative document creation using AI-assisted workflows powered by your organization's context.</p>
-        </Card>
-        <Card variant="feature">
-          <div class="feature-icon">▣</div>
-          <h3 class="h4">Knowledge Management</h3>
-          <p class="body text-muted">Build a dynamic institutional knowledge base that remains searchable, contextual, and reusable across departments.</p>
-        </Card>
-        <Card variant="feature">
-          <div class="feature-icon">⬡</div>
-          <h3 class="h4">AI Workspace</h3>
-          <p class="body text-muted">A centralized, secure interface for all AI-assisted tasks, ensuring consistent output and strict data privacy compliance.</p>
-        </Card>
+        {capabilities.map((c) => (
+          <Card variant="feature">
+            <div class="feature-icon">{capIcons[c]}</div>
+            <h3 class="h4">{t(`aria.cap.${c}.title` as any)}</h3>
+            <p class="body text-muted">{t(`aria.cap.${c}.desc` as any)}</p>
+          </Card>
+        ))}
       </div>
     </Container>
   </Section>
@@ -91,14 +89,14 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
   <Section type="content" aria-labelledby="architecture-heading">
     <Container size="lg">
       <div class="architecture-wrapper">
-        <span class="label text-muted">Architecture</span>
-        <h2 id="architecture-heading" class="h2">Enterprise Grade Security</h2>
+        <span class="label text-muted">{t('aria.arch.label')}</span>
+        <h2 id="architecture-heading" class="h2">{t('aria.arch.title')}</h2>
         <div class="flow-md text-muted body-lg mt-32">
-          <p>ARIA is built on an isolated data architecture designed specifically for the public sector. Your organizational data never trains public models.</p>
+          <p>{t('aria.arch.p')}</p>
           <ul class="architecture-list">
-            <li><strong>Data Isolation:</strong> Dedicated tenant environments.</li>
-            <li><strong>Audit Logging:</strong> Comprehensive tracking of all AI interactions.</li>
-            <li><strong>Explainable AI:</strong> Tracing generated outputs back to source documents.</li>
+            <li><strong>{t('aria.arch.li1.strong')}</strong> {t('aria.arch.li1.text')}</li>
+            <li><strong>{t('aria.arch.li2.strong')}</strong> {t('aria.arch.li2.text')}</li>
+            <li><strong>{t('aria.arch.li3.strong')}</strong> {t('aria.arch.li3.text')}</li>
           </ul>
         </div>
       </div>
@@ -109,26 +107,26 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
   <Section type="content" aria-labelledby="roadmap-heading">
     <Container size="xl">
       <div class="section-header">
-        <span class="label text-muted">Roadmap</span>
-        <h2 id="roadmap-heading" class="h2">Future Evolution</h2>
+        <span class="label text-muted">{t('aria.road.label')}</span>
+        <h2 id="roadmap-heading" class="h2">{t('aria.road.title')}</h2>
       </div>
       <div class="grid-2 roadmap-grid">
         <Card variant="default">
           <Badge variant="neutral">Phase 4</Badge>
-          <h3 class="h4 mt-16">Ecosystem Expansion</h3>
+          <h3 class="h4 mt-16">{t('aria.road.p4.title')}</h3>
           <ul class="roadmap-list body text-muted mt-16">
-            <li>Knowledge Graph Integration</li>
-            <li>Advanced Automation Engine</li>
-            <li>Organization Memory Sync</li>
+            <li>{t('aria.road.p4.li1')}</li>
+            <li>{t('aria.road.p4.li2')}</li>
+            <li>{t('aria.road.p4.li3')}</li>
           </ul>
         </Card>
         <Card variant="default">
           <Badge variant="neutral">Phase 5</Badge>
-          <h3 class="h4 mt-16">Platform Scale</h3>
+          <h3 class="h4 mt-16">{t('aria.road.p5.title')}</h3>
           <ul class="roadmap-list body text-muted mt-16">
-            <li>Multi-Organization Support</li>
-            <li>Public API & Integrations</li>
-            <li>Enterprise Agent Platform</li>
+            <li>{t('aria.road.p5.li1')}</li>
+            <li>{t('aria.road.p5.li2')}</li>
+            <li>{t('aria.road.p5.li3')}</li>
           </ul>
         </Card>
       </div>
@@ -138,10 +136,10 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
   {/* G. CTA */}
   <Section type="cta" class="aria-cta">
     <Container size="md" class="center-container text-center">
-      <h2 class="display text-surface">Ready to modernize?</h2>
-      <p class="body-lg text-surface-muted mt-24 max-reading">Discover how ARIA can transform your agency's administrative workflows.</p>
+      <h2 class="display text-surface">{t('aria.finalcta.title')}</h2>
+      <p class="body-lg text-surface-muted mt-24 max-reading">{t('aria.finalcta.sub')}</p>
       <div class="hero-actions mt-48">
-        <a href="mailto:hello@kat.on" class="btn-primary-inverted">Schedule a Demo</a>
+        <a href="mailto:hello@kat.on" class="btn-primary-inverted">{t('aria.finalcta.btn')}</a>
       </div>
     </Container>
   </Section>
@@ -154,13 +152,13 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
     flex-direction: column;
     align-items: center;
   }
-  
+
   .text-center { text-align: center; }
   .text-muted { color: var(--color-text-secondary); }
   .text-accent { color: var(--color-accent); }
   .text-surface { color: var(--color-surface); }
   .text-surface-muted { color: rgba(255,255,255,0.7); }
-  
+
   .mt-16 { margin-block-start: var(--space-16); }
   .mt-24 { margin-block-start: var(--space-24); }
   .mt-32 { margin-block-start: var(--space-32); }
@@ -224,7 +222,7 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
     transform: translateY(-2px);
     box-shadow: var(--shadow-md);
   }
-  
+
   .btn-secondary:hover {
     border-color: var(--color-border);
   }
@@ -241,12 +239,12 @@ import ARIAMockup from '../components/ui/mockup/ARIAMockup.astro';
     padding: var(--space-48);
     border-radius: var(--radius-2xl);
   }
-  
+
   .paradigm-block.problem {
     background-color: var(--color-surface);
     border: var(--border-light);
   }
-  
+
   .paradigm-block.solution {
     background-color: var(--color-surface-muted);
     border: 1px solid var(--color-border);

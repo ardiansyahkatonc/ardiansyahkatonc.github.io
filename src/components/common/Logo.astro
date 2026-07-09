@@ -1,0 +1,106 @@
+---
+// =============================================================================
+// Logo — the single, reusable brand mark for kat.on
+// -----------------------------------------------------------------------------
+// No page should reference logo image paths or use raw <img> tags. Use <Logo />.
+// The mark is rendered inline as SVG so it adapts automatically to dark/light
+// mode via CSS variables. Static exports live in `public/brand/logo/`.
+//
+//   <Logo />                 full wordmark, auto-adapts to theme
+//   <Logo variant="light" /> full wordmark forced for LIGHT backgrounds
+//   <Logo variant="dark" />  full wordmark forced for DARK backgrounds
+//   <Logo variant="icon" />  icon-only dot motif
+//   <Logo variant="monochrome" /> single-color (inherits currentColor)
+//   <Logo size="lg" />       sizing: sm | md | lg
+// =============================================================================
+import { BRAND } from '../../config/brand';
+
+type Variant = 'full' | 'light' | 'dark' | 'icon' | 'monochrome';
+
+interface Props {
+  variant?: Variant;
+  size?: 'sm' | 'md' | 'lg';
+  class?: string;
+}
+
+const { variant = 'full', size = 'md', class: className = '' } = Astro.props;
+
+// Heights per size; wordmark keeps the 116:34 aspect ratio, icon is square.
+const heights = { sm: 20, md: 26, lg: 34 } as const;
+const h = heights[size];
+const fullW = Math.round((h * 116) / 34);
+
+// Ink + accent per variant.
+//  - full:       auto-adapts (uses theme text/accent tokens)
+//  - light:      dark ink (for placing on light surfaces)
+//  - dark:       light ink (for placing on dark surfaces)
+//  - monochrome: everything inherits currentColor
+const ink =
+  variant === 'light'
+    ? '#0F172A'
+    : variant === 'dark'
+      ? '#F8FAFC'
+      : variant === 'monochrome'
+        ? 'currentColor'
+        : 'var(--color-text-primary)';
+
+const accent =
+  variant === 'dark'
+    ? '#3B82F6'
+    : variant === 'monochrome'
+      ? 'currentColor'
+      : 'var(--color-accent)';
+
+const accentSoftOpacity = variant === 'monochrome' ? '0.25' : '0.15';
+---
+
+{variant === 'icon' ? (
+  <svg
+    class={`katon-logo katon-logo--icon ${className}`}
+    height={h}
+    width={h}
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label={BRAND.name}
+    role="img"
+  >
+    <circle cx="8" cy="12" r="6" fill="var(--color-accent)" opacity="0.15" />
+    <circle cx="12" cy="12" r="6" fill="var(--color-accent)" />
+  </svg>
+) : (
+  <svg
+    class={`katon-logo katon-logo--full ${className}`}
+    height={h}
+    width={fullW}
+    viewBox="0 0 116 34"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+    aria-label={BRAND.name}
+    role="img"
+  >
+    <!-- Geometric accent mark: two overlapping circles = "dot" motif -->
+    <circle cx="7" cy="17" r="6" fill={accent} opacity={accentSoftOpacity} />
+    <circle cx="11" cy="17" r="6" fill={accent} />
+    <!-- Wordmark -->
+    <text
+      x="22"
+      y="23"
+      font-family="Inter, system-ui, sans-serif"
+      font-size="18"
+      font-weight="700"
+      fill={ink}
+      letter-spacing="-0.03em">{BRAND.name}</text>
+  </svg>
+)}
+
+<style>
+  .katon-logo {
+    display: block;
+    flex-shrink: 0;
+    transition: opacity var(--motion-fast);
+  }
+  .katon-logo:hover {
+    opacity: 0.8;
+  }
+</style>

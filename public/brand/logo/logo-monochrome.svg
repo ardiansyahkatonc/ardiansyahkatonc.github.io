@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="116" height="34" viewBox="0 0 116 34" fill="none" role="img" aria-label="kat.on">
+  <!-- Single-color wordmark — inherits currentColor -->
+  <circle cx="7" cy="17" r="6" fill="currentColor" opacity="0.25"/>
+  <circle cx="11" cy="17" r="6" fill="currentColor"/>
+  <text x="22" y="23" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="currentColor" letter-spacing="-0.03em">kat.on</text>
+</svg>

@@ -1,192 +1,364 @@
 ---
-import { brand } from '../../config/brand';
-import Logo from '../ui/Logo.astro';
+import Logo from '../common/Logo.astro';
+import LanguageSwitcher from '../common/LanguageSwitcher.astro';
+import { HOME_HREF, NAV_ITEMS, NAV_CTA } from '../../config/navigation';
+import { getLangFromUrl, useTranslations, localizePath, stripLangPrefix } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const barePath = stripLangPrefix(Astro.url.pathname);
+const isActive = (href: string) =>
+  href === '/' ? barePath === '/' : barePath.startsWith(href);
 ---
 
 <header class="site-header" id="site-header">
   <div class="container-xl header-inner">
-    
-    <!-- Left: Logo & Brand Name -->
-    <div class="header-left">
-      <a href="/" aria-label={`${brand.name} - Home`} class="brand-link">
-        <Logo />
-        <div class="brand-text">
-          <span class="brand-name">{brand.name}</span>
-          <span class="brand-tagline">AI-Native Product Studio</span>
-        </div>
-      </a>
-    </div>
-    
-    <!-- Center: Navigation -->
-    <nav class="header-center" aria-label="Main Navigation">
-      <ul class="nav-list">
-        <li class="nav-item">
-          <a href="/aria" class="nav-link {Astro.url.pathname.startsWith('/aria') ? 'active' : ''}">ARIA</a>
-        </li>
-        <li class="nav-item">
-          <a href="/projects" class="nav-link {Astro.url.pathname.startsWith('/projects') ? 'active' : ''}">Ecosystem</a>
-        </li>
-        <li class="nav-item">
-          <a href="/about" class="nav-link {Astro.url.pathname.startsWith('/about') ? 'active' : ''}">Story</a>
-        </li>
-        <li class="nav-item">
-          <a href="/contact" class="nav-link {Astro.url.pathname.startsWith('/contact') ? 'active' : ''}">Contact</a>
-        </li>
+
+    <!-- Left: Brand -->
+    <a href={localizePath(HOME_HREF, lang)} class="header-brand" aria-label={t('a11y.home')}>
+      <Logo size="md" />
+    </a>
+
+    <!-- Center: Pill Nav -->
+    <nav class="header-nav" aria-label={t('nav.aria')}>
+      <ul class="nav-pill-list" role="list">
+        {NAV_ITEMS.map((item) => (
+          <li>
+            <a
+              href={localizePath(item.href, lang)}
+              class={`nav-link ${isActive(item.href) ? 'nav-link--active' : ''}`}
+              aria-current={isActive(item.href) ? 'page' : undefined}
+            >{t(item.key as any)}</a>
+          </li>
+        ))}
       </ul>
     </nav>
-    
-    <!-- Right: CTA -->
+
+    <!-- Right: Theme + Language + CTA -->
     <div class="header-right">
-      <a href="/aria" class="nav-cta">Launch ARIA &rarr;</a>
+      <button
+        id="theme-toggle"
+        class="theme-toggle"
+        aria-label="Theme"
+        title="Theme"
+      >💻</button>
+      <LanguageSwitcher />
+      <a href={localizePath(NAV_CTA.href, lang)} class="header-cta" id="header-cta">
+        {t(NAV_CTA.key as any)}
+        <span class="cta-arrow" aria-hidden="true">→</span>
+      </a>
     </div>
 
+    <!-- Mobile menu button -->
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Buka menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Drawer -->
+  <div class="mobile-drawer" id="mobile-drawer" aria-hidden="true">
+    <nav aria-label={t('nav.aria')}>
+      <ul class="mobile-nav-list" role="list">
+        {NAV_ITEMS.map((item) => (
+          <li><a
+            href={localizePath(item.href, lang)}
+            class="mobile-nav-link"
+            aria-current={isActive(item.href) ? 'page' : undefined}
+          >{t(item.key as any)}</a></li>
+        ))}
+      </ul>
+      <a href={localizePath(NAV_CTA.href, lang)} class="mobile-cta">{t(NAV_CTA.key as any)} →</a>
+    </nav>
   </div>
 </header>
 
 <script>
-  // Transparent at top, solid on scroll
+  // Transparent → frosted glass on scroll
   const header = document.getElementById('site-header');
-  
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+
   if (header) {
-    const handleScroll = () => {
-      if (window.scrollY > 20) {
-        header.classList.add('scrolled');
-      } else {
-        header.classList.remove('scrolled');
-      }
+    const onScroll = () => {
+      header.classList.toggle('scrolled', window.scrollY > 24);
     };
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    // Check initial state
-    handleScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  if (mobileBtn && drawer) {
+    mobileBtn.addEventListener('click', () => {
+      const isOpen = mobileBtn.getAttribute('aria-expanded') === 'true';
+      mobileBtn.setAttribute('aria-expanded', String(!isOpen));
+      mobileBtn.setAttribute('aria-label', isOpen ? 'Buka menu' : 'Tutup menu');
+      drawer.setAttribute('aria-hidden', String(isOpen));
+      drawer.classList.toggle('open', !isOpen);
+      mobileBtn.classList.toggle('open', !isOpen);
+    });
   }
 </script>
 
 <style>
+  /* ── Header Shell ───────────────────────────────────── */
   .site-header {
     position: sticky;
     top: 0;
     z-index: var(--z-sticky);
-    padding-block: var(--space-24);
+    padding-block: var(--space-20, 20px);
     background-color: transparent;
     border-bottom: 1px solid transparent;
-    transition: all var(--motion-normal);
+    transition:
+      background-color var(--motion-normal),
+      border-color var(--motion-normal),
+      padding-block var(--motion-normal);
   }
-  
-  /* Scrolled State */
+
   .site-header.scrolled {
-    background-color: rgba(248, 250, 252, 0.85); /* F8FAFC with opacity */
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border-bottom: var(--border-light);
-    padding-block: var(--space-16);
+    background-color: var(--surface-header-scrolled);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    border-bottom-color: var(--color-border-light);
+    padding-block: var(--space-12);
   }
 
   .header-inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    gap: var(--space-16);
   }
 
-  /* Left */
-  .header-left {
-    display: flex;
-    align-items: center;
-  }
-  
-  .brand-link {
-    display: flex;
-    align-items: center;
-    gap: var(--space-12);
+  /* ── Brand ─────────────────────────────────────────── */
+  .header-brand {
     text-decoration: none;
-    color: var(--color-primary);
-  }
-
-  .brand-text {
     display: flex;
-    flex-direction: column;
-  }
-  
-  .brand-name {
-    font-size: var(--text-body);
-    font-weight: var(--weight-bold);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-  }
-
-  .brand-tagline {
-    font-size: 10px;
-    font-weight: var(--weight-medium);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    color: var(--color-text-secondary);
-  }
-
-  /* Center */
-  .header-center {
-    display: none; /* Hidden on mobile */
-  }
-
-  @media (min-width: 768px) {
-    .header-center {
-      display: block;
-    }
-    
-    .nav-list {
-      display: flex;
-      gap: var(--space-8);
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      background-color: var(--color-surface);
-      border: var(--border-light);
-      border-radius: var(--radius-full);
-      padding: var(--space-4);
-      box-shadow: var(--shadow-xs);
-    }
-    
-    .nav-link {
-      display: block;
-      padding: var(--space-8) var(--space-16);
-      border-radius: var(--radius-full);
-      font-size: var(--text-caption);
-      font-weight: var(--weight-medium);
-      color: var(--color-text-secondary);
-      text-decoration: none;
-      transition: all var(--motion-fast);
-    }
-    
-    .nav-link:hover {
-      color: var(--color-primary);
-      background-color: var(--color-background);
-    }
-
-    .nav-link.active {
-      color: var(--color-primary);
-      background-color: var(--color-background);
-      box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
-    }
-  }
-
-  /* Right */
-  .nav-cta {
-    display: inline-flex;
     align-items: center;
+    flex-shrink: 0;
+    transition: opacity var(--motion-fast);
+  }
+  .header-brand:hover { opacity: 0.75; }
+
+  /* ── Pill Navigation ────────────────────────────────── */
+  .header-nav {
+    display: none;
+    flex: 1;
     justify-content: center;
-    height: 36px;
-    padding-inline: var(--space-16);
-    background-color: var(--color-primary);
-    color: var(--color-surface);
+  }
+
+  @media (min-width: 768px) { .header-nav { display: flex; } }
+
+  .nav-pill-list {
+    display: flex;
+    list-style: none;
+    padding: var(--space-4);
+    margin: 0;
+    background-color: var(--surface-nav-pill);
+    border: var(--border-light);
+    border-radius: var(--radius-full);
+    backdrop-filter: blur(8px);
+    gap: var(--space-2);
+  }
+
+  .nav-link {
+    display: block;
+    padding: var(--space-8) var(--space-16);
     border-radius: var(--radius-full);
     font-size: var(--text-caption);
     font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
     text-decoration: none;
-    transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+    transition: color var(--motion-fast), background-color var(--motion-fast);
+    white-space: nowrap;
   }
 
-  .nav-cta:hover {
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-sm);
-    background-color: var(--color-accent-hover);
+  .nav-link:hover {
+    color: var(--color-primary);
+    background-color: var(--surface-nav-hover);
   }
+
+  .nav-link--active {
+    color: var(--color-primary);
+    background-color: var(--surface-nav-active);
+    box-shadow: var(--shadow-xs);
+  }
+
+  /* ── Right Side ─────────────────────────────────────── */
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: var(--space-12);
+    flex-shrink: 0;
+  }
+
+  /* Theme Toggle */
+  .theme-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    padding: 0;
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: transparent;
+    font-size: 14px;
+    line-height: 1;
+    cursor: pointer;
+    transition: all var(--motion-fast);
+  }
+  .theme-toggle:hover {
+    background-color: var(--color-surface);
+    border-color: var(--color-border);
+  }
+
+  /* Language Toggle */
+  .lang-toggle {
+    display: none;
+    height: 32px;
+    padding-inline: var(--space-12);
+    border: var(--border-thin);
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--color-text-secondary);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.06em;
+    cursor: pointer;
+    transition: all var(--motion-fast);
+  }
+  .lang-toggle:hover {
+    background-color: var(--color-surface);
+    color: var(--color-primary);
+    border-color: var(--color-border);
+  }
+  @media (min-width: 768px) { .lang-toggle { display: flex; align-items: center; } }
+
+  /* CTA Button */
+  .header-cta {
+    display: none;
+    align-items: center;
+    gap: var(--space-8);
+    height: 36px;
+    padding-inline: var(--space-20, 20px);
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: var(--radius-full);
+    font-size: var(--text-caption);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    transition: all var(--motion-fast);
+    box-shadow: 0 2px 8px rgba(15, 23, 42, 0.15);
+    white-space: nowrap;
+  }
+
+  .header-cta:hover {
+    background: var(--color-accent);
+    box-shadow: var(--shadow-accent);
+    transform: translateY(-1px);
+  }
+
+  .cta-arrow {
+    transition: transform var(--motion-fast);
+  }
+  .header-cta:hover .cta-arrow { transform: translateX(3px); }
+
+  @media (min-width: 640px) { .header-cta { display: inline-flex; } }
+
+  /* ── Mobile Menu Button ──────────────────────────────── */
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: var(--border-light);
+    border-radius: var(--radius-medium);
+    background: var(--color-surface);
+    cursor: pointer;
+    transition: all var(--motion-fast);
+  }
+
+  @media (min-width: 768px) { .mobile-menu-btn { display: none; } }
+
+  .hamburger {
+    display: block;
+    width: 16px;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    position: relative;
+    transition: all var(--motion-fast);
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: var(--color-primary);
+    border-radius: 1px;
+    transition: all var(--motion-fast);
+  }
+
+  .hamburger::before { top: -5px; }
+  .hamburger::after  { top: 5px; }
+
+  .mobile-menu-btn.open .hamburger { background: transparent; }
+  .mobile-menu-btn.open .hamburger::before { top: 0; transform: rotate(45deg); }
+  .mobile-menu-btn.open .hamburger::after  { top: 0; transform: rotate(-45deg); }
+
+  /* ── Mobile Drawer ────────────────────────────────────── */
+  .mobile-drawer {
+    display: none;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height var(--motion-normal), opacity var(--motion-normal);
+    opacity: 0;
+    background-color: var(--color-surface);
+    border-top: var(--border-light);
+  }
+
+  .mobile-drawer.open {
+    display: block;
+    max-height: 400px;
+    opacity: 1;
+  }
+
+  .mobile-nav-list {
+    list-style: none;
+    padding: var(--space-24) var(--space-24) var(--space-16);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .mobile-nav-link {
+    display: block;
+    padding: var(--space-12) var(--space-16);
+    border-radius: var(--radius-large);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--motion-fast);
+  }
+
+  .mobile-nav-link:hover {
+    background: var(--color-surface-muted);
+    color: var(--color-primary);
+  }
+
+  .mobile-cta {
+    display: block;
+    margin: var(--space-16) var(--space-24) var(--space-24);
+    padding: var(--space-16);
+    background: var(--color-primary);
+    color: var(--color-surface);
+    border-radius: var(--radius-xl);
+    font-weight: var(--weight-semibold);
+    text-decoration: none;
+    text-align: center;
+    transition: background var(--motion-fast);
+  }
+
+  .mobile-cta:hover { background: var(--color-accent); }
 </style>

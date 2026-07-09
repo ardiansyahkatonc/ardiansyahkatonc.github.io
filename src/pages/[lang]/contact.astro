@@ -1,22 +1,25 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import { Section } from '../components/ui/section';
-import { Container } from '../components/ui/container';
-import { Card } from '../components/ui/card';
-import { social } from '../config/social';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { Section } from '../../components/ui/section';
+import { Container } from '../../components/ui/container';
+import { Card } from '../../components/ui/card';
+import { social } from '../../config/social';
+import { getLangFromUrl, useTranslations } from '../../i18n';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'id' } }, { params: { lang: 'en' } }];
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
-<BaseLayout 
-  title="Contact & Collaboration | kat.on"
-  description="Partner with kat.on to accelerate public service delivery in Indonesia."
->
+<BaseLayout title={t('meta.contact.title')} description={t('meta.contact.desc')}>
   <Section type="hero">
     <Container size="md">
-      <span class="label text-muted">Collaboration</span>
-      <h1 class="display">Partner with us.</h1>
-      <p class="body-lg text-muted">
-        We are actively seeking government partnerships and pilot programs to test and refine our AI solutions in real-world public sector environments.
-      </p>
+      <span class="label text-muted">{t('contact.label')}</span>
+      <h1 class="display">{t('contact.h1')}</h1>
+      <p class="body-lg text-muted">{t('contact.desc')}</p>
     </Container>
   </Section>
 
@@ -25,34 +28,34 @@ import { social } from '../config/social';
       <div class="grid-2">
         <div class="contact-info flow-xl">
           <div>
-            <h2 class="h3">Government Partnership</h2>
-            <p class="body text-muted">For agencies interested in deploying ARIA for meeting intelligence, document automation, and knowledge management.</p>
+            <h2 class="h3">{t('contact.gov.title')}</h2>
+            <p class="body text-muted">{t('contact.gov.desc')}</p>
           </div>
           <div>
-            <h2 class="h3">Availability & Response Time</h2>
-            <p class="body text-muted">We are currently accepting inquiries for pilot programs beginning Q4 2026. Standard response time is 1-2 business days.</p>
+            <h2 class="h3">{t('contact.avail.title')}</h2>
+            <p class="body text-muted">{t('contact.avail.desc')}</p>
           </div>
         </div>
 
         <div class="contact-methods">
           <Card variant="feature" class="contact-card">
-            <h3 class="h4">Direct Contact</h3>
+            <h3 class="h4">{t('contact.direct.title')}</h3>
             <ul class="contact-list body-lg">
               <li>
-                <span class="text-muted">Email</span>
+                <span class="text-muted">{t('contact.email')}</span>
                 <a href={social.email} class="contact-link">hello@kat.on</a>
               </li>
               <li>
-                <span class="text-muted">GitHub</span>
+                <span class="text-muted">{t('contact.github')}</span>
                 <a href={social.github} class="contact-link" target="_blank" rel="noopener noreferrer">github.com/kat.on</a>
               </li>
               <li>
-                <span class="text-muted">LinkedIn</span>
+                <span class="text-muted">{t('contact.linkedin')}</span>
                 <a href={social.linkedin} class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/company/kat.on</a>
               </li>
             </ul>
             <div class="cta-wrapper">
-              <a href={social.email} class="btn-primary">Initiate Conversation</a>
+              <a href={social.email} class="btn-primary">{t('contact.cta')}</a>
             </div>
           </Card>
         </div>

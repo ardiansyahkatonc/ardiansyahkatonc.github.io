@@ -1,110 +1,78 @@
 /* ==========================================================================
-   Typography System - Premium Aesthetic v5.0
+   Typography System — v6.0
    ========================================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* 1. Font Families */
-  --font-primary: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+  --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'Cascadia Code', monospace;
 
-  /* 2. Font Weights */
-  --weight-regular: 400;
-  --weight-medium: 500;
+  --weight-regular:  400;
+  --weight-medium:   500;
   --weight-semibold: 600;
-  --weight-bold: 700;
+  --weight-bold:     700;
 
-  /* 3. Typography Scale Tokens (Strictly mapping to the v5.0 brief) */
-  --text-display: clamp(3rem, 2.5rem + 3vw, 4.5rem); /* Hero 64-72px */
-  --text-section: clamp(2rem, 1.8rem + 1vw, 2.5rem); /* Section 40px */
-  --text-card: clamp(1.25rem, 1.2rem + 0.5vw, 1.75rem); /* Card 28px */
-  --text-body: 1.125rem; /* Body 18px */
-  --text-caption: 0.875rem; /* Caption 14px */
-  
-  --text-label: 0.75rem; /* Micro labels 12px */
-  --text-code: 0.875rem;
+  /* Scale — strict v5.0/v6.0 brief */
+  --text-display:  clamp(2.5rem, 1.5rem + 4vw, 4.5rem);   /* 40–72px */
+  --text-section:  clamp(1.75rem, 1.25rem + 2vw, 2.5rem);  /* 28–40px */
+  --text-card:     clamp(1.1rem, 1rem + 0.5vw, 1.5rem);    /* ~18–24px */
+  --text-body:     1.0625rem;                               /* 17px */
+  --text-body-sm:  0.9375rem;                               /* 15px */
+  --text-caption:  0.8125rem;                               /* 13px */
+  --text-label:    0.6875rem;                               /* 11px */
 }
 
-/* ==========================================================================
-   Base Typographic Resets
-   ========================================================================== */
+/* Base */
 body {
   font-family: var(--font-primary);
   font-size: var(--text-body);
   font-weight: var(--weight-regular);
-  line-height: 1.6;
+  line-height: 1.65;
+  letter-spacing: -0.005em;
 }
 
-/* ==========================================================================
-   Vertical Rhythm & Heading Defaults
-   ========================================================================== */
+/* Headings */
 h1, h2, h3, h4, h5, h6 {
   color: var(--color-text-primary);
-}
-
-/* Tight letter-spacing for large text (Premium feel) */
-h1, .display { font-size: var(--text-display); line-height: 1.1; font-weight: var(--weight-bold); letter-spacing: -0.04em; }
-h2, .section-title { font-size: var(--text-section); line-height: 1.15; font-weight: var(--weight-bold); letter-spacing: -0.02em; }
-h3, .card-title { font-size: var(--text-card); line-height: 1.2; font-weight: var(--weight-semibold); letter-spacing: -0.01em; }
-
-p {
   margin-block-start: 0;
-  margin-block-end: var(--space-24);
-}
-
-/* Elegant spacing for typography */
-h1, h2, h3, h4, .display, .section-title, .card-title {
-  margin-block-start: var(--space-32);
-  margin-block-end: var(--space-16);
-}
-
-/* Prevent double spacing */
-h1:first-child, h2:first-child, h3:first-child, h4:first-child, 
-.display:first-child, .section-title:first-child, .card-title:first-child,
-p:first-child {
-  margin-block-start: 0;
-}
-p:last-child {
   margin-block-end: 0;
 }
+h1, .display  { font-size: var(--text-display);  line-height: 1.06; font-weight: var(--weight-bold);     letter-spacing: -0.04em; }
+h2            { font-size: var(--text-section);  line-height: 1.15; font-weight: var(--weight-bold);     letter-spacing: -0.025em; }
+h3, .h3       { font-size: var(--text-card);     line-height: 1.25; font-weight: var(--weight-semibold); letter-spacing: -0.015em; }
+h4, .h4       { font-size: var(--text-body);     line-height: 1.3;  font-weight: var(--weight-semibold); letter-spacing: -0.01em; }
 
-/* ==========================================================================
-   Typography Utility Classes
-   ========================================================================== */
-.display { font-size: var(--text-display); line-height: 1.05; font-weight: var(--weight-bold); letter-spacing: -0.04em; }
-.section-title { font-size: var(--text-section); line-height: 1.15; font-weight: var(--weight-bold); letter-spacing: -0.02em; }
-.card-title { font-size: var(--text-card); line-height: 1.2; font-weight: var(--weight-semibold); letter-spacing: -0.01em; }
+p { margin: 0; }
 
-.body { font-size: var(--text-body); line-height: 1.6; font-weight: var(--weight-regular); }
-.caption { font-size: var(--text-caption); line-height: 1.5; font-weight: var(--weight-regular); }
-.label { font-size: var(--text-label); line-height: 1; font-weight: var(--weight-semibold); letter-spacing: 0.1em; text-transform: uppercase; }
+/* Utility Classes */
+.display      { font-size: var(--text-display); line-height: 1.06; font-weight: var(--weight-bold); letter-spacing: -0.04em; }
+.section-title { font-size: var(--text-section); line-height: 1.15; font-weight: var(--weight-bold); letter-spacing: -0.025em; }
+.card-title   { font-size: var(--text-card); line-height: 1.25; font-weight: var(--weight-semibold); letter-spacing: -0.015em; }
+.body-lg      { font-size: 1.125rem; line-height: 1.65; }
+.body         { font-size: var(--text-body); line-height: 1.65; }
+.body-sm      { font-size: var(--text-body-sm); line-height: 1.6; }
+.caption      { font-size: var(--text-caption); line-height: 1.5; }
+.label        { font-size: var(--text-label); font-weight: var(--weight-semibold); letter-spacing: 0.1em; text-transform: uppercase; }
+.mono         { font-family: var(--font-mono); }
 
-/* Bilingual Text Utilities */
-.bilingual-group {
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-4);
-}
+/* Bilingual Utilities */
+.bilingual-group { display: flex; flex-direction: column; gap: var(--space-4); }
+.bilingual-id    { font-weight: var(--weight-medium); color: var(--color-text-primary); }
+.bilingual-en    { font-size: var(--text-caption); color: var(--color-text-secondary); }
 
-.bilingual-id {
-  font-weight: var(--weight-medium);
-  color: var(--color-text-primary);
-}
+/* Text Width */
+.text-measure  { max-width: 58ch; }
+.text-reading  { max-width: 70ch; }
+.text-wide     { max-width: 88ch; }
 
-.bilingual-en {
-  font-size: var(--text-caption);
-  color: var(--color-text-secondary);
-}
-
-/* ==========================================================================
-   Text Width Utilities
-   ========================================================================== */
-.text-measure { max-width: 60ch; }
-.text-reading { max-width: 70ch; }
-.text-wide { max-width: 90ch; }
-
-/* ==========================================================================
-   Text Alignment Utilities
-   ========================================================================== */
-.text-left { text-align: left; }
+/* Alignment */
+.text-left   { text-align: left; }
 .text-center { text-align: center; }
-.text-right { text-align: right; }
+.text-right  { text-align: right; }
+
+/* Color shortcuts */
+.text-primary   { color: var(--color-text-primary); }
+.text-secondary { color: var(--color-text-secondary); }
+.text-muted     { color: var(--color-muted); }
+.text-accent    { color: var(--color-accent); }
+.text-surface   { color: var(--color-surface); }

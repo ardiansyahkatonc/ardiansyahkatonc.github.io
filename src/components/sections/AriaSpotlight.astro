@@ -1,0 +1,193 @@
+---
+// ARIA Flagship Spotlight — a deliberately dark, premium band that makes ARIA
+// dominate the homepage. Replaces the old skeleton "workspace" mockup.
+// Stays dark in both light/dark themes (a designed showcase panel).
+import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const moduleIds = ['meeting', 'brief', 'knowledge', 'tasks', 'calendar', 'workspace'] as const;
+
+const icons: Record<string, string> = {
+  meeting: '<path d="M3 4.5h14v9H8l-4 3.5v-3.5H3z"/>',
+  brief: '<rect x="4" y="2.5" width="12" height="15" rx="1.5"/><path d="M7 6.5h6M7 10h6M7 13.5h4"/>',
+  knowledge: '<path d="M4 4.5A1.5 1.5 0 015.5 3H16v11.5H5.5A1.5 1.5 0 004 16z"/><path d="M4 16a1.5 1.5 0 011.5-1.5H16V17H5.5A1.5 1.5 0 014 15.5"/>',
+  tasks: '<path d="M4 6l1.5 1.5L8 5"/><path d="M4 12l1.5 1.5L8 11"/><path d="M11 6h5M11 12h5"/>',
+  calendar: '<rect x="3" y="4" width="14" height="13" rx="1.5"/><path d="M3 8h14M7 2.5v3M13 2.5v3"/>',
+  workspace: '<rect x="2.5" y="2.5" width="6" height="6" rx="1.2"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.2"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.2"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.2"/>',
+};
+---
+<section class="aria-spotlight" aria-labelledby="spotlight-heading">
+  <div class="spotlight-glow" aria-hidden="true"></div>
+  <div class="container-xl spotlight-inner">
+
+    <div class="spotlight-head reveal">
+      <span class="spotlight-eyebrow">
+        <span class="eyebrow-dot" aria-hidden="true"></span>
+        {t('spotlight.eyebrow')}
+      </span>
+      <h2 id="spotlight-heading" class="spotlight-title">{t('spotlight.title')}</h2>
+      <p class="spotlight-sub">{t('spotlight.sub')}</p>
+      <a href={localizePath('/aria', lang)} class="spotlight-cta">
+        {t('spotlight.cta')}
+        <svg class="cta-arrow" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+      </a>
+    </div>
+
+    <div class="spotlight-grid">
+      {moduleIds.map((id) => (
+        <div class="module-tile reveal" id={`module-${id}`}>
+          <span class="module-icon" aria-hidden="true">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" set:html={icons[id]} />
+          </span>
+          <div class="module-body">
+            <span class="module-label">{t(`spotlight.${id}.label` as any)}</span>
+            <span class="module-desc">{t(`spotlight.${id}.desc` as any)}</span>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .aria-spotlight {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: var(--space-128);
+    /* Designed dark showcase — intentionally dark in both themes */
+    background:
+      radial-gradient(120% 80% at 15% 0%, rgba(59,130,246,0.16) 0%, transparent 55%),
+      linear-gradient(160deg, #0B1120 0%, #111827 55%, #0F172A 100%);
+    color: #F8FAFC;
+  }
+
+  .spotlight-glow {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 46px 46px;
+    mask-image: radial-gradient(120% 100% at 50% 0%, #000 0%, transparent 75%);
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .spotlight-inner {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-64);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .spotlight-inner {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: var(--space-96);
+    }
+  }
+
+  /* ── Heading column ─────────────────────────────── */
+  .spotlight-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    padding: var(--space-8) var(--space-16);
+    border-radius: var(--radius-full);
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    font-size: var(--text-label);
+    font-weight: var(--weight-semibold);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #BFDBFE;
+  }
+
+  .eyebrow-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #3B82F6;
+    box-shadow: 0 0 0 4px rgba(59,130,246,0.2);
+  }
+
+  .spotlight-title {
+    margin-block: var(--space-24) var(--space-16);
+    color: #FFFFFF;
+    letter-spacing: -0.03em;
+  }
+
+  .spotlight-sub {
+    color: #94A3B8;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    max-width: 42ch;
+    margin-block-end: var(--space-32);
+  }
+
+  .spotlight-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-8);
+    height: 48px;
+    padding-inline: var(--space-24);
+    border-radius: var(--radius-full);
+    background: #FFFFFF;
+    color: #0F172A;
+    font-weight: var(--weight-semibold);
+    font-size: var(--text-body-sm);
+    text-decoration: none;
+    transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+  }
+  .spotlight-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(0,0,0,0.4);
+  }
+  .cta-arrow { width: 16px; height: 16px; transition: transform var(--motion-fast); }
+  .spotlight-cta:hover .cta-arrow { transform: translateX(3px); }
+
+  /* ── Module grid ────────────────────────────────── */
+  .spotlight-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+  @media (min-width: 560px) {
+    .spotlight-grid { grid-template-columns: 1fr 1fr; }
+  }
+
+  .module-tile {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-16);
+    padding: var(--space-24);
+    border-radius: var(--radius-xl);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    backdrop-filter: blur(6px);
+    transition: transform var(--motion-normal), background var(--motion-fast), border-color var(--motion-fast);
+  }
+  .module-tile:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.07);
+    border-color: rgba(59,130,246,0.4);
+  }
+
+  .module-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px; height: 40px;
+    flex-shrink: 0;
+    border-radius: var(--radius-medium);
+    background: rgba(59,130,246,0.14);
+    color: #93C5FD;
+  }
+  .module-icon svg { width: 20px; height: 20px; }
+
+  .module-body { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+  .module-label { font-size: var(--text-body-sm); font-weight: var(--weight-semibold); color: #F1F5F9; }
+  .module-desc  { font-size: var(--text-caption); line-height: 1.5; color: #94A3B8; }
+</style>
