@@ -5,6 +5,17 @@
 // output). Every step maps to an established ARIA capability — nothing invented.
 import { getLangFromUrl, useTranslations, localizePath } from '../../i18n';
 
+interface Props {
+  eyebrowKey?: string;
+  titleKey?: string;
+  subKey?: string;
+}
+const {
+  eyebrowKey = 'workflow.eyebrow',
+  titleKey = 'workflow.title',
+  subKey = 'workflow.sub',
+} = Astro.props;
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
@@ -20,9 +31,9 @@ const steps = [
   <div class="container-xl">
 
     <div class="workflow-head reveal">
-      <span class="workflow-eyebrow label">{t('workflow.eyebrow')}</span>
-      <h2 id="workflow-heading" class="section-title">{t('workflow.title')}</h2>
-      <p class="workflow-sub">{t('workflow.sub')}</p>
+      <span class="workflow-eyebrow label">{t(eyebrowKey as any)}</span>
+      <h2 id="workflow-heading" class="section-title">{t(titleKey as any)}</h2>
+      <p class="workflow-sub">{t(subKey as any)}</p>
     </div>
 
     <!-- 5-step flow -->
