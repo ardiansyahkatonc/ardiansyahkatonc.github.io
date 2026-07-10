@@ -61,9 +61,14 @@ const jsonLd = {
     <!-- No-flash theme bootstrap (must run before paint) -->
     <ThemeProvider />
 
-    <!-- Google Fonts — preconnect for performance -->
+    <!-- Google Fonts — preconnect + non-blocking stylesheet link (was a
+         render-blocking CSS @import). display=swap avoids invisible text. -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+    />
 
     <!-- SEO -->
     <title>{meta.pageTitle}</title>
@@ -92,6 +97,14 @@ const jsonLd = {
 
     <!-- Structured data -->
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
+
+    <!-- Progressive enhancement: scroll-reveal starts hidden and is revealed by
+         JS. Without JS, show all content immediately. -->
+    <noscript>
+      <style>
+        .reveal { opacity: 1 !important; transform: none !important; }
+      </style>
+    </noscript>
 
     <!-- Favicon / PWA -->
     <!-- TODO: derive favicon.svg/.ico from the official kat.on mark

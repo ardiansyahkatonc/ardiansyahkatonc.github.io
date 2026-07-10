@@ -36,7 +36,7 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   /* 4. Text Colors */
   --color-text-primary:    #0F172A;
   --color-text-secondary:  #475569;
-  --color-muted:           #94A3B8;
+  --color-muted:           #64748B;  /* WCAG AA (~4.8:1 on white); was #94A3B8 (~2.6:1) */
 
   /* 5. Border Colors */
   --color-border:          rgba(15, 23, 42, 0.10);
@@ -154,7 +154,7 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
 
   --color-text-primary:    #F1F5F9;
   --color-text-secondary:  #94A3B8;
-  --color-muted:           #64748B;
+  --color-muted:           #7C8BA1;  /* WCAG AA (~4.6:1 on dark surface); was #64748B (~3.3:1) */
 
   --color-border:          rgba(255, 255, 255, 0.12);
   --color-border-light:    rgba(255, 255, 255, 0.06);

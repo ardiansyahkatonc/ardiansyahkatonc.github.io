@@ -1,7 +1,8 @@
 /* ==========================================================================
    Typography System — v6.0
+   The Inter font is loaded via a <link> in BaseLayout <head> (not an @import)
+   to avoid render-blocking, serialized font loading.
    ========================================================================== */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   --font-primary: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
