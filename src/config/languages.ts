@@ -1,10 +1,9 @@
 // =============================================================================
-// LANGUAGE CONFIGURATION — Multilingual Infrastructure (preparation only)
+// LANGUAGE CONFIGURATION — canonical language list + default locale
 // -----------------------------------------------------------------------------
-// This prepares the bilingual architecture. It does NOT implement translation
-// content — the runtime toggle engine lives in `src/scripts/i18n.ts` and text
-// pairs live in `src/i18n/translations.ts`. Consume this file for the canonical
-// language list and default locale.
+// Localized routing lives under `src/pages/[lang]/`; translation strings live in
+// `src/i18n/id.json` / `en.json` and are consumed via `src/i18n/index.ts`
+// (`useTranslations`). Consume this file for the language list and default.
 // =============================================================================
 
 export type LangCode = 'id' | 'en';

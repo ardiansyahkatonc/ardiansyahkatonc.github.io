@@ -1,5 +1,6 @@
 ---
-import { buildPageMeta } from '../config/seo';
+import { buildPageMeta, SEO } from '../config/seo';
+import { BRAND } from '../config/brand';
 import { getLangFromUrl, useTranslations } from '../i18n';
 import Header from '../components/layout/Header.astro';
 import Footer from '../components/layout/Footer.astro';
@@ -24,6 +25,31 @@ const meta = buildPageMeta({
   pathname: Astro.url.pathname,
   lang,
 });
+
+// Structured data (JSON-LD) — Organization + WebSite for richer search results.
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${SEO.siteUrl}/#organization`,
+      name: BRAND.name,
+      url: SEO.siteUrl,
+      description: BRAND.description,
+      foundingDate: String(BRAND.launchYear),
+      logo: new URL('/brand/katon/logo/katon-full.svg', SEO.siteUrl).toString(),
+      sameAs: [BRAND.social.github, BRAND.social.linkedin, BRAND.social.instagram],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${SEO.siteUrl}/#website`,
+      name: BRAND.name,
+      url: SEO.siteUrl,
+      inLanguage: meta.lang,
+      publisher: { '@id': `${SEO.siteUrl}/#organization` },
+    },
+  ],
+};
 ---
 
 <!DOCTYPE html>
@@ -63,6 +89,9 @@ const meta = buildPageMeta({
     <meta name="twitter:title" content={meta.pageTitle} />
     <meta name="twitter:description" content={meta.description} />
     <meta name="twitter:image" content={meta.ogImage} />
+
+    <!-- Structured data -->
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} is:inline />
 
     <!-- Favicon / PWA -->
     <!-- TODO: derive favicon.svg/.ico from the official kat.on mark

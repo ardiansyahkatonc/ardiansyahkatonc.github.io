@@ -174,12 +174,10 @@ LANGUAGE_MAP.id.locale;       // 'id_ID'
 ```
 
 - **Default language: `id`** (Bahasa Indonesia). Secondary: `en`.
-- The runtime toggle engine lives in `src/scripts/i18n.ts` and now reads its
-  default from `DEFAULT_LANG` (single source).
-- Text pairs live in `src/i18n/translations.ts`.
-- `SEO.openGraph.locale` follows `DEFAULT_LANG` (`id_ID`).
-
-Future full i18n (routing, per-locale pages) builds on this foundation.
+- Full localized routing (`/id`, `/en`) ships now — see
+  [IDENTITY_SYSTEM.md](./IDENTITY_SYSTEM.md) §5. Strings live in
+  `src/i18n/id.json` / `en.json`, consumed via `useTranslations(lang)`.
+- Per-language `<html lang>`, canonical, and `hreflang` follow the active route.
 
 ---
 

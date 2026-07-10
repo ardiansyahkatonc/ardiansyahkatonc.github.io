@@ -43,16 +43,16 @@ src/
 │   ├── seo.ts         # SEO + buildPageMeta() — multilingual metadata
 │   └── index.ts       # Barrel
 ├── i18n/
-│   ├── id.json / en.json   # Translation dictionaries (generated)
-│   ├── translations.ts     # Editing source of truth (seeds the JSON)
-│   └── index.ts            # useTranslations(lang) build-time API
+│   ├── id.json / en.json   # Translation dictionaries (hand-authored, source of truth)
+│   └── index.ts            # useTranslations(lang) + routing helpers
 ├── scripts/
-│   ├── theme.ts       # Theme engine (light/dark/system + persistence)
-│   └── i18n.ts        # Runtime language toggle (span-level)
+│   └── theme.ts       # Theme engine (light/dark/system + persistence)
+├── pages/[lang]/      # Localized routes (/id/*, /en/*)
 ├── components/common/
 │   ├── Logo.astro            # The one reusable brand mark
 │   ├── ThemeProvider.astro   # No-flash theme bootstrap (<head>)
-│   └── LanguageProvider.astro# No-flash language bootstrap + detection (<head>)
+│   ├── ThemeSwitcher.astro   # ☀ 🌙 💻 theme control
+│   └── LanguageSwitcher.astro# ID | EN language control (preserves page)
 └── styles/global.css  # CSS variable tokens: light :root + [data-theme='dark']
 ```
 
@@ -147,47 +147,33 @@ tokens `--surface-header-scrolled`, `--surface-nav-pill`, `--surface-nav-active`
 
 ---
 
-## 5. Language System (Internationalization Foundation)
+## 5. Language System (Internationalization)
 
-Architecture is prepared; **pages are not translated yet.**
+Production bilingual **routing** (`/id`, `/en`). Every page renders exactly one
+language server-side — no mixed-language DOM.
 
 - **Config:** `src/config/languages.ts` — `LANGUAGES` (`id`, `en`),
   `DEFAULT_LANG = 'id'`.
-- **Dictionaries:** `src/i18n/id.json` + `en.json`. These are **generated** from
-  `src/i18n/translations.ts` (the editing source of truth) — regenerate after
-  editing translations (see below).
-- **Build-time API:** `src/i18n/index.ts`
+- **Dictionaries:** `src/i18n/id.json` + `en.json` — flat dotted keys,
+  **hand-authored** (the single source of truth). Add every key to both files.
+- **API:** `src/i18n/index.ts`
 
   ```ts
-  import { useTranslations } from '../i18n';
-  const t = useTranslations(Astro.currentLocale ?? 'id');
-  <h1>{t('hero.headline')}</h1>   // falls back to id, then the raw key
+  import { getLangFromUrl, useTranslations, localizePath } from '../i18n';
+  const lang = getLangFromUrl(Astro.url);
+  const t = useTranslations(lang);   // falls back to id, then the raw key
+  <h1>{t('hero.headline')}</h1>
+  <a href={localizePath('/aria', lang)}>ARIA</a>
   ```
 
-- **Astro i18n routing:** configured in `astro.config.mjs`
-  (`defaultLocale: 'id'`, `locales: ['id','en']`,
-  `routing.prefixDefaultLocale: false`). The default locale (`id`) stays at the
-  site root so **existing routes are unchanged**; `/en/*` is reserved for future
-  localized pages.
-- **Providers / detection:** `LanguageProvider.astro` runs inline in `<head>`,
-  detects the browser language on first visit, persists it
-  (`localStorage['katon-lang']`), and stamps `<html lang / data-lang>` pre-paint.
-- **Runtime toggle:** `src/scripts/i18n.ts` drives the header **ID / EN** switch
-  and the `data-lang-id` / `data-lang-en` span visibility (no page reload).
-
-### Regenerating the dictionaries
-
-```bash
-node --input-type=module -e '
-import { readFileSync, writeFileSync } from "node:fs";
-const src = readFileSync("src/i18n/translations.ts","utf8");
-const b = src.slice(src.indexOf("{", src.indexOf("export const t = {")), src.indexOf("} satisfies")+1);
-const t = eval("("+b+")"), id={}, en={};
-for (const k of Object.keys(t)) { id[k]=t[k].id; en[k]=t[k].en; }
-writeFileSync("src/i18n/id.json", JSON.stringify(id,null,2)+"\n");
-writeFileSync("src/i18n/en.json", JSON.stringify(en,null,2)+"\n");
-'
-```
+- **Routing:** `astro.config.mjs` i18n (`defaultLocale: 'id'`,
+  `locales: ['id','en']`, `prefixDefaultLocale: true`). Pages live under
+  `src/pages/[lang]/`; `/` is a language gateway that redirects by saved
+  preference / browser language (default `/id`).
+- **Switcher:** `src/components/common/LanguageSwitcher.astro` swaps only the
+  language segment (preserving the current page) and persists
+  `localStorage['katon-lang']`. SEO: per-language `<html lang>`, canonical,
+  `hreflang` alternates, and `og:locale` (see §6).
 
 ---
 
