@@ -1,0 +1,83 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" width="100%" height="100%">
+    <defs>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&amp;display=swap');
+            .logo-text {
+                font-family: 'Orbitron', sans-serif;
+                font-weight: 700;
+                font-size: 90px;
+                fill: #E8F4FD;
+                letter-spacing: 0.15em;
+                text-anchor: middle;
+            }
+            .tagline-text {
+                font-family: 'Orbitron', sans-serif;
+                font-weight: 400;
+                font-size: 16px;
+                fill: #38D9E6;
+                opacity: 0.8;
+                letter-spacing: 0.3em;
+                text-anchor: middle;
+            }
+        </style>
+        
+        <linearGradient id="cyanNavyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#38D9E6" />
+            <stop offset="100%" stop-color="#2563EB" />
+        </linearGradient>
+        
+        <filter id="glowCyan" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="5" result="blur" />
+            <feMerge>
+                <feMergeNode in="blur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+
+    <rect width="100%" height="100%" fill="#0A0E1A" />
+
+    <g>
+        <circle cx="400" cy="320" r="65" fill="none" stroke="url(#cyanNavyGrad)" stroke-width="1.5" opacity="0.4"/>
+        <line x1="400.00" y1="298.00" x2="400.00" y2="285.00" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="403.82" y1="298.33" x2="407.81" y2="280.82" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="407.52" y1="299.31" x2="410.26" y2="289.06" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="411.00" y1="300.91" x2="427.50" y2="274.28" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="414.14" y1="303.07" x2="416.08" y2="300.67" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="416.87" y1="305.74" x2="427.12" y2="295.49" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="419.09" y1="308.84" x2="428.37" y2="290.04" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="420.73" y1="312.27" x2="424.01" y2="307.16" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="421.73" y1="315.93" x2="437.93" y2="308.93" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="422.00" y1="320.00" x2="440.00" y2="320.00" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="421.73" y1="324.07" x2="429.83" y2="321.36" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="420.73" y1="327.73" x2="428.37" y2="329.96" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="419.09" y1="331.16" x2="424.28" y2="332.22" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="416.87" y1="334.26" x2="428.12" y2="338.45" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="414.14" y1="336.93" x2="425.66" y2="341.34" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="411.00" y1="339.09" x2="427.50" y2="365.72" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="407.52" y1="340.69" x2="410.26" y2="350.94" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="403.82" y1="341.67" x2="406.94" y2="354.18" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="400.00" y1="342.00" x2="400.00" y2="355.00" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="396.18" y1="341.67" x2="392.19" y2="354.18" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="392.48" y1="340.69" x2="379.74" y2="350.94" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="389.00" y1="339.09" x2="382.50" y2="365.72" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="385.86" y1="336.93" x2="374.34" y2="341.34" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="383.13" y1="334.26" x2="371.88" y2="338.45" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="380.91" y1="331.16" x2="375.72" y2="332.22" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="379.27" y1="327.73" x2="371.63" y2="329.96" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="378.27" y1="324.07" x2="370.17" y2="321.36" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="378.00" y1="320.00" x2="360.00" y2="320.00" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="378.27" y1="315.93" x2="362.07" y2="308.93" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="379.27" y1="312.27" x2="375.99" y2="307.16" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="380.91" y1="308.84" x2="371.63" y2="290.04" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="383.13" y1="305.74" x2="371.88" y2="295.49" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="385.86" y1="303.07" x2="383.92" y2="300.67" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="389.00" y1="300.91" x2="372.50" y2="274.28" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="392.48" y1="299.31" x2="389.74" y2="289.06" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="396.18" y1="298.33" x2="392.19" y2="280.82" stroke="url(#cyanNavyGrad)" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="400" cy="320" r="10" fill="#38D9E6" filter="url(#glowCyan)"/>
+    </g>
+
+    <text x="410" y="490" class="logo-text">ARIA</text>
+    <text x="400" y="535" class="tagline-text">AI REVOLUTIONARY INTELLIGENCE ASSISTANT</text>
+</svg>

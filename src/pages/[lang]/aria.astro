@@ -5,6 +5,7 @@ import { Container } from '../../components/ui/container';
 import { Card } from '../../components/ui/card';
 import { Badge } from '../../components/ui/badge';
 import ARIADashboard from '../../components/ui/mockup/ARIADashboard.astro';
+import Logo from '../../components/common/Logo.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
 export function getStaticPaths() {
@@ -28,6 +29,7 @@ const capIcons: Record<string, string> = {
   {/* A. Hero */}
   <Section type="hero" aria-labelledby="aria-hero-heading" class="aria-hero">
     <Container size="lg" class="center-container">
+      <Logo brand="aria" size="lg" class="aria-hero-logo" alt="ARIA" />
       <div class="aria-badges">
         <Badge variant="primary">{t('aria.badge1')}</Badge>
         <Badge variant="neutral">{t('aria.badge2')}</Badge>
@@ -167,6 +169,15 @@ const capIcons: Record<string, string> = {
   .label {
     display: block;
     margin-block-end: var(--space-16);
+  }
+
+  /* `.aria-hero-logo` lands on the <img> inside the Logo component, so it must
+     be targeted globally (Astro scopes component-local classes only). */
+  :global(.aria-hero-logo) {
+    width: 64px;
+    height: 64px;
+    margin-block-end: var(--space-24);
+    box-shadow: var(--shadow-lg);
   }
 
   .aria-badges {

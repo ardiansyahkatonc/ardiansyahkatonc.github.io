@@ -1,40 +1,56 @@
 ---
 // =============================================================================
-// Logo — the single, reusable brand mark for kat.on
-// -----------------------------------------------------------------------------
-// No page should reference logo image paths or use raw <img> tags. Use <Logo />.
-// The mark is rendered inline as SVG so it adapts automatically to dark/light
-// mode via CSS variables. Static exports live in `public/brand/logo/`.
+// Logo — the SINGLE, centralized way to render the kat.on & ARIA brand marks.
+// No page may use raw <img> tags or hardcoded logo paths — always use <Logo />.
 //
-//   <Logo />                 full wordmark, auto-adapts to theme
-//   <Logo variant="light" /> full wordmark forced for LIGHT backgrounds
-//   <Logo variant="dark" />  full wordmark forced for DARK backgrounds
-//   <Logo variant="icon" />  icon-only dot motif
-//   <Logo variant="monochrome" /> single-color (inherits currentColor)
-//   <Logo size="lg" />       sizing: sm | md | lg
+// Official source SVGs live in  public/brand/<brand>/logo/ :
+//   • public/brand/katon/logo/katon-full.svg   (official kat.on mark)
+//   • public/brand/aria/logo/aria-full.svg     (official ARIA emblem)
+//
+// The kat.on chrome mark is rendered INLINE (crisp, tiny, theme-adaptive via CSS
+// variables). The heavy official raster export (katon-full.svg) is reserved for
+// favicon / social / OG. The ARIA emblem is a self-contained vector, rendered
+// from its official file.
+//
+//   <Logo />                       kat.on wordmark, auto-adapts to theme
+//   <Logo brand="aria" />          official ARIA emblem
+//   <Logo variant="light" />       kat.on wordmark, dark ink (for light bg)
+//   <Logo variant="dark" />        kat.on wordmark, light ink (for dark bg)
+//   <Logo variant="icon" />        kat.on icon-only dot motif
+//   <Logo variant="monochrome" />  single-color (inherits currentColor)
+//   <Logo size="sm|md|lg" />       sizing
 // =============================================================================
 import { BRAND } from '../../config/brand';
 
-type Variant = 'full' | 'light' | 'dark' | 'icon' | 'monochrome';
+type BrandName = 'katon' | 'aria';
+type Variant = 'full' | 'icon' | 'light' | 'dark' | 'monochrome';
 
 interface Props {
+  brand?: BrandName;
   variant?: Variant;
   size?: 'sm' | 'md' | 'lg';
   class?: string;
+  alt?: string;
 }
 
-const { variant = 'full', size = 'md', class: className = '' } = Astro.props;
+const { brand = 'katon', variant = 'full', size = 'md', class: className = '', alt } = Astro.props;
 
-// Heights per size; wordmark keeps the 116:34 aspect ratio, icon is square.
-const heights = { sm: 20, md: 26, lg: 34 } as const;
-const h = heights[size];
+// Official ARIA assets (source of truth). Dedicated icon / light / dark exports
+// are TODO — fall back to the full emblem until they exist.
+const ARIA_ASSETS: Record<string, string> = {
+  full: '/brand/aria/logo/aria-full.svg',
+  // TODO: export /brand/aria/logo/aria-icon.svg, aria-light.svg, aria-dark.svg
+};
+const ariaSrc = ARIA_ASSETS[variant] ?? ARIA_ASSETS.full;
+
+// kat.on wordmark keeps a 116:34 ratio; icons + the ARIA emblem are square.
+const wordHeights = { sm: 20, md: 26, lg: 34 } as const;
+const squareSizes = { sm: 28, md: 36, lg: 56 } as const;
+const h = wordHeights[size];
 const fullW = Math.round((h * 116) / 34);
+const ariaSize = squareSizes[size];
 
-// Ink + accent per variant.
-//  - full:       auto-adapts (uses theme text/accent tokens)
-//  - light:      dark ink (for placing on light surfaces)
-//  - dark:       light ink (for placing on dark surfaces)
-//  - monochrome: everything inherits currentColor
+// kat.on inline ink per variant.
 const ink =
   variant === 'light'
     ? '#0F172A'
@@ -43,18 +59,26 @@ const ink =
       : variant === 'monochrome'
         ? 'currentColor'
         : 'var(--color-text-primary)';
-
 const accent =
   variant === 'dark'
     ? '#3B82F6'
     : variant === 'monochrome'
       ? 'currentColor'
       : 'var(--color-accent)';
-
 const accentSoftOpacity = variant === 'monochrome' ? '0.25' : '0.15';
 ---
 
-{variant === 'icon' ? (
+{brand === 'aria' ? (
+  <img
+    src={ariaSrc}
+    alt={alt ?? 'ARIA'}
+    width={ariaSize}
+    height={ariaSize}
+    class={`brand-logo brand-logo--aria ${className}`}
+    loading="lazy"
+    decoding="async"
+  />
+) : variant === 'icon' ? (
   <svg
     class={`katon-logo katon-logo--icon ${className}`}
     height={h}
@@ -62,7 +86,7 @@ const accentSoftOpacity = variant === 'monochrome' ? '0.25' : '0.15';
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    aria-label={BRAND.name}
+    aria-label={alt ?? BRAND.name}
     role="img"
   >
     <circle cx="8" cy="12" r="6" fill="var(--color-accent)" opacity="0.15" />
@@ -76,7 +100,7 @@ const accentSoftOpacity = variant === 'monochrome' ? '0.25' : '0.15';
     viewBox="0 0 116 34"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    aria-label={BRAND.name}
+    aria-label={alt ?? BRAND.name}
     role="img"
   >
     <!-- Geometric accent mark: two overlapping circles = "dot" motif -->
@@ -102,5 +126,19 @@ const accentSoftOpacity = variant === 'monochrome' ? '0.25' : '0.15';
   }
   .katon-logo:hover {
     opacity: 0.8;
+  }
+  .brand-logo {
+    display: block;
+    flex-shrink: 0;
+    transition: opacity var(--motion-fast);
+  }
+  .brand-logo:hover {
+    opacity: 0.85;
+  }
+  /* ARIA emblem ships with its own dark canvas — round it into a badge with a
+     subtle adaptive edge so it stays defined on both light and dark surfaces. */
+  .brand-logo--aria {
+    border-radius: var(--radius-medium);
+    border: 1px solid var(--color-border);
   }
 </style>

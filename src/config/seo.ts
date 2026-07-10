@@ -14,8 +14,8 @@ import { stripLangPrefix, localizePath, getLocaleAlternates } from '../i18n';
 export const SEO = {
   defaultTitle: `${BRAND.name} | ${BRAND.tagline}`,
   defaultDescription: BRAND.description,
-  /** Default social share image (lives in /public/brand/social). */
-  defaultImage: '/brand/social/og-image.svg',
+  /** Default social share image (lives in /public/brand/katon/social). */
+  defaultImage: '/brand/katon/social/og-image.svg',
   twitterHandle: '@kat_on',
   siteUrl: site.url,
   author: BRAND.author,
