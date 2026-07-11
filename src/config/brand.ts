@@ -36,7 +36,7 @@ export const BRAND = {
 
   /** Public-facing contact + social presence. */
   contact: {
-    email: 'hello@kat.on',
+    email: 'ardiansyahkatonc@gmail.com',
     whatsapp: '6282329544431',
     whatsappDisplay: '+62 823-2954-4431',
   },
@@ -45,7 +45,7 @@ export const BRAND = {
     linkedin: 'https://www.linkedin.com/in/ardiansyah-katon-cahyadi/',
     instagram: 'https://www.instagram.com/ardiansyahkatonc/',
     whatsapp: 'https://wa.me/6282329544431',
-    email: 'mailto:hello@kat.on',
+    email: 'mailto:ardiansyahkatonc@gmail.com?subject=Kolaborasi%20dengan%20kat.on&body=Halo%20Ardiansyah%2C%0A%0ASaya%20tertarik%20untuk%20berdiskusi%20mengenai%20kat.on%20dan%20ARIA.%0A%0ATerima%20kasih.',
   },
 } as const;
 

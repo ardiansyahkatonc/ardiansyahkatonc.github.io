@@ -8,6 +8,7 @@ import ARIADashboard from '../../components/ui/mockup/ARIADashboard.astro';
 import ExecutiveWorkflow from '../../components/sections/ExecutiveWorkflow.astro';
 import Logo from '../../components/common/Logo.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n';
+import { social } from '../../config/social';
 
 export function getStaticPaths() {
   return [{ params: { lang: 'id' } }, { params: { lang: 'en' } }];
@@ -48,7 +49,7 @@ const metrics = ['1', '2', '3'] as const;
       <h1 id="aria-hero-heading" class="display-xl text-center">{t('aria.h1')}</h1>
       <p class="body-lg hero-desc text-center max-reading text-muted">{t('aria.desc')}</p>
       <div class="hero-actions">
-        <a href="mailto:hello@kat.on" class="btn-primary">{t('aria.cta1')}</a>
+        <a href={social.email} class="btn-primary">{t('aria.cta1')}</a>
         <a href="#capabilities" class="btn-secondary">{t('aria.cta2')}</a>
       </div>
     </Container>
@@ -156,8 +157,8 @@ const metrics = ['1', '2', '3'] as const;
       <h2 id="cta-heading" class="premium-cta-title">{t('aria.finalcta.title')}</h2>
       <p class="premium-cta-sub">{t('aria.finalcta.sub')}</p>
       <div class="premium-cta-actions">
-        <a href="mailto:hello@kat.on" class="premium-btn premium-btn--primary">{t('aria.finalcta.btn')}</a>
-        <a href="mailto:hello@kat.on" class="premium-btn premium-btn--ghost">{t('aria.finalcta.secondary')}</a>
+        <a href={social.email} class="premium-btn premium-btn--primary">{t('aria.finalcta.btn')}</a>
+        <a href={social.email} class="premium-btn premium-btn--ghost">{t('aria.finalcta.secondary')}</a>
       </div>
     </div>
   </section>
