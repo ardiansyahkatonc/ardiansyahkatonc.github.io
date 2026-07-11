@@ -4,6 +4,7 @@ import { Section } from '../../components/ui/section';
 import { Container } from '../../components/ui/container';
 import { Card } from '../../components/ui/card';
 import { social } from '../../config/social';
+import { BRAND } from '../../config/brand';
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
 export function getStaticPaths() {
@@ -42,20 +43,28 @@ const t = useTranslations(lang);
             <h3 class="h4">{t('contact.direct.title')}</h3>
             <ul class="contact-list body-lg">
               <li>
+                <span class="text-muted">{t('contact.whatsapp')}</span>
+                <a href={social.whatsapp} class="contact-link" target="_blank" rel="noopener noreferrer">{BRAND.contact.whatsappDisplay}</a>
+              </li>
+              <li>
                 <span class="text-muted">{t('contact.email')}</span>
                 <a href={social.email} class="contact-link">hello@kat.on</a>
               </li>
               <li>
                 <span class="text-muted">{t('contact.github')}</span>
-                <a href={social.github} class="contact-link" target="_blank" rel="noopener noreferrer">github.com/kat.on</a>
+                <a href={social.github} class="contact-link" target="_blank" rel="noopener noreferrer">github.com/ardiansyahkatonc</a>
               </li>
               <li>
                 <span class="text-muted">{t('contact.linkedin')}</span>
-                <a href={social.linkedin} class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/company/kat.on</a>
+                <a href={social.linkedin} class="contact-link" target="_blank" rel="noopener noreferrer">linkedin.com/in/ardiansyah-katon-cahyadi</a>
+              </li>
+              <li>
+                <span class="text-muted">{t('contact.instagram')}</span>
+                <a href={social.instagram} class="contact-link" target="_blank" rel="noopener noreferrer">@ardiansyahkatonc</a>
               </li>
             </ul>
             <div class="cta-wrapper">
-              <a href={social.email} class="btn-primary">{t('contact.cta')}</a>
+              <a href={social.whatsapp} class="btn-primary" target="_blank" rel="noopener noreferrer">{t('contact.cta')}</a>
             </div>
           </Card>
         </div>

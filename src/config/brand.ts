@@ -14,7 +14,7 @@ export const BRAND = {
   tagline: 'AI-Native Product Studio',
   /** Longer marketing description used for meta tags and hero copy. */
   description:
-    'Helping public sector organizations simplify complex work through AI, automation, and context engineering.',
+    'AI-native products for professionals, leaders, organizations, and public institutions.',
   /** Primary market. */
   country: 'Indonesia',
   /** Sector we operate in. */
@@ -37,11 +37,14 @@ export const BRAND = {
   /** Public-facing contact + social presence. */
   contact: {
     email: 'hello@kat.on',
+    whatsapp: '6282329544431',
+    whatsappDisplay: '+62 823-2954-4431',
   },
   social: {
-    github: 'https://github.com',
-    linkedin: 'https://linkedin.com',
-    instagram: 'https://instagram.com',
+    github: 'https://github.com/ardiansyahkatonc',
+    linkedin: 'https://www.linkedin.com/in/ardiansyah-katon-cahyadi/',
+    instagram: 'https://www.instagram.com/ardiansyahkatonc/',
+    whatsapp: 'https://wa.me/6282329544431',
     email: 'mailto:hello@kat.on',
   },
 } as const;

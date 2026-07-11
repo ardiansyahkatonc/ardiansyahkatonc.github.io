@@ -5,13 +5,12 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
 const milestones = [
-  { key: 'journey.vibe.desc', year: '2024', title: 'Google AI Vibe Coding', status: 'completed' },
-  { key: 'journey.kcc.desc', year: '2024', title: 'KATON COMMAND CENTER', status: 'completed' },
-  { key: 'journey.arch.desc', year: '2025', title: 'Knowledge Architecture', status: 'completed' },
-  { key: 'journey.mvp.desc', year: '2026', title: 'ARIA MVP', status: 'completed' },
-  { key: 'journey.launch.desc', year: 'Jul 2026', title: 'ARIA Launch', status: 'active' },
-  { key: 'journey.enterprise.desc', year: '2027', title: 'Enterprise Edition', status: 'upcoming' },
-  { key: 'journey.ecosystem.desc', year: '2028', title: 'AI Native Ecosystem', status: 'upcoming' },
+  { n: 'm1', status: 'completed' },
+  { n: 'm2', status: 'completed' },
+  { n: 'm3', status: 'completed' },
+  { n: 'm4', status: 'completed' },
+  { n: 'm5', status: 'active' },
+  { n: 'm6', status: 'upcoming' },
 ] as const;
 ---
 
@@ -33,9 +32,9 @@ const milestones = [
               {index < milestones.length - 1 && <div class="node-line"></div>}
             </div>
             <div class="node-content">
-              <span class="node-year label text-muted">{milestone.year}</span>
-              <h3 class="card-title node-title">{milestone.title}</h3>
-              <p class="body-sm text-muted">{t(milestone.key as any)}</p>
+              <span class="node-year label text-muted">{t(`journey.${milestone.n}.year` as any)}</span>
+              <h3 class="card-title node-title">{t(`journey.${milestone.n}.title` as any)}</h3>
+              <p class="body-sm text-muted">{t(`journey.${milestone.n}.desc` as any)}</p>
             </div>
           </div>
         ))}

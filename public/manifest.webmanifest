@@ -1,7 +1,7 @@
 {
   "name": "kat.on — AI-Native Product Studio",
   "short_name": "kat.on",
-  "description": "Helping public sector organizations simplify complex work through AI, automation, and context engineering.",
+  "description": "AI-native products for professionals, leaders, organizations, and public institutions.",
   "lang": "id",
   "start_url": "/",
   "scope": "/",
@@ -10,15 +10,16 @@
   "theme_color": "#0B1120",
   "icons": [
     {
-      "src": "/favicon.svg",
+      "src": "/brand/katon/logo/katon-full.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
     },
     {
-      "src": "/brand/katon/favicon/apple-touch-icon.svg",
-      "sizes": "180x180",
+      "src": "/brand/katon/logo/katon-full.svg",
+      "sizes": "512x512",
       "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "purpose": "maskable"
     }
   ]
 }

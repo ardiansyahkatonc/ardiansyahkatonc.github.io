@@ -3,7 +3,6 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import { Section } from '../../components/ui/section';
 import { Container } from '../../components/ui/container';
 import { Card } from '../../components/ui/card';
-import { journey } from '../../config/journey';
 import { getLangFromUrl, useTranslations } from '../../i18n';
 
 export function getStaticPaths() {
@@ -13,8 +12,8 @@ export function getStaticPaths() {
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Timeline descriptions are localized by position (titles are proper nouns).
-const timelineDescKeys = ['about.tl.m1', 'about.tl.m2', 'about.tl.m3', 'about.tl.m4', 'about.tl.m5'];
+// Same six milestones as the homepage Story timeline (single source of copy).
+const timeline = ['m1', 'm2', 'm3', 'm4', 'm5', 'm6'] as const;
 ---
 
 <BaseLayout title={t('meta.about.title')} description={t('meta.about.desc')}>
@@ -58,19 +57,18 @@ const timelineDescKeys = ['about.tl.m1', 'about.tl.m2', 'about.tl.m3', 'about.tl
       <span class="label text-muted">{t('about.timeline.label')}</span>
       <h2 class="h2">{t('about.timeline.title')}</h2>
       <div class="timeline flow-xl">
-        {journey.map((group) => (
-          <div class="timeline-group">
-            <h3 class="h4">{group.year}</h3>
-            <div class="timeline-items flow-md">
-              {group.milestones.map((milestone, i) => (
-                <div class="timeline-item">
-                  <h4 class="title">{milestone.title}</h4>
-                  <p class="body text-muted">{t((timelineDescKeys[i] ?? 'about.tl.m1') as any)}</p>
-                </div>
-              ))}
-            </div>
+        <div class="timeline-group">
+          <h3 class="h4">2026</h3>
+          <div class="timeline-items flow-md">
+            {timeline.map((m) => (
+              <div class="timeline-item">
+                <span class="label text-muted timeline-year">{t(`journey.${m}.year` as any)}</span>
+                <h4 class="title">{t(`journey.${m}.title` as any)}</h4>
+                <p class="body text-muted">{t(`journey.${m}.desc` as any)}</p>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
       </div>
     </Container>
   </Section>

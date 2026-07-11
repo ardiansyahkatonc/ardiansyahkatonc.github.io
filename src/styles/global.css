@@ -133,6 +133,9 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   --dash-topbar-bg: rgba(255, 255, 255, 0.55);
   --dash-sidebar-bg:rgba(15, 23, 42, 0.03);
 
+  /* 18. Official kat.on emblem is dark navy — no filter on light surfaces. */
+  --logo-filter:    none;
+
   color-scheme: light;
 }
 
@@ -183,6 +186,9 @@ p, h1, h2, h3, h4, h5, h6 { overflow-wrap: break-word; }
   --grid-line:      rgba(255, 255, 255, 0.035);
   --dash-topbar-bg: rgba(255, 255, 255, 0.03);
   --dash-sidebar-bg:rgba(255, 255, 255, 0.02);
+
+  /* Invert the dark-navy emblem to light so it stays visible on dark surfaces. */
+  --logo-filter:    brightness(0) invert(1);
 
   color-scheme: dark;
 }

@@ -41,4 +41,3 @@ export { site } from './site';
 export { social } from './social';
 export { metadata } from './metadata';
 export { products } from './products';
-export { journey } from './journey';
