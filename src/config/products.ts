@@ -23,7 +23,7 @@ export const products: Product[] = [
   },
   {
     id: 'katon-command-center',
-    title: 'KATON COMMAND CENTER',
+    title: 'kat.on Command Center',
     description: 'AI-Native Knowledge Operating System',
     status: 'Active',
     featured: false,

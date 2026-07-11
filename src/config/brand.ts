@@ -31,7 +31,7 @@ export const BRAND = {
   /** Flagship + ecosystem products (names only; full catalog in products.ts). */
   products: [
     { id: 'aria', name: 'ARIA', status: 'flagship' },
-    { id: 'katon-command-center', name: 'KATON Command Center', status: 'active' },
+    { id: 'katon-command-center', name: 'kat.on Command Center', status: 'active' },
   ],
 
   /** Public-facing contact + social presence. */
